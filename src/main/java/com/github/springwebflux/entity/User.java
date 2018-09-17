@@ -25,5 +25,5 @@ public class User {
     private String name;
     private String username;
     private String phone;
-    private Date Birthday;
+    private Date birthday;
 }

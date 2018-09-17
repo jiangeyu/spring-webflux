@@ -41,11 +41,11 @@ public class UserService {
                 }));
     }
 
-    Mono<User> findByUsername(String username) {
+    public Mono<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
-    Mono<Long> deleteByUsername(String username) {
+    public Mono<Long> deleteByUsername(String username) {
         return userRepository.deleteByUsername(username);
     }
 }
