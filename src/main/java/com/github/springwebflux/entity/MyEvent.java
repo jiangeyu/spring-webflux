@@ -14,8 +14,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Data
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 @Document(collection = "event")
 public class MyEvent {
 
