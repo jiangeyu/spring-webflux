@@ -7,8 +7,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
-
 /**
  * @author: <a href="mailto:lingxiao@2dfire.com">凌霄</a>
  * @time: Created in 下午11:19 2018/9/17
@@ -25,5 +23,5 @@ public class User {
     private String name;
     private String username;
     private String phone;
-    private Date birthday;
+    private String birthday;
 }
