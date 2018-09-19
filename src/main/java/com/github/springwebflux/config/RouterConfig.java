@@ -14,10 +14,10 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
  * @time: Created in 下午5:42 2018/9/18
  * @desc
  */
-@Configuration
+//@Configuration
 public class RouterConfig {
 
-    @Bean
+//    @Bean
     public RouterFunction<ServerResponse> timerRouter() {
         return route(GET("/time"), TimeHandler::getTime)
                 .andRoute(GET("/date"), TimeHandler::getDate)

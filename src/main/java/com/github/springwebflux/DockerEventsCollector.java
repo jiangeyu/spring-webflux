@@ -23,7 +23,7 @@ import java.util.UUID;
  * @desc
  */
 @Slf4j
-@Component
+//@Component
 public class DockerEventsCollector implements CommandLineRunner {
 
     private DockerEventMongoRepository dockerEventMongoRepository;
