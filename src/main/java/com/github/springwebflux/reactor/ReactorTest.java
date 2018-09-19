@@ -9,7 +9,7 @@ import reactor.core.publisher.Flux;
  */
 public class ReactorTest {
     public static void main(String[] args) {
-        Integer[] array = new Integer[]{1,2,3,4,5,6};
+        Integer[] array = new Integer[]{1, 2, 3, 4, 5, 6};
         Flux flux = Flux.fromArray(array);
         System.out.println(flux.single());
     }
