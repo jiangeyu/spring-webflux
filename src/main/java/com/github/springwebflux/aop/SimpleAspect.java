@@ -11,24 +11,24 @@ import org.springframework.stereotype.Service;
  */
 @Aspect
 @Service
-public class AopAspect {
+public class SimpleAspect {
 
-    @Pointcut("execution(* *.joinPoint(..))")
-    public void joinPoint() {
+    @Pointcut("execution(* *.advice(..))")
+    public void advice() {
         System.out.println("joinPoint execute");
     }
 
-    @Before("joinPoint()")
+    @Before("advice()")
     public void before() {
         System.out.println("before a");
     }
 
-    @After("joinPoint()")
+    @After("advice()")
     public void after() {
         System.out.println("after b");
     }
 
-    @Around("joinPoint()")
+    @Around("advice()")
     public void around(ProceedingJoinPoint p) throws Throwable {
 
         p.proceed();

@@ -16,7 +16,7 @@ public class SpringWebfluxApplicationTests {
 
     @Test
     public void contextLoads() {
-        joinPointTest.joinPoint();
+        joinPointTest.advice();
 //        joinPointTest.joinPoint("test");
     }
 

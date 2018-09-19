@@ -7,7 +7,7 @@ package com.github.springwebflux.aop;
  */
 public interface TargetInterface {
 
-    void joinPoint();
+    void advice();
 
-    void joinPoint(String msg);
+    void advice(String msg);
 }

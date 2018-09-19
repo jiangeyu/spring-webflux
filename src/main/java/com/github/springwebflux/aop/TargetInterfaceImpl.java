@@ -14,14 +14,14 @@ import org.springframework.stereotype.Component;
 public class TargetInterfaceImpl implements TargetInterface {
 
     @Override
-    public void joinPoint() {
+    public void advice() {
         System.out.println(".................");
-        ((TargetInterface)AopContext.currentProxy()).joinPoint("call");
+        ((TargetInterface)AopContext.currentProxy()).advice("call");
 //        this.joinPoint("call");
     }
 
     @Override
-    public void joinPoint(String msg) {
+    public void advice(String msg) {
         System.out.println(msg);
     }
 }
