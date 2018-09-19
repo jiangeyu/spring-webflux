@@ -5,7 +5,7 @@ package com.github.springwebflux.aop;
  * @time: Created in 上午11:20 2018/9/19
  * @desc
  */
-public interface JoinPoint {
+public interface TargetInterface {
 
     void joinPoint();
 

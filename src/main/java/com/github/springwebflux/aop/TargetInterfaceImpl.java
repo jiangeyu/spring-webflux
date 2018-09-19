@@ -11,12 +11,12 @@ import org.springframework.stereotype.Component;
  */
 @Component("joinPint")
 @EnableAspectJAutoProxy(proxyTargetClass = true, exposeProxy = true)
-public class JoinPointImpl implements JoinPoint {
+public class TargetInterfaceImpl implements TargetInterface {
 
     @Override
     public void joinPoint() {
         System.out.println(".................");
-        ((JoinPoint)AopContext.currentProxy()).joinPoint("call");
+        ((TargetInterface)AopContext.currentProxy()).joinPoint("call");
 //        this.joinPoint("call");
     }
 
