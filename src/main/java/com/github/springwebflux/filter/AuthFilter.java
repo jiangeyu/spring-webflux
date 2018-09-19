@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * @author: <a href="mailto:lingxiao@2dfire.com">凌霄</a>
  * @time: Created in 下午4:48 2018/9/15
- * @desc
+ * @desc  过滤器每次请求执行的时候都会进行拦截
  */
 @WebFilter(filterName = "loginFilter", urlPatterns = "/*")
 public class AuthFilter implements Filter {
