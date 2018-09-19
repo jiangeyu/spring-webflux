@@ -6,6 +6,8 @@ package com.github.springwebflux.aop;
  * @desc
  */
 public interface JoinPoint {
-     void joinPoint();
-     void joinPoint(String msg);
+
+    void joinPoint();
+
+    void joinPoint(String msg);
 }
