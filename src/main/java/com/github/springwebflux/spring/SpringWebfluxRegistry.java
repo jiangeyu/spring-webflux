@@ -1,5 +1,9 @@
 package com.github.springwebflux.spring;
 
+import lombok.Builder;
+import lombok.Data;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -9,7 +13,11 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  * @time: Created in 下午2:30 2018/9/28
  * @desc
  */
+@Builder
+@Data
 public class SpringWebfluxRegistry implements InitializingBean,DisposableBean {
+
+   private static final Logger logger = LoggerFactory.getLogger(SpringWebfluxRegistry.class);
 
     private String ipAddress;
 
@@ -21,11 +29,11 @@ public class SpringWebfluxRegistry implements InitializingBean,DisposableBean {
 
     @Override
     public void destroy() throws Exception {
-
+        logger.info("destroy registry");
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
-
+        logger.info("SpringWebfluxRegistry after reference property set");
     }
 }

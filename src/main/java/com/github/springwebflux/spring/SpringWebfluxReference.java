@@ -3,6 +3,7 @@ package com.github.springwebflux.spring;
 import com.google.common.reflect.AbstractInvocationHandler;
 import com.google.common.reflect.Reflection;
 import lombok.Builder;
+import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
@@ -17,6 +18,7 @@ import java.lang.reflect.Method;
  * @desc
  */
 @Builder
+@Data
 public class SpringWebfluxReference implements FactoryBean, InitializingBean, DisposableBean {
 
     private static Logger logger = LoggerFactory.getLogger(SpringWebfluxReference.class);
@@ -55,6 +57,6 @@ public class SpringWebfluxReference implements FactoryBean, InitializingBean, Di
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        logger.info("after reference property set");
+        logger.info("SpringWebfluxReference after reference property set");
     }
 }
