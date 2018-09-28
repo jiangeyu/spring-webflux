@@ -11,6 +11,8 @@ public class SpringWebfluxNamespaceHandler extends NamespaceHandlerSupport {
 
     @Override
     public void init() {
-
+        registerBeanDefinitionParser("service", new SpringWebfluxServiceParser());
+        registerBeanDefinitionParser("registry", new SpringWebfluxRegistryParser());
+        registerBeanDefinitionParser("reference", new SpringWebfluxReferenceParser());
     }
 }
