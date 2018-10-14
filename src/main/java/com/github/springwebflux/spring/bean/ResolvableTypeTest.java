@@ -12,17 +12,22 @@ import java.util.Map;
  */
 public class ResolvableTypeTest {
 
-    private Map map = Maps.newHashMap();
+    private Map<String,Integer> map = Maps.newHashMap();
+
 
     public static void main(String[] args) throws NoSuchFieldException {
 
         ResolvableTypeTest resolvableTypeTest = new ResolvableTypeTest();
+        resolvableTypeTest.map.put("test", 2);
         resolvableTypeTest.test();
     }
 
     public void test() throws NoSuchFieldException {
-        ResolvableType resolvableType =  ResolvableType.forField(getClass().getDeclaredField("map"));
+        ResolvableType resolvableType = ResolvableType.forField(getClass().getDeclaredField("map"));
         System.out.println(resolvableType.getInterfaces().toString());
         System.out.println(resolvableType.asMap());
+        System.out.println(resolvableType.getGeneric(0));
+        System.out.println(resolvableType.getGeneric(1));
+        System.out.println(resolvableType.resolveGeneric( 0,1));
     }
 }
