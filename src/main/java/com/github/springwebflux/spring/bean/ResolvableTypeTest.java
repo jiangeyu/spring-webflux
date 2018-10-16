@@ -32,7 +32,7 @@ public class ResolvableTypeTest {
         System.out.println(resolvableType.asMap());
         System.out.println(resolvableType.getGeneric(0));
         System.out.println(resolvableType.getGeneric(1));
-        System.out.println(resolvableType.resolveGeneric( 0,1));
+        System.out.println(resolvableType.resolveGeneric( 0,0));
         System.out.println(resolvableType.getComponentType().toString());
         System.out.println(resolvableType.hashCode());
     }
