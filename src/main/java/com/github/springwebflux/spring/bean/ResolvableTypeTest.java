@@ -12,6 +12,10 @@ import java.util.Map;
  */
 public class ResolvableTypeTest {
 
+    /**
+     * ResolvableType，可解决的数据类型。它为java语言中的所有类型提供了相同的数据结构，其内部封装了一个java.lang.reflect.Type类型的对象。
+     */
+
     private Map<String,Integer> map = Maps.newHashMap();
 
 
