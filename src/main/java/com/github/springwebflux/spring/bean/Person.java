@@ -90,7 +90,7 @@ public class Person implements BeanFactoryAware, BeanNameAware, InitializingBean
     /**
      * 通过<bean>的destroy-method属性指定的初始化方法
      */
-    public void myDestory() {
+    public void myDestroy() {
         System.out.println("【destroy-method】调用<bean>的destroy-method属性指定的初始化方法");
     }
 

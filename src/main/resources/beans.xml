@@ -14,6 +14,6 @@
     <bean id="beanFactoryPostProcessor" class="com.github.springwebflux.spring.bean.MyBeanFactoryPostProcessor">
     </bean>
     <bean id="person" class="com.github.springwebflux.spring.bean.Person" init-method="myInit"
-          destroy-method="myDestory" scope="singleton" p:name="张三" p:address="广州"  p:age="15" />
+          destroy-method="myDestroy" scope="singleton" p:name="张三" p:address="广州"  p:age="15" />
 
 </beans>
