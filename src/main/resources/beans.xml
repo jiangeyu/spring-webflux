@@ -7,12 +7,12 @@
             http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
 
-    <bean id="beanPostProcessor" class="com.github.springwebflux.spring.bean.MyBeanPostProcessor">
-    </bean>
-    <bean id="instantiationAwareBeanPostProcessor" class="com.github.springwebflux.spring.bean.MyInstantiationAwareBeanPostProcessor">
-    </bean>
-    <bean id="beanFactoryPostProcessor" class="com.github.springwebflux.spring.bean.MyBeanFactoryPostProcessor">
-    </bean>
+    <bean id="beanPostProcessor" class="com.github.springwebflux.spring.bean.MyBeanPostProcessor"></bean>
+
+    <bean id="instantiationAwareBeanPostProcessor" class="com.github.springwebflux.spring.bean.MyInstantiationAwareBeanPostProcessor"></bean>
+
+    <bean id="beanFactoryPostProcessor" class="com.github.springwebflux.spring.bean.MyBeanFactoryPostProcessor"></bean>
+
     <bean id="person" class="com.github.springwebflux.spring.bean.Person" init-method="myInit"
           destroy-method="myDestroy" scope="singleton" p:name="张三" p:address="广州"  p:age="15" />
 
