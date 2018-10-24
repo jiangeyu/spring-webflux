@@ -26,6 +26,9 @@ public class PeekingIteratorTest {
         while (iterator.hasNext()) {
             int tmp = (int) iterator.next();
             while (iterator.hasNext() && iterator.peek().equals(tmp)) {
+                /**
+                 * 跳过重复元素
+                 */
                 iterator.next();
             }
             result.add(tmp);
