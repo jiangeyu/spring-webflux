@@ -13,5 +13,8 @@ public class OptionalTest {
         Optional optional = Optional.of(5);
         System.out.println(optional.get());
         System.out.println(optional.isPresent());
+
+        optional = Optional.absent();
+        System.out.println(optional.isPresent());
     }
 }
