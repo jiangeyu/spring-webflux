@@ -10,11 +10,15 @@ import com.google.common.base.Optional;
 public class OptionalTest {
 
     public static void main(String[] args) {
+
         Optional optional = Optional.of(5);
+
         System.out.println(optional.get());
+
         System.out.println(optional.isPresent());
 
         optional = Optional.absent();
+
         System.out.println(optional.isPresent());
     }
 }
