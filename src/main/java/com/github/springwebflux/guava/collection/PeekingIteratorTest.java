@@ -1,9 +1,11 @@
 package com.github.springwebflux.guava.collection;
 
+import com.google.common.collect.AbstractIterator;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 import com.google.common.collect.PeekingIterator;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -36,4 +38,21 @@ public class PeekingIteratorTest {
 
         result.forEach(System.out::println);
     }
+
+
+    public static Iterator skipNulls(final Iterator in) {
+        return new AbstractIterator() {
+            @Override
+            protected Object computeNext() {
+                while (in.hasNext()) {
+                    String s = (String) in.next();
+                    if(s != null) {
+                        return s;
+                    }
+                }
+                return endOfData();
+            }
+        };
+    }
+
 }
