@@ -13,5 +13,10 @@ public class RangeTest {
 
         Range range = Range.closed("left", "right");
         System.out.println(range.lowerEndpoint());
+
+        boolean result = false;
+
+        result = Range.closed(2,5).contains(4);
+        System.out.println(result);
     }
 }
