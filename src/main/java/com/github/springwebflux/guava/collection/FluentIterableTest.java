@@ -15,11 +15,10 @@ public class FluentIterableTest {
 
     public static void main(String[] args) {
 
-        ImmutableList<String> result = FluentIterable
-                .from(getList())
-                .filter(str -> str.length() > 0)
-                .transform(String::toString)
-                .toList();
+        ImmutableList<String> result = FluentIterable.
+                from(getList()).
+                filter(str -> str.length() > 0).
+                transform(String::toString).toList();
         System.out.println(result.toString());
     }
 
