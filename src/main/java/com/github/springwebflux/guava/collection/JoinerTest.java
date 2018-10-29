@@ -2,8 +2,8 @@ package com.github.springwebflux.guava.collection;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
-import org.springframework.util.Assert;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -31,6 +31,15 @@ public class JoinerTest {
         map.put("happy", "coding");
         result = Joiner.on('&').withKeyValueSeparator("=").join(map);
         System.out.println(result);
+
+        Map<String, String> testMap = map;
+        Splitter.MapSplitter mapSplitter = Splitter.on("&").withKeyValueSeparator("=");
+        Map<String, String> splitMap = mapSplitter.split(expectedString);
+        System.out.println(splitMap);
+        System.out.println(splitMap == testMap);
+
+        String append = Strings.padEnd("guava", 6, 'x');
+        System.out.println(append);
 
 
     }
