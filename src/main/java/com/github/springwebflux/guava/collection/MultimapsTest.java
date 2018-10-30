@@ -2,6 +2,7 @@ package com.github.springwebflux.guava.collection;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.HashBiMap;
 import org.jvnet.hk2.component.MultiMap;
 
@@ -32,6 +33,14 @@ public class MultimapsTest {
 //        biMap.put("2", "guava");
         biMap.forcePut("2", "guava");
         System.out.println(biMap.inverse());
+
+        HashBasedTable<Integer, Integer, String> table = HashBasedTable.create();
+        HashBasedTable<Integer, Integer, String> table1 = HashBasedTable.create(5,5);
+        HashBasedTable<Integer, Integer, String> table3 = HashBasedTable.create(table);
+
+
+
+
 
 
     }
