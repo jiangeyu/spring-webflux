@@ -1,4 +1,4 @@
-package com.github.springwebflux.guava.collection;
+package com.github.springwebflux.guava.utiles;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;

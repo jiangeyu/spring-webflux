@@ -1,8 +1,8 @@
-package com.github.springwebflux.guava.function;
+package com.github.springwebflux.guava.functional;
 
 
 import com.github.springwebflux.guava.collection.Book;
-import com.github.springwebflux.guava.collection.JoinStringFunction;
+import com.github.springwebflux.guava.utiles.JoinStringFunction;
 import com.google.common.base.Function;
 import com.google.common.base.Functions;
 import com.google.common.base.Predicate;
