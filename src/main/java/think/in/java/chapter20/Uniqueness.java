@@ -5,7 +5,9 @@ package think.in.java.chapter20;
  * @Description:
  * @Date: Created in 下午7:20 2019/3/25
  */
+
 public @interface Uniqueness {
 
+    Constraints constraints() default @Constraints(unique = true);
 
 }

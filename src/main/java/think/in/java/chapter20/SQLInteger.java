@@ -6,17 +6,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
- * @Description:
- * @Date: Created in 下午7:28 2019/3/25
+ * @author: <a href="mailto:lingxiao@2dfire.com">凌霄</a>
+ * @time: Created in 上午7:56 2019/3/26
+ * @desc
  */
-
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface SQLString {
-    int value() default 0;
+public @interface SQLInteger {
+
     String name() default "";
     Constraints constraints() default @Constraints;
-
-
 }
