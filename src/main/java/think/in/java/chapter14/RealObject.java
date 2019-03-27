@@ -5,7 +5,7 @@ package think.in.java.chapter14;
  * @Description:
  * @Date: Created in 上午11:28 2019/3/27
  */
-public class RealObject implements Interface{
+public class RealObject implements Interface {
     @Override
     public void doSomething() {
         System.out.println("do something");
@@ -13,6 +13,6 @@ public class RealObject implements Interface{
 
     @Override
     public void somethingElse(String args) {
-        System.out.println("something else " +args);
+        System.out.println(args + " ----something else ");
     }
 }

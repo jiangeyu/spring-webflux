@@ -9,7 +9,7 @@ public class SimpleProxyCaller {
 
     public static void comsumer(Interface in) {
         in.doSomething();
-        in.somethingElse("zh");
+        in.somethingElse("apple");
     }
 
     public static void main(String[] args) {
