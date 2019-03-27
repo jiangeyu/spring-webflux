@@ -7,13 +7,13 @@ package think.in.java.chapter14;
  */
 public class SimpleProxyCaller {
 
-    public static void comsumer(Interface in) {
+    public static void consumer(Interface in) {
         in.doSomething();
         in.somethingElse("apple");
     }
 
     public static void main(String[] args) {
-        comsumer(new RealObject());
-        comsumer(new SimpleProxy(new RealObject()));
+        consumer(new RealObject());
+        consumer(new SimpleProxy(new RealObject()));
     }
 }
