@@ -18,7 +18,7 @@ public class DynamicProxyHandler implements InvocationHandler {
     }
 
     @Override
-    public Object invoke(Object proxied, Method method, Object[] args) throws Throwable {
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
         if(args != null) {
             Arrays.asList(args).stream().forEach(System.out::println);

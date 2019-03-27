@@ -6,6 +6,8 @@ package think.in.java.chapter14;
  * @Date: Created in 上午11:28 2019/3/27
  */
 public class RealObject implements Interface {
+
+
     @Override
     public void doSomething() {
         System.out.println("do something");
