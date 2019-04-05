@@ -9,12 +9,22 @@ import java.io.*;
  */
 public class BasicFileOutput {
 
-    static String file = "BasicFileOutput.out";
+    static String file = "data.txt";
 
-//    public static void main(String[] args) throws FileNotFoundException {
-//        BufferedReader in = new BufferedReader(
-//                new StringReader(
-//                      new BufferedInputStream(
-//                              new FileInputStream(""))  ));
-//    }
+    public static void main(String[] args) throws IOException {
+        BufferedReader in = new BufferedReader(
+                new StringReader(
+                        BufferedInputFile.read("data.txt")));
+
+        PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+        int lintOut = 1;
+        String s;
+        while((s = in.readLine()) != null) {
+            out.println(s);
+        }
+        out.close();
+        System.out.println(BufferedInputFile.read(file));
+
+
+    }
 }
