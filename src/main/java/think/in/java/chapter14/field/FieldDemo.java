@@ -1,4 +1,6 @@
-package think.in.java.chapter14.constructor;
+package think.in.java.chapter14.field;
+
+import think.in.java.chapter14.constructor.Person;
 
 import java.lang.reflect.Field;
 
@@ -37,7 +39,7 @@ public class FieldDemo {
         System.out.println(nameField.getDeclaringClass());
 
         System.out.println("------Field isEnumConstant");
-        Field sexField = Sex.class.getField("man");
+        Field sexField = Person.Sex.class.getField("man");
         System.out.println(sexField.toGenericString());
         System.out.println("-- is enum " + sexField.isEnumConstant());
 

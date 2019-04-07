@@ -1,4 +1,6 @@
-package think.in.java.chapter14.constructor;
+package think.in.java.chapter14.method;
+
+import think.in.java.chapter14.constructor.Person;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

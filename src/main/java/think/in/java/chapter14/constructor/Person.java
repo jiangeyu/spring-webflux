@@ -1,8 +1,5 @@
 package think.in.java.chapter14.constructor;
 
-enum Sex {
-    man, women;
-}
 
 /**
  * @author: <a href="mailto:lingxiao@2dfire.com">凌霄</a>
@@ -65,5 +62,10 @@ public class Person {
     private String sing(String musicName) {
         System.out.println("--- person sing");
         return musicName;
+    }
+
+
+   public enum  Sex {
+        man, women;
     }
 }
