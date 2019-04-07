@@ -30,10 +30,6 @@ public class MethodDemo {
         Method[] methods2 = clazz.getDeclaredMethods();
         Arrays.asList(methods2).forEach(method1 -> System.out.println(method1.getName()));
 
-        System.out.println("------Method getMethods");
-        Method[] methods3 = clazz.getDeclaredMethods();
-        Arrays.asList(methods3).forEach(method1 -> System.out.println(method1.getName()));
-
 
         System.out.println("------Method getDeclaredMethod");
         Method singMethod = clazz.getDeclaredMethod("sing",String.class);
