@@ -19,10 +19,11 @@ public class Part {
 
     static {
         partFactories.add(new FuelFilter.Factory());
+        partFactories.add(new AirFilter.Factory());
     }
 
 
     public static void main(String[] args) {
-        partFactories.stream().forEach(f -> System.out.println(f.toString()));
+        partFactories.stream().forEach(f -> System.out.println(f.create()));
     }
 }

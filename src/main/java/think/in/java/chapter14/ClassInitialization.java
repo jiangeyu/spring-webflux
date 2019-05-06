@@ -15,13 +15,9 @@ public class ClassInitialization {
 
     public static void main(String[] args) throws ClassNotFoundException {
 
-        /**
-         * .class活得对类的引用不会引发初始化
-         */
-        Class initable = Initable.class;
+        Class initable = Initialization2.class;
 
-
-        Class initale3 = Class.forName("think.in.java.chapter14.Initable3");
+        Class initale2 = Class.forName("think.in.java.chapter14.Initialization");
 
         Class<? extends Number> bounded = int.class;
         bounded = double.class;

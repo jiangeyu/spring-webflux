@@ -5,11 +5,11 @@ package think.in.java.chapter14;
  * @Description:
  * @Date: Created in 下午9:04 2019/3/26
  */
-public class Initable3 {
+public class Initialization2 {
 
-    static int staticNonFinal = 147;
+    static int staticNonFinal2 = 147;
     static {
-        System.out.println("init  Initable3 ");
+        System.out.println("init  staticNonFinal2 " + staticNonFinal2);
 
     }
 }
