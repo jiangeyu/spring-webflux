@@ -12,6 +12,21 @@ import java.util.List;
  */
 public class StringTest {
 
+    public static void test()  {
+
+        int n = 1;
+        int m = 0;
+        double t = n / m;
+
+//        try {
+//            int n = 1;
+//            int m = 0;
+//            double t = n / m;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+    }
+
     public static void main(String[] args) {
 
         String route = "/2/3/4";
