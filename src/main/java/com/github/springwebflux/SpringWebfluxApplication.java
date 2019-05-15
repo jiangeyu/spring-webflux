@@ -7,10 +7,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.data.mongodb.core.CollectionOptions;
 import org.springframework.data.mongodb.core.MongoOperations;
+
+import java.util.Arrays;
 
 /**
  * @author: <a href="mailto:lingxiao@2dfire.com">凌霄</a>
@@ -20,7 +23,7 @@ import org.springframework.data.mongodb.core.MongoOperations;
 
 @SpringBootApplication
 @ServletComponentScan
-@ImportResource(value = {"classpath:application-bean.xml"})
+//@ImportResource(value = {"classpath:application-bean.xml"})
 public class SpringWebfluxApplication {
 
     @Bean
@@ -37,6 +40,11 @@ public class SpringWebfluxApplication {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringWebfluxApplication.class, args);
+        ConfigurableApplicationContext context = SpringApplication.run(SpringWebfluxApplication.class, args);
+
+        String[] beans = context.getBeanNamesForType(Runnable.class);
+        System.out.println(Arrays.toString(beans));
+
+        context.close();
     }
 }
