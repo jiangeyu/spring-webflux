@@ -9,6 +9,7 @@
     <modules>
         <module>data-structure</module>
         <module>guava</module>
+        <module>MapStruct</module>
     </modules>
     <packaging>pom</packaging>
 
