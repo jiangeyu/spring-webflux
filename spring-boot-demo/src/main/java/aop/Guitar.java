@@ -1,4 +1,4 @@
-package main.java.aop;
+package aop;
 
 import lombok.Getter;
 import lombok.Setter;

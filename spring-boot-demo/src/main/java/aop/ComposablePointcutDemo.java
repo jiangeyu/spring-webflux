@@ -1,5 +1,7 @@
 package main.java.aop;
 
+import aop.GrammyGuitarist;
+import aop.Guitar;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.ClassFilter;
 import org.springframework.aop.framework.ProxyFactory;
@@ -46,14 +48,13 @@ public class ComposablePointcutDemo {
     }
 
     private static void testInvoke(GrammyGuitarist proxy) {
-        proxy.sing();
         proxy.sing(new Guitar());
         proxy.talk();
         proxy.rest();
     }
 
     private static GrammyGuitarist getProxy(ComposablePointcut cp, GrammyGuitarist target) {
-        Advisor advisor = new DefaultPointcutAdvisor(cp, new SimpleBeforeAdvice());
+        Advisor advisor = new DefaultPointcutAdvisor(cp, new main.java.aop.SimpleBeforeAdvice());
         ProxyFactory pf = new ProxyFactory();
         pf.setTarget(target);
         pf.addAdvisor(advisor);
