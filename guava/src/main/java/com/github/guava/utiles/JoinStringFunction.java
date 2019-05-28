@@ -1,6 +1,6 @@
 package com.github.guava.utiles;
 
-import com.github.springwebflux.guava.collection.Book;
+import com.github.guava.collection.Book;
 import com.google.common.base.Joiner;
 
 import java.util.function.Function;
