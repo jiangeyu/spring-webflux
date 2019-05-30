@@ -1,4 +1,4 @@
-package com.github;
+package com.github.sort;
 
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
