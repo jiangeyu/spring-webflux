@@ -6,7 +6,8 @@ package aop;
  * @desc
  */
 public interface AService {
-     void a();
-     void b();
+    void a();
+
+    void b();
 
 }

@@ -44,5 +44,10 @@ public class InsertSortDemo {
         Arrays.stream(b).forEach(System.out::println);
 
         IntStream.of(a).forEach(System.out::println);
+
+        char p = '+';
+        char m = '-';
+        System.out.println(p+m);
+
     }
 }

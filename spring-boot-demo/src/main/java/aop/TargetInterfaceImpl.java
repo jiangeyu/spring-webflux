@@ -16,7 +16,7 @@ public class TargetInterfaceImpl implements TargetInterface {
     @Override
     public void advice() {
         System.out.println(".................");
-        ((TargetInterface)AopContext.currentProxy()).advice("call");
+        ((TargetInterface) AopContext.currentProxy()).advice("call");
 //        this.joinPoint("call");
     }
 

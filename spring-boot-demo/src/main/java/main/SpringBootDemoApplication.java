@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 import java.util.Arrays;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"config*","aop*","declare.parents*"})
+@ComponentScan(basePackages = {"config*", "aop*", "declare.parents*"})
 public class SpringBootDemoApplication {
 
 
