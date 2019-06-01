@@ -45,6 +45,7 @@ public class SortDemo {
                 i = k;
             }else{
                 break;
+
             }
         }
         arr[i] = temp;//将temp值放到最终的位置
