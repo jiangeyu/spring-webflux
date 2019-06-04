@@ -116,6 +116,8 @@ public class CalculateExpression {
                     case '-': result=x-y; break;
                     case '*': result=x*y; break;
                     case '/': result=x/y; break;   //注意这里并没去判断除数是否为0的情况
+                    default:
+                        System.out.println("不合适的计算符号");
                 }
                 //将运算结果入栈
                 stack.push(result);
