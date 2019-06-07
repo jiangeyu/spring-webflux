@@ -1,7 +1,5 @@
 package com.github.oberver.generic;
 
-import com.github.oberver.WeatherType;
-
 
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>

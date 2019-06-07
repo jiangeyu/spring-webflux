@@ -1,4 +1,8 @@
-package com.github.oberver.generic;
+package com.github.oberver;
+
+import com.github.oberver.generic.*;
+
+import java.util.EnumMap;
 
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
@@ -8,6 +12,11 @@ package com.github.oberver.generic;
 public class App {
 
     public static void main(String[] args) {
+
+        WeatherEnumMapConstant.initWeather();
+
+        EnumMap<WeatherType, PrintWeather> map = WeatherEnumMapConstant.weatherEnumMap;
+
 
         WeatherEvent event = new WeatherEvent();
         event.addObserver(new GHobbits());
