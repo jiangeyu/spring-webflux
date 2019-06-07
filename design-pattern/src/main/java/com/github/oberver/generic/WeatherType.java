@@ -31,4 +31,8 @@ public enum WeatherType {
     public String toString() {
         return description;
     }
+
+    public static void main(String[] args) {
+        System.out.println(WeatherType.valueOf("SUNNY").toString());
+    }
 }

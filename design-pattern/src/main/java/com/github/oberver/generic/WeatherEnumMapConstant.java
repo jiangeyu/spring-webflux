@@ -15,40 +15,12 @@ public final class WeatherEnumMapConstant {
 
     public static EnumMap initWeather() {
 
-        PrintWeather printWindyWeather = new PrintWeather() {
-            @Override
-            public void printWeather(String city) {
-                printDefaultWeather(city + " in " + WeatherType.WINDY.toString() + " weather");
-            }
-        };
+        DefaultPrintWeatherFactory printWeatherFactory = new DefaultPrintWeatherFactory();
 
-        PrintWeather printSunnyWeather = new PrintWeather() {
-            @Override
-            public void printWeather(String city) {
-                printDefaultWeather(city + " in " + WeatherType.SUNNY.toString() + " weather");
-            }
-        };
-
-        PrintWeather printColdWeather = new PrintWeather() {
-            @Override
-            public void printWeather(String city) {
-                printDefaultWeather(city + " in " + WeatherType.COLD.toString() + " weather");
-            }
-        };
-
-        PrintWeather printRainyWeather = new PrintWeather() {
-            @Override
-            public void printWeather(String city) {
-                printDefaultWeather(city + " in " + WeatherType.RAINY.toString() + " weather");
-            }
-        };
-
-
-        weatherEnumMap.put(WeatherType.WINDY, printWindyWeather);
-        weatherEnumMap.put(WeatherType.RAINY, printRainyWeather);
-        weatherEnumMap.put(WeatherType.COLD, printColdWeather);
-        weatherEnumMap.put(WeatherType.SUNNY, printSunnyWeather);
-
+        weatherEnumMap.put(WeatherType.SUNNY, printWeatherFactory.newInstance("SUNNY"));
+        weatherEnumMap.put(WeatherType.RAINY, printWeatherFactory.newInstance("RAINY"));
+        weatherEnumMap.put(WeatherType.COLD, printWeatherFactory.newInstance("COLD"));
+        weatherEnumMap.put(WeatherType.WINDY, printWeatherFactory.newInstance("WINDY"));
 
         return weatherEnumMap;
 
