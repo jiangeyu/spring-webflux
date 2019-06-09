@@ -1,4 +1,4 @@
-package com.github.Domain.Mementos;
+package com.github.Domain;
 
 import com.github.Events.Event;
 
