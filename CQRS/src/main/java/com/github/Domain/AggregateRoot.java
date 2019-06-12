@@ -3,6 +3,7 @@ package com.github.Domain;
 import com.github.Events.Event;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,27 +18,39 @@ public abstract class AggregateRoot implements IEventProvider {
 
     public String id;
     public int version;
-    public int EventVersion;
+    public int eventVersion;
+
+    public AggregateRoot() {
+        changes = new ArrayList<>();
+    }
+
+
+    @Override
+    public List<Event> getUncommittedChanges() {
+        return changes;
+    }
 
     public void markChangesAsCommitted() {
         changes.clear();
     }
 
     @Override
-    public void loadFromHistory(List<Event> list) {
-list.forEach(event -> );
+    public void loadFromHistory(List<Event> history) {
+        for(Event event : history) {
+            version = history.get(0).version;
+            eventVersion = version;
+        }
     }
 
-    protected  void applyChange(Event event) {
+    protected void applyChange(Event event) {
         applyChange(event, true);
     }
 
-    protected  void applyChange(Event event, boolean isNew) {
-        this.han;
+    protected void applyChange(Event event, boolean isNew) {
+
+        if(isNew) {
+            changes.add(event);
+        }
     }
 
-    @Override
-    public List<Event> getUncommittedChanges() {
-        return null;
-    }
 }
