@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  * @Description:
  * @Date: Created in 下午9:21 2019/6/10
  */
-public class Repository implements IRepository{
+public class Repository<T extends AggregateRoot> extends AggregateRoot implements IRepository {
 
     private IEventStorage storage;
     private static Object locl = new Object();
@@ -26,11 +26,11 @@ public class Repository implements IRepository{
 
     @Override
     public void save(AggregateRoot aggregateRoot, int expectedVersion) {
-        if(aggregateRoot.getUncommittedChanges().size() >0) {
+        if (aggregateRoot.getUncommittedChanges().size() > 0) {
             AggregateRoot item = new DiaryItem();
-            if(expectedVersion != -1) {
+            if (expectedVersion != -1) {
                 item = getById(aggregateRoot.getId());
-                if(item.version != expectedVersion) {
+                if (item.version != expectedVersion) {
                     throw new ConcurrencyException("");
                 }
 
@@ -43,19 +43,19 @@ public class Repository implements IRepository{
     public AggregateRoot getById(String id) {
         List<Event> eventList;
         BaseMemento memento = storage.getMemento(id);
-        if(memento != null) {
+        if (memento != null) {
             eventList = storage.getEvents(id).stream()
                     .filter(e -> e.version >= memento.getVersion())
                     .collect(Collectors.toList());
         } else {
             eventList = storage.getEvents(id);
         }
-        IOriginator o =  null;
-        if(memento !=  null)  {
-            o.setMemento(memento);
+        Object o = null;
+        if (memento != null) {
+//            (IOriginator)o.setMemento(memento);
         }
 
-
-        return o;
+        this.loadFromHistory(eventList);
+        return (AggregateRoot) o;
     }
 }
