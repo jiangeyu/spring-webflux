@@ -13,6 +13,7 @@ public class StructureMapEventHandlerFactory implements IEventHandlerFactory{
 
     @Override
     public List<IEventHandler> getHandlers() {
+
         return null;
     }
 }
