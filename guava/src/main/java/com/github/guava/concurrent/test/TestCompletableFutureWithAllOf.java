@@ -15,29 +15,37 @@ public class TestCompletableFutureWithAllOf {
         CompletableFuture<String> future1 = CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(1000);
+                return "thread1";
             } catch (Exception e) {
                 e.printStackTrace();
+                throw new RuntimeException("");
+
             }
-            return "thread1";
         });
 
         CompletableFuture<String> future2 = CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(100);
+                return "thread2";
+
             } catch (Exception e) {
                 e.printStackTrace();
+                throw new RuntimeException("");
+
             }
-            return "thread2";
         });
 
         CompletableFuture<String> future3 = CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(100);
                 System.out.println(1/0);
+                return "thread3";
+
             } catch (Exception e) {
                 e.printStackTrace();
+                throw new RuntimeException("");
+
             }
-            return "thread3";
         });
 
 
