@@ -14,7 +14,7 @@ public class TestCompletableFutureWithAllOf {
 
         CompletableFuture<String> future1 = CompletableFuture.supplyAsync(() -> {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(200);
                 return "thread1";
             } catch (Exception e) {
                 e.printStackTrace();
@@ -25,9 +25,8 @@ public class TestCompletableFutureWithAllOf {
 
         CompletableFuture<String> future2 = CompletableFuture.supplyAsync(() -> {
             try {
-                Thread.sleep(100);
+                Thread.sleep(300);
                 return "thread2";
-
             } catch (Exception e) {
                 e.printStackTrace();
                 throw new RuntimeException("");
@@ -37,10 +36,8 @@ public class TestCompletableFutureWithAllOf {
 
         CompletableFuture<String> future3 = CompletableFuture.supplyAsync(() -> {
             try {
-                Thread.sleep(100);
-                System.out.println(1/0);
+                Thread.sleep(200);
                 return "thread3";
-
             } catch (Exception e) {
                 e.printStackTrace();
                 throw new RuntimeException("");
