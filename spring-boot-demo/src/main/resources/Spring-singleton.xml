@@ -15,4 +15,8 @@
     <bean id="prototype" class="scope.Prototype" scope="prototype">
         <property name="name" value="prototype"/>
     </bean>
+
+    <bean id="InitializingBeanTest" class="init.InitializingBeanTest">
+        <property name="testEnv" value="test"></property>
+    </bean>
 </beans>
