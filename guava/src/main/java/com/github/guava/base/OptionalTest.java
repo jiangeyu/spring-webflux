@@ -1,13 +1,15 @@
-package com.github.guava;
+package com.github.guava.base;
 
 import com.google.common.base.Optional;
 
 /**
- * @author: <a href="mailto:lingxiao@2dfire.com">凌霄</a>
- * @time: Created in 下午10:05 2018/10/24
- * @desc
+ * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
+ * @Description:
+ * @Date: Created in 下午8:17 2019/10/28
  */
 public class OptionalTest {
+
+
 
     public static void main(String[] args) {
 
@@ -20,5 +22,12 @@ public class OptionalTest {
         optional = Optional.absent();
 
         System.out.println(optional.isPresent());
+
+        Integer a = null;
+
+        Optional<Integer> optional1 = Optional.fromNullable(a);
+        System.out.println(optional1.get());
     }
+
+
 }

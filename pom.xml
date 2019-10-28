@@ -13,6 +13,8 @@
         <module>MapStruct</module>
         <module>domain-driven-design</module>
         <module>CQRS</module>
+        <module>java-base</module>
+        <module>java-base</module>
     </modules>
     <packaging>pom</packaging>
 
