@@ -4,6 +4,7 @@ import com.google.common.util.concurrent.Monitor;
 import com.google.common.util.concurrent.RateLimiter;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.function.Consumer;
 
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
@@ -22,7 +23,27 @@ public class Bucket {
     private final Monitor pollMonitor = new Monitor();
 
     public void submit(Integer data) {
+        if(offerMonitor.enterIf(offerMonitor.newGuard(() -> container.size() < BUCKET_LIMIT))) {
+            try {
+                container.offer(data);
 
+            } catch (Exception e) {
+
+            } finally {
+                offerMonitor.leave();
+            }
+        }
+
+    }
+
+    public void takeThenConsume(Consumer<Integer> consumer) {
+        if(pollMonitor.enterIf(pollMonitor.newGuard(() -> !container.isEmpty()))) {
+            try {
+                consumer.accept(container.poll());
+            } finally {
+                pollMonitor.leave();
+            }
+        }
     }
 
 
