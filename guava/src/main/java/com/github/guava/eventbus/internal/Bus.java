@@ -15,5 +15,7 @@ public interface Bus {
 
     void post(Object event, String topic);
 
+    void close();
+
     String getBusName();
 }
