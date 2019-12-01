@@ -53,3 +53,30 @@ public class UserBatchServiceImpl implements UserBatchService , ApplicationConte
         this.applicationContext = applicationContext;
     }
 }
+
+//@Service
+//public class UserBatchServiceImpl implements UserBatchService {
+//
+//    @Autowired
+//    private UserDao userDao;
+//
+//
+//    @Override
+//    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+//    public int insertUsers(List<User> userList) {
+//        int count = 0;
+//
+//        for(User user : userList) {
+//            count += insertUser(user);
+//        }
+//        return count;
+//    }
+//
+//
+//
+//    @Override
+//    @Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRES_NEW)
+//    public int insertUser(User user) {
+//        return userDao.insertUser(user);
+//    }
+//}
