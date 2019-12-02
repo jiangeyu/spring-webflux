@@ -33,7 +33,7 @@ public class UserBatchServiceImpl implements UserBatchService , ApplicationConte
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public int insertUsers(List<User> userList) {
         int count = 0;
-        UserService userService = applicationContext.getBean(UserService.class);
+        UserBatchService userService = applicationContext.getBean(UserBatchService.class);
         for(User user : userList) {
             count += userService.insertUser(user);
         }
