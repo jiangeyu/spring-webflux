@@ -28,4 +28,13 @@ public class OptionalTest {
         Iterable<Integer> it = Optional.presentInstances(list);
         it.forEach(integer -> System.err.println(integer));
     }
+
+
+    @Test
+    public void testByte() {
+        byte type = 2;
+
+
+        System.out.println("2".equals(String.valueOf(type)));
+    }
 }
