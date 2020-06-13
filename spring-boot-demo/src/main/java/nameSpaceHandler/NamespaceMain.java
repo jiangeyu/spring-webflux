@@ -15,6 +15,5 @@ public class NamespaceMain {
         User user = (User) df.getBean("userBean");
         System.out.println(user.toString());
 
-
     }
 }
