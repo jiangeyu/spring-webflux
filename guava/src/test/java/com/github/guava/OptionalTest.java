@@ -36,5 +36,8 @@ public class OptionalTest {
 
 
         System.out.println("2".equals(String.valueOf(type)));
+
+        int P_WRITE = 1 << 2;
+        System.out.println(P_WRITE);
     }
 }

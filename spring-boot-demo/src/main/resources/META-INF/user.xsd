@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="/Users/zhouchen/IdeaProjects/spring-webflux/spring-boot-demo/src/main/resources/META-INF/user"
+        elementFormDefault="qualified">
+
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:import namespace="http://www.springframework.org/schema/beans"/>
+    <xsd:import namespace="http://www.springframework.org/schema/tool"/>
+
+    <xsd:annotation>
+        <xsd:documentation><![CDATA[ Namespace support for the dubbo services provided by dubbo framework. ]]></xsd:documentation>
+    </xsd:annotation>
+
+
+    <xsd:complexType name="user">
+        <xsd:attribute name="id" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="userName" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="email" type="xsd:string"></xsd:attribute>
+
+    </xsd:complexType>
+
+
+</xsd:schema>
