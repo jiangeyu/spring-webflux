@@ -1,5 +1,9 @@
+import concurrent.TestExecuter;
+import lang.reflect.MyClassRuntimeAnno;
+import lang.reflect.SimpleObj;
 import org.junit.Test;
 
+import java.lang.annotation.Annotation;
 import java.util.StringTokenizer;
 
 /**
@@ -25,5 +29,21 @@ public class StringTokenierTest {
         }
 
 
+    }
+
+
+    @Test
+    public void testAnno() {
+        Annotation[] annotations = SimpleObj.class.getAnnotations();
+
+        MyClassRuntimeAnno myClassRuntimeAnno = SimpleObj.class.getAnnotation(MyClassRuntimeAnno.class);
+        System.out.println(myClassRuntimeAnno.name()+"level ="+myClassRuntimeAnno.level());
+        System.out.println(myClassRuntimeAnno == annotations[0]);
+    }
+
+    @Test
+    public void print() {
+        TestExecuter t= new TestExecuter();
+        t.aa();
     }
 }
