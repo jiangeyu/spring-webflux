@@ -1,4 +1,4 @@
-package com.github.lang.nio;
+package lang.nio;
 
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>

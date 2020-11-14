@@ -23,5 +23,8 @@ public class StreamTest {
                 .peek(t -> System.out.println(Math.sqrt(t)))
                 .filter(num -> Math.sqrt(num) / 5 == 3 )
                 .forEach(System.out::println);
+
+
+        System.out.println(System.getProperty("file.encoding"));
     }
 }

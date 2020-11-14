@@ -1,4 +1,4 @@
-package com.github.lang.nio;
+package lang.nio;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

@@ -1,4 +1,4 @@
-package com.github.lang;
+package lang;
 
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
