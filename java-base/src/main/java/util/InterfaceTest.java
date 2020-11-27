@@ -29,7 +29,7 @@ public class InterfaceTest {
 ////                .peek(x -> System.out.print("B" + x))
 ////                .forEach(x -> System.out.print("C" + x));
 
-        BiFunction<String, String, String> bi = (x, y) -> x + y;
+        BiFunction<String, String, String> bi = (x, y) -> x + y+";";
 
         Function<String, String> f = x -> x + " spinner";
 
