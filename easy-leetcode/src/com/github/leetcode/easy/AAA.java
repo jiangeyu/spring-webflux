@@ -16,7 +16,6 @@ public class AAA {
 
         System.out.println(removeVowels("aetgrtrtretdrtdtt"));
 
-        System.out.println(permute(new int[]{1, 2, 3}));
     }
 
     public static String removeVowels(String s) {
@@ -53,32 +52,6 @@ public class AAA {
 
     }
 
-    public static List<List<Integer>> res = new ArrayList<>();
-
-    public static List<List<Integer>> permute(int[] num) {
-        LinkedList<Integer> path = new LinkedList<>();
-        back(num, path);
-        return res;
-
-
-    }
-
-    public static void back(int[] num, LinkedList<Integer> path) {
-
-        if (path.size() == num.length) {
-            res.add(new LinkedList<>(path));
-            return;
-        }
-
-        for (int i = 0; i < num.length; i++) {
-            if (path.contains(num[i])) {
-                continue;
-            }
-            path.add(num[i]);
-            back(num, path);
-            path.removeLast();
-        }
-    }
 
 
 }
