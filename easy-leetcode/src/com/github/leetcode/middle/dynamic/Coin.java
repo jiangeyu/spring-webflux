@@ -46,6 +46,7 @@ public class Coin {
 
 
     public static void main(String[] args) {
+
         System.out.println(waysToChange(900750));
         System.out.println(change(900750));
     }
