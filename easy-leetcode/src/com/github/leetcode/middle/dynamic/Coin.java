@@ -44,10 +44,25 @@ public class Coin {
         return dp[n];
     }
 
+    public static boolean canJump(int[] num) {
+        int n = num.length;
+        int further = 0;
+        for (int i = 0; i < n - 1; i++) {
+            further = Math.max(further, i + num[i]);
+            System.out.println(further);
+            if (further <= i) {
+                return false;
+            }
+        }
+        return further >= n - 1;
+    }
+
 
     public static void main(String[] args) {
-
-        System.out.println(waysToChange(900750));
-        System.out.println(change(900750));
+//
+//        System.out.println(waysToChange(900750));
+//        System.out.println(change(900750));
+        System.out.println(canJump(new int[]{2, 3, 1, 1, 4}));
+        System.out.println(canJump(new int[]{3, 2, 1, 0, 4}));
     }
 }
