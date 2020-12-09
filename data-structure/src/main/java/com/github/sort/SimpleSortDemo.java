@@ -1,8 +1,5 @@
 package com.github.sort;
 
-import java.util.Arrays;
-import java.util.stream.IntStream;
-
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
  * @Description:
@@ -61,7 +58,7 @@ public class SimpleSortDemo {
 
     public static void main(String[] args) {
         int[] a = {1, 9, 8, 2, 6};
-        int[] b = selectSort(a);
+        int[] b = insertSort(a);
         for (int n = 0; n < b.length; n++) {
             System.out.println(b[n]);
         }
