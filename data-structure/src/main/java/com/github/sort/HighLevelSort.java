@@ -35,9 +35,35 @@ public class HighLevelSort {
     }
 
 
-    public void heapSort() {
-
+    void heapAdjust(int start, int end) {
+        //建立父节点指标和子节点指标
+        int dad = start;
+        int son = dad * 2 + 1;
+        while (son <= end) { //若子节点指标在范围内才做比较
+            if (son + 1 <= end && num[son] < num[son + 1]) //先比较两个子节点大小，选择最大的
+                son++;
+            if (num[dad] > num[son]) //如果父节点大于子节点代表调整完毕，直接跳出函数
+                return;
+            else { //否则交换父子内容再继续子节点和孙节点比较
+                swap(dad, son);
+                dad = son;
+                son = dad * 2 + 1;
+            }
+        }
     }
+
+    void heapSort(int len) {
+        //初始化，i从最后一个父节点开始调整
+        for (int i = len / 2 - 1; i >= 0; i--)
+            heapAdjust(i, len - 1);
+
+        //先将第一个元素和已排好元素前一位做交换，再从新调整，直到排序完毕
+        for (int i = len - 1; i > 0; i--) {
+            swap(0, i);
+            heapAdjust(0, i - 1);
+        }
+    }
+
 
     public static void merge(int[] arrayA, int sizeA, int[] arrayB, int sizeB, int[] arrayC) {
         int aDex = 0, bDex = 0, cDex = 0;
@@ -137,7 +163,7 @@ public class HighLevelSort {
 
         HighLevelSort highLevelSort = new HighLevelSort(num);
 //
-        highLevelSort.shellSort();
+        highLevelSort.heapSort(5);
 //
 //        highLevelSort.recMergeSort(new int[20], 0, 4);
         System.out.println(num.toString());
