@@ -70,6 +70,30 @@ public class Coin {
         return dp[n] > Integer.MAX_VALUE ? dp[n] % 1000000007 : dp[n];
     }
 
+    public static boolean canPartition(int[] nums) {
+        int sum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+        }
+        if (!(sum % 2 == 0)) {
+            return false;
+        }
+        sum = sum / 2;
+        boolean[] dp = new boolean[sum + 1];
+        Arrays.fill(dp, false);
+        dp[0] = true;
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = sum; j >= 0; j--) {
+                if (j - nums[i] >= 0) {
+                    dp[j] = dp[j] || dp[j - nums[i]];
+                }
+            }
+
+        }
+        return dp[sum];
+
+    }
+
     public static boolean canJump(int[] num) {
         int n = num.length;
         int further = 0;
@@ -90,19 +114,21 @@ public class Coin {
 //        System.out.println(change(900750));
 //        System.out.println(canJump(new int[]{2, 3, 1, 1, 4}));
 //        System.out.println(canJump(new int[]{3, 2, 1, 0, 4}));
-        int[] coins = new int[]{1, 2, 5};
-        System.out.println(coinChange(coins, 15));
-
-        int[] coins2 = new int[]{2};
-        System.out.println(coinChange(coins2, 3));
-
-        int[] coins3 = new int[]{1};
-        System.out.println(coinChange(coins3, 0));
-
-        int[] coins4 = new int[]{1};
-        System.out.println(coinChange(coins4, 1));
-
-        int[] coins5 = new int[]{2};
-        System.out.println(coinChange(coins5, 1));
+//        int[] coins = new int[]{1, 2, 5};
+//        System.out.println(coinChange(coins, 15));
+//
+//        int[] coins2 = new int[]{2};
+//        System.out.println(coinChange(coins2, 3));
+//
+//        int[] coins3 = new int[]{1};
+//        System.out.println(coinChange(coins3, 0));
+//
+//        int[] coins4 = new int[]{1};
+//        System.out.println(coinChange(coins4, 1));
+//
+//        int[] coins5 = new int[]{2};
+//        System.out.println(coinChange(coins5, 1));
+        System.out.println(canPartition(new int[]{1, 5, 11, 5}));
+        System.out.println(canPartition(new int[]{1, 2, 3, 5}));
     }
 }
