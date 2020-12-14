@@ -67,7 +67,7 @@ public class Coin {
                 if (j - coins[i] >= 0)
                     dp[j] = dp[j] + dp[j - coins[i]];
 
-        return dp[n];
+        return dp[n] > Integer.MAX_VALUE ? dp[n] % 1000000007 : dp[n];
     }
 
     public static boolean canJump(int[] num) {
