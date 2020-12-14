@@ -1,5 +1,7 @@
 package com.github.sort;
 
+import java.util.Arrays;
+
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
  * @Description:
@@ -162,9 +164,44 @@ public class HighLevelSort {
         num[index2] = tmp;
     }
 
+    public static void swap1(int a, int b) {
+        a ^= b;
+        b ^= a;
+        a ^= b;
+    }
+
+    public int[] prime(int n) {
+        boolean[] a = new boolean[n];
+        Arrays.fill(a, true);
+        for (int i = 2; i < n; i++) {
+            if (isPrime(i)) {
+                for (int j = i * i; j < n; j += i) {
+                    a[j] = false;
+                }
+            }
+        }
+        int[] b = new int[n];
+        int index = 0;
+        for (int i = 2; i < n; i++) {
+            if (a[i]) {
+                b[index++] = i;
+            }
+        }
+        return b;
+    }
+
+    public boolean isPrime(int n) {
+        for (int i = 2; i * i <= n; i++) {
+            if (n % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     public static void main(String[] args) {
-        int[] num = {3,5,3,0,8,6,1,5,8,6,2,4,9,4,7,0,1,8,9,7,3,1,2,5,9,7,4,0,2,6};
+        int[] num = {3, 5, 3, 0, 8, 6, 1, 5, 8, 6, 2, 4, 9, 4, 7, 0, 1, 8, 9, 7, 3, 1, 2, 5, 9, 7, 4, 0, 2, 6};
 
         HighLevelSort highLevelSort = new HighLevelSort(num);
 //
@@ -178,6 +215,12 @@ public class HighLevelSort {
 //        int[] num3 = new int[11];
 //        merge(num1, 4, num2, 7, num3);
 //        System.out.println(num3.length);
+        int a = 1, b = 3;
+        swap1(a, b);
+        System.out.println(a);
+        int[] primeArray = highLevelSort.prime(100);
+        System.out.println(primeArray.length);
+        System.out.println(highLevelSort.isPrime(6));
 
 
     }
