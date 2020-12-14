@@ -1,5 +1,7 @@
 package com.github.leetcode.middle.dynamic;
 
+import java.util.Arrays;
+
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
  * @Description:
@@ -27,6 +29,30 @@ public class Coin {
 
         return dp[length][n];
 
+    }
+
+    // 凑整数为amount的币数
+
+    public static int coinChange(int[] coins, int amount) {
+        if (amount == 0) {
+            return 0;
+        }
+        int[] dp = new int[amount + 1];
+        Arrays.fill(dp, 1, dp.length, Integer.MAX_VALUE);
+        dp[0] = 0;
+        for (int i = 0; i < dp.length; i++) {
+            for (int coin : coins) {
+                if (i - coin < 0) {
+                    continue;
+                }
+                if (dp[i - coin] != Integer.MAX_VALUE) {
+                    dp[i] = Math.min(dp[i], 1 + dp[i - coin]);
+                }
+            }
+        }
+        if (dp[amount] != Integer.MAX_VALUE)
+            return dp[amount];
+        return -1;
     }
 
     public static int change(int n) {
@@ -62,7 +88,21 @@ public class Coin {
 //
 //        System.out.println(waysToChange(900750));
 //        System.out.println(change(900750));
-        System.out.println(canJump(new int[]{2, 3, 1, 1, 4}));
-        System.out.println(canJump(new int[]{3, 2, 1, 0, 4}));
+//        System.out.println(canJump(new int[]{2, 3, 1, 1, 4}));
+//        System.out.println(canJump(new int[]{3, 2, 1, 0, 4}));
+        int[] coins = new int[]{1, 2, 5};
+        System.out.println(coinChange(coins, 15));
+
+        int[] coins2 = new int[]{2};
+        System.out.println(coinChange(coins2, 3));
+
+        int[] coins3 = new int[]{1};
+        System.out.println(coinChange(coins3, 0));
+
+        int[] coins4 = new int[]{1};
+        System.out.println(coinChange(coins4, 1));
+
+        int[] coins5 = new int[]{2};
+        System.out.println(coinChange(coins5, 1));
     }
 }
