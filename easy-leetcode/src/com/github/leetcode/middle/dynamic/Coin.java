@@ -79,12 +79,12 @@ public class Coin {
      * dp[i]表示能否填满容量为i的背包
      * 状态转移方程为 dp[i] = dp[i-1] || nums[i]+dp[i-nums[j]]
      * 举例:v = sum/2 = 11   nums = [1,5,11,5]  1是true 0 是false
-     *          0  1  2  3  4  5  6  7  8  9  10  11
-     *  nums[0] 0  1  0  0  0  0  0  0  0  0   0   0
-     *  nums[1] 0  1  0  0  0  1  1  0  0  0   0   0
-     *  nums[2] 0  1  0  0  0  1  1  0  0  0   0   1
-     *  nums[3] 0  1  0  0  0  1  1  0  0  0   0   1
-     *
+     * 0  1  2  3  4  5  6  7  8  9  10  11
+     * nums[0] 0  1  0  0  0  0  0  0  0  0   0   0
+     * nums[1] 0  1  0  0  0  1  1  0  0  0   0   0
+     * nums[2] 0  1  0  0  0  1  1  0  0  0   0   1
+     * nums[3] 0  1  0  0  0  1  1  0  0  0   0   1
+     * <p>
      * 所以返回true，因为背包中nums[i]的状态都是由上一行决定的因此可以将二维转化为1维数组从尾部开始
      */
 
@@ -125,6 +125,99 @@ public class Coin {
         return further >= n - 1;
     }
 
+    /**
+     * 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+     * <p>
+     * 输入: [-2,1,-3,4,-1,2,1,-5,4]
+     * 输出: 6
+     * 解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。
+     *
+     * @param nums
+     * @return
+     */
+
+    public static int maxSubArray(int[] nums) {
+//        if (nums.length == 1) {
+//            return nums[0];
+//        }
+//        int sum = Integer.MIN_VALUE;
+//        int[][] dp = new int[nums.length][nums.length + 1];
+//        dp[0][0] = nums[0];
+//        for (int i = 1; i < nums.length; i++) {
+//            dp[i][i] = nums[i];
+//        }
+//
+//        for (int i = 0; i < nums.length; i++) {
+//            for (int j = i + 1; j < nums.length; j++) {
+//                dp[i][j] = dp[i][j - 1] + nums[j];
+//            }
+//        }
+//        for (int i = 0; i < nums.length; i++) {
+//            for (int j = i; j < nums.length; j++) {
+//                sum = Math.max(sum, dp[i][j]);
+//            }
+//        }
+//        return sum;
+
+        /**
+         * nums[i]为结尾的「最大子数组和」为dp[i]
+         *
+         */
+//        if (nums.length == 1) {
+//            return nums[0];
+//        }
+//        int[] dp = new int[nums.length];
+//        dp[0] = nums[0];
+//        int res = Integer.MIN_VALUE;
+//        for (int i = 1; i < nums.length; i++) {
+//            dp[i] = Math.max(nums[i], dp[i - 1] + nums[i]);
+//        }
+//        for (int i = 0; i < nums.length; i++) {
+//            res = Math.max(res, dp[i]);
+//        }
+//        return res;
+
+
+        int res = nums[0];
+        int sum = 0;
+        for (int num : nums) {
+            if (sum > 0) {
+                sum += num;
+            } else {
+                sum = num;
+            }
+            res = Math.max(res, sum);
+        }
+        return res;
+//        int sum = 0;
+//        for (int num : nums) {
+//            if (sum > 0) {
+//                sum += num;
+//            }
+//            else {
+//                sum = num;
+//            }
+//            res = Math.max(res, sum);
+//        }
+//        return res;
+
+    }
+
+
+    /**
+     *
+     *  给定字符串 s 和 t ，判断 s 是否为 t 的子序列。
+     * 字符串的一个子序列是原始字符串删除一些（也可以不删除）字符而不改变剩余字符相对位置形成的新字符串。
+     * （例如，"ace"是"abcde"的一个子序列，而"aec"不是）。
+     */
+    public boolean isSubsequence(String s, String t) {
+
+        
+
+        return false;
+
+
+    }
 
     public static void main(String[] args) {
 //
@@ -146,7 +239,14 @@ public class Coin {
 //
 //        int[] coins5 = new int[]{2};
 //        System.out.println(coinChange(coins5, 1));
-        System.out.println(canPartition(new int[]{1, 5, 11, 5}));
-        System.out.println(canPartition(new int[]{1, 2, 3, 5}));
+//        System.out.println(canPartition(new int[]{1, 5, 11, 5}));
+//        System.out.println(canPartition(new int[]{1, 2, 3, 5}));
+//        System.out.println(maxSubArray(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4}));
+//        System.out.println(maxSubArray(new int[]{4, -1, 2, 1}));
+//        System.out.println(maxSubArray(new int[]{1}));
+//        System.out.println(maxSubArray(new int[]{-2, 1}));
+//        System.out.println(maxSubArray(new int[]{-2, -1}));
+        System.out.println(maxSubArray(new int[]{1, 1, 3, -1}));
+
     }
 }
