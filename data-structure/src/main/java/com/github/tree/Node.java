@@ -1,4 +1,4 @@
-package com.github.binaryTree;
+package com.github.tree;
 
 import lombok.Data;
 
