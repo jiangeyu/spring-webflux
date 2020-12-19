@@ -126,6 +126,43 @@ public class Coin {
     }
 
     /**
+     * 给定不同面额的硬币和一个总金额。写出函数来计算可以凑成总金额的硬币组合数。假设每一种面额的硬币有无限个。
+     *
+     * 输入: amount = 5, coins = [1, 2, 5]
+     * 输出: 4
+     * 解释: 有四种方式可以凑成总金额:
+     * 5=5
+     * 5=2+2+1
+     * 5=2+1+1+1
+     * 5=1+1+1+1+1
+     *
+     * @param amount
+     * @param coins
+     * @return
+     */
+
+    public static int change(int amount, int[] coins) {
+        int dp[] = new int[amount+1];
+        // 设置起始状态
+        dp[0] = 1;
+
+        for (int coin : coins) {
+            // 记录每添加一种面额的零钱，总金额j的变化
+            for (int j = 1; j <= amount; j++) {
+                if (j >= coin) {
+                    // 在上一钟零钱状态的基础上增大
+                    // 例如对于总额5，当只有面额为1的零钱时，只有一种可能 5x1
+                    // 当加了面额为2的零钱时，除了原来的那一种可能外
+                    // 还加上了组合了两块钱的情况，而总额为5是在总额为3的基础上加上两块钱来的
+                    // 所以就加上此时总额为3的所有组合情况
+                    dp[j] = dp[j] + dp[j - coin];
+                }
+            }
+        }
+        return dp[amount];
+    }
+
+    /**
      * 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
      * <p>
      * 输入: [-2,1,-3,4,-1,2,1,-5,4]
@@ -205,14 +242,12 @@ public class Coin {
 
 
     /**
-     *
-     *  给定字符串 s 和 t ，判断 s 是否为 t 的子序列。
+     * 给定字符串 s 和 t ，判断 s 是否为 t 的子序列。
      * 字符串的一个子序列是原始字符串删除一些（也可以不删除）字符而不改变剩余字符相对位置形成的新字符串。
      * （例如，"ace"是"abcde"的一个子序列，而"aec"不是）。
      */
     public boolean isSubsequence(String s, String t) {
 
-        
 
         return false;
 
@@ -247,6 +282,7 @@ public class Coin {
 //        System.out.println(maxSubArray(new int[]{-2, 1}));
 //        System.out.println(maxSubArray(new int[]{-2, -1}));
         System.out.println(maxSubArray(new int[]{1, 1, 3, -1}));
+        System.out.println(change(5, new int[]{1, 2, 5}));
 
     }
 }
