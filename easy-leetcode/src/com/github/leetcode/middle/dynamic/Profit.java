@@ -112,6 +112,7 @@ public class Profit {
         return dp_i_0;
     }
 
+
     /**
      * k次交易
      *
@@ -120,34 +121,38 @@ public class Profit {
      * @return
      */
     public static int maxProfitK(int k, int[] prices) {
-        int n = prices.length;
-        if (k >= n / 2) {
-            int dp_i_0 = 0;
-            int dp_i_1 = Integer.MIN_VALUE;
-            for (int i = 0; i < n; i++) {
-                int tmp = dp_i_0;
-                dp_i_0 = Math.max(dp_i_0, dp_i_1 + prices[i]);
-                dp_i_1 = Math.max(dp_i_1, tmp - prices[i]);
-
-            }
-            return dp_i_0;
-        }
-
-        int[][][] dp = new int[n][k + 1][2];
-        for (int i = 0; i < n; i++) {
-            for (int jk = k; jk >= 0; jk--) {
-                if (i == 0 || jk == 0) {
-                    dp[0][jk][0] = 0;
-                    dp[0][jk][1] = Integer.MIN_VALUE;
-                } else {
-                    dp[i][jk][0] = Math.max(dp[i - 1][jk][0], dp[i - 1][jk][1] + prices[i]);
-                    dp[i][jk][1] = Math.max(dp[i - 1][jk][1], dp[i - 1][jk - 1][0] - prices[i]);
-                }
-
+        /**
+         当k大于等于数组长度一半时, 问题退化为贪心问题此时采用 买卖股票的最佳时机 II
+         的贪心方法解决可以大幅提升时间性能, 对于其他的k, 可以采用 买卖股票的最佳时机 III
+         的方法来解决, 在III中定义了两次买入和卖出时最大收益的变量, 在这里就是k租这样的
+         变量, 即问题IV是对问题III的推广, t[i][0]和t[i][1]分别表示第i比交易买入和卖出时
+         各自的最大收益
+         **/
+        if (k < 1) return 0;
+        if (k >= prices.length / 2) return greedy(prices);
+        int[][] t = new int[k][2];
+        for (int i = 0; i < k; ++i)
+            t[i][0] = Integer.MIN_VALUE;
+        for (int p : prices) {
+            t[0][0] = Math.max(t[0][0], -p);
+            t[0][1] = Math.max(t[0][1], t[0][0] + p);
+            for (int i = 1; i < k; ++i) {
+                t[i][0] = Math.max(t[i][0], t[i - 1][1] - p);
+                t[i][1] = Math.max(t[i][1], t[i][0] + p);
             }
         }
-        return dp[n - 1][k][0];
+        return t[k - 1][1];
     }
+
+    private static int greedy(int[] prices) {
+        int max = 0;
+        for (int i = 1; i < prices.length; ++i) {
+            if (prices[i] > prices[i - 1])
+                max += prices[i] - prices[i - 1];
+        }
+        return max;
+    }
+
 
     /**
      * 有冷静期
@@ -198,7 +203,7 @@ public class Profit {
     public static void main(String[] args) {
 //        System.out.println(maxProfit_p(new int[]{7, 1, 5, 3, 6, 4}));
 //        System.out.println(maxProfit(new int[]{7, 1, 5, 3, 6, 4}));
-        System.out.println(maxProfit2(new int[]{3, 3, 5, 0, 0, 3, 1, 4}));
+//        System.out.println(maxProfit2(new int[]{3, 3, 5, 0, 0, 3, 1, 4}));
 //        System.out.println(maxProfitN(new int[]{7, 1, 5, 3, 6, 4}));
 //        System.out.println(maxProfitN_p(new int[]{7, 1, 5, 3, 6, 4}));
 //        System.out.println(maxProfitNWithCool(new int[]{7, 1, 5, 3, 6, 4}));
@@ -207,6 +212,8 @@ public class Profit {
 //        System.out.println(maxProfitK(2, new int[]{3, 2, 6, 5, 0, 3}));
 //        System.out.println(maxProfitK(1, new int[]{1,2}));
 //        System.out.println(maxProfitK(2, new int[]{3, 3, 5, 0, 0, 3, 1, 4}));
+        System.out.println(maxProfitK(2, new int[]{1, 2, 4, 2, 5, 7, 2, 4, 9, 0}));
+        System.out.println(maxProfitK(2, new int[]{3, 2, 6, 5, 0, 3}));
         System.out.println(maxProfitK(2, new int[]{1, 2, 4, 2, 5, 7, 2, 4, 9, 0}));
     }
 }
