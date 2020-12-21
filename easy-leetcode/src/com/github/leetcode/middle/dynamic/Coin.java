@@ -69,7 +69,6 @@ public class Coin {
     public static int change(int n) {
 
         int[] coins = new int[]{25, 10, 5, 1};
-
         int length = coins.length;
         int[] dp = new int[n + 1];
         dp[0] = 1; // base case

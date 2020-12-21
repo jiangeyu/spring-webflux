@@ -25,13 +25,7 @@ public class AAA {
             list.add(c);
         }
 
-        List<Character> ll = Arrays.asList(new Character[]{
-                new Character('a'),
-                new Character('e'),
-                new Character('i'),
-                new Character('o'),
-                new Character('u')
-        });
+        List<Character> ll = Arrays.asList('a','e','o','u');
 
         list.removeAll(ll);
         StringBuilder result = new StringBuilder();
