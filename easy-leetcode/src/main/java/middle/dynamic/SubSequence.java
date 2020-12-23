@@ -74,12 +74,40 @@ public class SubSequence {
         return maxL;
     }
 
+    /**
+     * 最长公共子序列
+     *
+     * @param text1
+     * @param text2
+     * @return
+     */
+    public static int longestCommonSubsequence(String text1, String text2) {
+        int n = text1.length();
+        int m = text2.length();
+
+        int[][] dp = new int[n + 1][m + 1];
+        for (int i = 0; i <= n; i++) {
+            dp[i][0] = 0;
+        }
+        for (int j = 0; j <= m; j++) {
+            dp[0][j] = 0;
+        }
+        for (int i = 1; i < n+1; i++) {
+            for (int j = 1; j < m+1; j++) {
+                if (text1.charAt(i - 1) == text2.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                } else {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+        return dp[n][m];
+
+    }
+
     public static void main(String[] args) {
-//        System.out.println(lengthOfLIS(new int[]{1, 5, 3, 6, 10, 9, 10}));
-//        System.out.println(lengthOfLIS(new int[]{1, 2, 4, 5}));
-//        System.out.println(lengthOfLIS(new int[]{1, 2, 6, 5}));
-//        System.out.println(lengthOfLIS(new int[]{4, 10, 4, 3, 8, 9}));
-        System.out.println(lengthOfLIS11(new int[]{4, 10, 4, 3, 8, 9}));
+        System.out.println(longestCommonSubsequence("abc", "ace"));
+        System.out.println(longestCommonSubsequence("abcde", "ace"));
 
     }
 }
