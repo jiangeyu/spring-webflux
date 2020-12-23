@@ -1,4 +1,4 @@
-package com.github.leetcode.middle.dynamic;
+package middle.dynamic;
 
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>

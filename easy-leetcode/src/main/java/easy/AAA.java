@@ -1,8 +1,7 @@
-package com.github.leetcode.easy;
+package easy;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 /**

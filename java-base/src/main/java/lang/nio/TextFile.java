@@ -69,7 +69,7 @@ public class TextFile extends ArrayList<String> {
     }
 
     public static void main(String[] args) {
-//        String file = read("/Users/zhouchen/IdeaProjects/spring-webflux/java-base/easy-leetcode/src/lang/nio/TextFile.java");
+//        String file = read("/Users/zhouchen/IdeaProjects/spring-webflux/java-base/easy-com.github.leetcode/src/lang/nio/TextFile.java");
         String file = read("TextFile.java");
 
         write("text.txt", file);

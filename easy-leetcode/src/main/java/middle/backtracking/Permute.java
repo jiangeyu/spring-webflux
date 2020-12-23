@@ -1,7 +1,6 @@
-package com.github.leetcode.middle.backtracking;
+package middle.backtracking;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
@@ -65,40 +64,56 @@ public class Permute {
      * 输入：nums = [1,2,3]
      * 输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
      *
+     * 其实这个全排列算法就是固定一个数的位置(left)，然后从下一位数再开始全排列(递归过程)...直到最后一位数，
+     * 模拟手动全排列的过程。所以如果要去重的话，只要控制每次排列时，固定的那个数是不一样的就行了。因为固定的数不一样，
+     * 那从这个数开始产生的全排列就不一样。所以只要让每次的left位置的数不一样就行，所以先sort，保证只有相邻的数是可能一样的，
+     * 然后if (i != left && nums[left] == nums[i]) continue;使得每次固定的数(即left)都不一样，就行了。希望能解答你的疑问
+     *
      * @param num
      * @return
      */
-    public static List<List<Integer>> permute1(int[] num) {
-        List<List<Integer>> result = new ArrayList<>();
-        LinkedList<Integer> path = new LinkedList<>();
-        Map<Integer, Integer> map = new HashMap<>();
-
-        for (int select : num) {
-            map.compute(select, (k, v) -> map.get(select) == null ? 1 : map.get(select) + 1);
-        }
-        backtrack1(path, num, result, map);
-        return result;
+    public static List<List<Integer>> permuteUnique(int[] num) {
+        Set<List<Integer>> result = new HashSet<>();
+        Arrays.sort(num);
+        int left = 0;
+        int right = num.length;
+        backtrack(result, num, left, right);
+        return new ArrayList<>(result);
     }
 
-    public static void backtrack1(LinkedList<Integer> path, int[] num, List<List<Integer>> result, Map<Integer, Integer> map) {
-        if (path.size() == num.length) {
-            result.add(new LinkedList<>(path));
+    public static void backtrack(Set<List<Integer>> result, int[] num, int left, int right) {
+        if (left == right) {
+            List<Integer> list = new ArrayList<>();
+            for (int n : num) {
+                list.add(n);
+            }
+            result.add(list);
             return;
         }
-        for (int select : num) {
-            if (path.contains(select)) {
+        for (int i = left; i < right; i++) {
+            if (i != left && num[left] == num[i]) {
                 continue;
             }
-            path.add(select);
-            backtrack1(path, num, result, map);
-            path.removeLast();
+            swap(num, left, i);
+            backtrack(result, num, left + 1, right);
+            swap(num, left, i);
+
+
         }
+    }
+
+    public static void swap(int[] num, int i, int j) {
+        int tmp = num[j];
+        num[j] = num[i];
+        num[i] = tmp;
     }
 
 
     public static void main(String[] args) {
-//        System.out.println(permute(new int[]{ 1, 2, 3}));
-        System.out.println(permute1(new int[]{1, 1, 2, 3}));
+        System.out.println(permuteUnique(new int[]{1, 2, 3}));
+        System.out.println(permuteUnique(new int[]{1, 1, 2, 3}));
+        System.out.println(permuteUnique(new int[]{1, -1, 1, 2, -1, 2, 2, -1}));
+
 
     }
 

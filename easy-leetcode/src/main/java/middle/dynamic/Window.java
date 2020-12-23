@@ -1,4 +1,4 @@
-package com.github.leetcode.middle.dynamic;
+package middle.dynamic;
 
 import java.util.ArrayList;
 import java.util.HashMap;

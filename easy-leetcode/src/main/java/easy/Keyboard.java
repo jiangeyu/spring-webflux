@@ -1,4 +1,4 @@
-package com.github.leetcode.easy;
+package easy;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,7 +50,7 @@ public class Keyboard {
     }
 
     public static void main(String[] args) {
-        System.out.println(calculateTime("pqrstuvwxyzabcdefghijklmno", "leetcode"));
+        System.out.println(calculateTime("pqrstuvwxyzabcdefghijklmno", "com/github/leetcode"));
         System.out.println(calculateTime("abcdefghijklmnopqrstuvwxyz", "cba"));
 
 //        System.out.println(reversePairs(new int[] {1,3,2,3,1}));
