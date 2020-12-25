@@ -43,6 +43,9 @@ public class QueueTest {
         queue.addAll(list);
         int[][] envelopes = {{5, 4}, {6, 4}, {6, 7}, {2, 3}};
         int[][] envelopes1 = {{1, 3}, {3, 5}, {6, 7}, {6, 8}, {8, 4}, {9, 5}};
+
+        Arrays.sort(envelopes, (a, b) -> a[0] == b[0] ? b[1] - a[1] : a[0] - b[0]);
+
         System.out.println(maxEnvelopes(envelopes));
         System.out.println(maxEnvelopes(envelopes1));
 
@@ -50,5 +53,9 @@ public class QueueTest {
 
     public static int compare(int a, int b) {
         return a > b ? 1 : ((a < b) ? -1 : 0);
+
+
+
+
     }
 }
