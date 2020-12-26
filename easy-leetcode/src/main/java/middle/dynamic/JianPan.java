@@ -9,19 +9,18 @@ public class JianPan {
 
     /**
      * 假设你有一个特殊的键盘包含下面的按键：
-     *
+     * <p>
      * Key 1: (A)：在屏幕上打印一个 'A'。
-     *
+     * <p>
      * Key 2: (Ctrl-A)：选中整个屏幕。
-     *
+     * <p>
      * Key 3: (Ctrl-C)：复制选中区域到缓冲区。
-     *
+     * <p>
      * Key 4: (Ctrl-V)：将缓冲区内容输出到上次输入的结束位置，并显示在屏幕上。
-     *
+     * <p>
      * 现在，你只可以按键 N 次（使用上述四种按键），请问屏幕上最多可以显示几个 'A'呢？
-     *
+     * <p>
      * dp[i] 表示第操作后最多能显示多少个A
-     *
      *
      * @param N
      * @return
@@ -38,6 +37,8 @@ public class JianPan {
         }
         return dp[N];
     }
+
+
 
     public static void main(String[] args) {
         System.out.println(maxA(6));
