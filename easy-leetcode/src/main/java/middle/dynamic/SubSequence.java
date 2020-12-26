@@ -92,8 +92,8 @@ public class SubSequence {
         for (int j = 0; j <= m; j++) {
             dp[0][j] = 0;
         }
-        for (int i = 1; i < n+1; i++) {
-            for (int j = 1; j < m+1; j++) {
+        for (int i = 1; i < n + 1; i++) {
+            for (int j = 1; j < m + 1; j++) {
                 if (text1.charAt(i - 1) == text2.charAt(j - 1)) {
                     dp[i][j] = dp[i - 1][j - 1] + 1;
                 } else {
@@ -105,9 +105,59 @@ public class SubSequence {
 
     }
 
+    /**
+     * 给你两个单词 word1 和 word2，请你计算出将 word1 转换成 word2 所使用的最少操作数 。
+     * <p>
+     * 你可以对一个单词进行如下三种操作：
+     * <p>
+     * 插入一个字符
+     * 删除一个字符
+     * 替换一个字符
+     *
+     * @param s
+     * @param t
+     * @return
+     */
+    public static int minDistance(String s, String t) {
+        int m = s.length();
+        int n = t.length();
+        int[][] dp = new int[m + 1][n + 1];
+        if (m == 0) {
+            return n;
+        }
+        if (n == 0) {
+            return m;
+        }
+        for (int i = 1; i <= m; i++) {
+            dp[i][0] = i;
+        }
+        for (int j = 1; j <= n; j++) {
+            dp[0][j] = j;
+        }
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (s.charAt(i - 1) == t.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1];
+                } else {
+                    dp[i][j] = Math.min(
+                            Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1), dp[i - 1][j - 1] + 1
+                    );
+                }
+            }
+        }
+
+        return dp[m][n];
+
+    }
+
     public static void main(String[] args) {
-        System.out.println(longestCommonSubsequence("abc", "ace"));
-        System.out.println(longestCommonSubsequence("abcde", "ace"));
+//        System.out.println(longestCommonSubsequence("abc", "ace"));
+//        System.out.println(longestCommonSubsequence("abcde", "ace"));
+//        System.out.println(minDistance("abcde", "ace"));
+//        System.out.println(minDistance("horse", "ros"));
+//        System.out.println(minDistance("intention", "execution"));
+        System.out.println(minDistance("distance", "springbok"));
+
 
     }
 }
