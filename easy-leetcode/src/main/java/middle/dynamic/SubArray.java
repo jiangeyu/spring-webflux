@@ -1,5 +1,8 @@
 package middle.dynamic;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
  * @Description:
@@ -119,11 +122,55 @@ public class SubArray {
         return dp[n][sum];
     }
 
+    public static int[] twoSum(int[] numbers, int target) {
+        int n = numbers.length;
+        int start = 1;
+        int end = n;
+        int[] result = new int[2];
+        while (start < end) {
+            int sum = numbers[start - 1] + numbers[end - 1];
+            if (sum == target) {
+                result[0] = start;
+                result[1] = end;
+                return result;
+            } else if (sum < target) {
+                start++;
+            } else {
+                end--;
+            }
+        }
+        return result;
+
+    }
+
+    public static int[] twoSum1(int[] nums, int target) {
+        int n = nums.length;
+        Map<Integer, Integer> map = new HashMap<>(n);
+        int[] result = new int[2];
+        for (int i = 0; i < n; i++) {
+            map.put(nums[i], i);
+        }
+        for (int i = 0; i < n; i++) {
+            if (map.containsKey(target - nums[i])
+                    && map.get(target - nums[i]) != i) {
+                int end = map.get(target - nums[i]);
+                result[0] = i;
+                result[1] = end;
+                break;
+            }
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
         System.out.println(maxSubArray1(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4}));
         System.out.println(maxSubArray2(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4}));
         System.out.println(maxSubArray(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4}));
         System.out.println(findTargetSumWays(new int[]{1, 1, 1, 1, 1}, 3));
+//        System.out.println(twoSum(new int[]{2, 7, 11, 15}, 9));
+        System.out.println(twoSum1(new int[]{2, 7, 11, 15}, 9));
+        System.out.println(twoSum1(new int[]{3,2,4}, 6));
+
     }
 
 
