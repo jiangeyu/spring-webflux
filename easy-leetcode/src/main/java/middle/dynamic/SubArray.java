@@ -1,7 +1,8 @@
 package middle.dynamic;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
@@ -122,54 +123,84 @@ public class SubArray {
         return dp[n][sum];
     }
 
-    public static int[] twoSum(int[] numbers, int target) {
-        int n = numbers.length;
-        int start = 1;
-        int end = n;
-        int[] result = new int[2];
-        while (start < end) {
-            int sum = numbers[start - 1] + numbers[end - 1];
-            if (sum == target) {
-                result[0] = start;
-                result[1] = end;
-                return result;
-            } else if (sum < target) {
-                start++;
-            } else {
-                end--;
+    public static List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> result = new ArrayList<>();
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            List<int[]> tmp = twoSum(nums, i + 1, -nums[i]);
+            if (tmp != null && tmp.size() > 0) {
+                for (int[] b : tmp) {
+                    List<Integer> list = new ArrayList<>();
+                    list.add(nums[i]);
+                    list.add(b[0]);
+                    list.add(b[1]);
+                    result.add(list);
+                }
+            }
+            while (i < n - 1 && nums[i] == nums[i + 1]) {
+                i++;
             }
         }
         return result;
-
     }
 
-    public static int[] twoSum1(int[] nums, int target) {
-        int n = nums.length;
-        Map<Integer, Integer> map = new HashMap<>(n);
-        int[] result = new int[2];
-        for (int i = 0; i < n; i++) {
-            map.put(nums[i], i);
-        }
-        for (int i = 0; i < n; i++) {
-            if (map.containsKey(target - nums[i])
-                    && map.get(target - nums[i]) != i) {
-                int end = map.get(target - nums[i]);
-                result[0] = i;
-                result[1] = end;
-                break;
+    public static List<int[]> twoSum(int[] numbers, int start, int target) {
+        int end = numbers.length - 1;
+        List<int[]> list = new ArrayList<>();
+        while (start < end) {
+            int left = numbers[start];
+            int right = numbers[end];
+            int sum = left + right;
+            if (sum < target) {
+                while (start < end && numbers[start] == left) {
+                    start++;
+                }
+            } else if (sum > target) {
+                while (start < end && numbers[end] == right) {
+                    end--;
+                }
+            } else {
+                int[] result = new int[2];
+                result[0] = numbers[start];
+                result[1] = numbers[end];
+                list.add(result);
+                while (start < end && numbers[start] == left) {
+                    left++;
+                }
+                while (start < end && numbers[end] == right) {
+                    end--;
+                }
             }
         }
-        return result;
+        return list;
     }
 
     public static void main(String[] args) {
-        System.out.println(maxSubArray1(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4}));
-        System.out.println(maxSubArray2(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4}));
-        System.out.println(maxSubArray(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4}));
-        System.out.println(findTargetSumWays(new int[]{1, 1, 1, 1, 1}, 3));
-//        System.out.println(twoSum(new int[]{2, 7, 11, 15}, 9));
-        System.out.println(twoSum1(new int[]{2, 7, 11, 15}, 9));
-        System.out.println(twoSum1(new int[]{3,2,4}, 6));
+//        System.out.println(maxSubArray1(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4}));
+//        System.out.println(maxSubArray2(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4}));
+//        System.out.println(maxSubArray(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4}));
+//        System.out.println(findTargetSumWays(new int[]{1, 1, 1, 1, 1}, 3));
+////        System.out.println(twoSum(new int[]{2, 7, 11, 15}, 9));
+//        System.out.println(twoSum1(new int[]{2, 7, 11, 15}, 9));
+//        System.out.println(twoSum1(new int[]{3, 2, 4}, 6));
+//
+//        Integer[] array = new Integer[]{1, 5, 2, 3, 7, 0, 8};
+//        Arrays.sort(array, new Comparator<Integer>() {
+//            @Override
+//            public int compare(Integer o1, Integer o2) {
+//                return o1 == o2 ? 0 : o1 - o2;
+//            }
+//        });
+//
+//        Arrays.sort(array, (o1, o2) -> o1 == o2 ? 0 : o2 - o1);
+//        System.out.println(array[0]);
+        List<List<Integer>> result = threeSum(new int[]{-1, 0, 1, 2, -1, -4});
+//        int[] aa = new int[]{-1, 0, 1, 2, -1, -4};
+//        Arrays.sort(aa);
+//        List<int[]> result1 = twoSum(aa, 0, 0);
+//        System.out.println(result1);
+        System.out.println(result);
 
     }
 
