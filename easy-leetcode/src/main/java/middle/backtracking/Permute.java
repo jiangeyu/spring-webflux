@@ -25,7 +25,7 @@ public class Permute {
 
     /**
      * 给定一个 没有重复 数字的序列，返回其所有可能的全排列。
-     *
+     * <p>
      * leetcode 47
      *
      * @param num
@@ -66,7 +66,7 @@ public class Permute {
      * <p>
      * 输入：nums = [1,2,3]
      * 输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
-     *
+     * <p>
      * 其实这个全排列算法就是固定一个数的位置(left)，然后从下一位数再开始全排列(递归过程)...直到最后一位数，
      * 模拟手动全排列的过程。所以如果要去重的话，只要控制每次排列时，固定的那个数是不一样的就行了。因为固定的数不一样，
      * 那从这个数开始产生的全排列就不一样。所以只要让每次的left位置的数不一样就行，所以先sort，保证只有相邻的数是可能一样的，
@@ -112,12 +112,12 @@ public class Permute {
 
     /**
      * 给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。
-     *
+     * <p>
      * 说明：解集不能包含重复的子集。
      * 输入: nums = [1,2,3]
      * 输出:
      * [
-     *   [3],
+     * [3],
      *   [1],
      *   [2],
      *   [1,2,3],
@@ -127,44 +127,74 @@ public class Permute {
      *   []
      * ]
      *
-     * 来源：力扣（LeetCode）
-     * 链接：https://leetcode-cn.com/problems/subsets
-     * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      * @param nums
      * @return
      */
-    public List<List<Integer>> subsets(int[] nums) {
-
+    public static List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        LinkedList<Integer> path = new LinkedList<>();
+        backtrack(result, path, 0, nums);
+        return result;
     }
 
+    public static void backtrack(List<List<Integer>> result, LinkedList<Integer> path, int start, int[] nums) {
+        result.add(new LinkedList<>(path));
+        for (int i = start; i < nums.length; i++) {
+            if(path.contains(nums[i])) {
+                continue;
+            }
+            path.add(nums[i]);
+            backtrack(result, path, start + 1, nums);
+            path.removeLast();
+        }
+    }
+
+    public static List<List<Integer>> subsets2(int[] nums) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        res.add(new ArrayList<Integer>());
+        for(int i = 0; i < nums.length ; i++)
+        {
+            int size = res.size();
+            for (int j = 0; j < size; j++) {
+                List<Integer> newtemp = new ArrayList<Integer>(res.get(j));
+                newtemp.add(nums[i]);
+                res.add(newtemp);
+            }
+        }
+        return res;
+    }
 
     /**
      * 给定两个整数 n 和 k，返回 1 ... n 中所有可能的 k 个数的组合。
-     *
+     * <p>
      * 示例:
      * 输入: n = 4, k = 2
      * 输出:
      * [
-     *   [2,4],
-     *   [3,4],
-     *   [2,3],
-     *   [1,2],
-     *   [1,3],
-     *   [1,4],
+     * [2,4],
+     * [3,4],
+     * [2,3],
+     * [1,2],
+     * [1,3],
+     * [1,4],
      * ]
+     *
      * @param n
      * @param k
      * @return
      */
     public List<List<Integer>> combine(int n, int k) {
+        return null;
 
     }
 
 
     public static void main(String[] args) {
-        System.out.println(permuteUnique(new int[]{1, 2, 3}));
-        System.out.println(permuteUnique(new int[]{1, 1, 2, 3}));
-        System.out.println(permuteUnique(new int[]{1, -1, 1, 2, -1, 2, 2, -1}));
+//        System.out.println(permuteUnique(new int[]{1, 2, 3}));
+//        System.out.println(permuteUnique(new int[]{1, 1, 2, 3}));
+//        System.out.println(permuteUnique(new int[]{1, -1, 1, 2, -1, 2, 2, -1}));
+        System.out.println(subsets(new int[]{1,2,3}));
+        System.out.println(subsets2(new int[]{1,2,3}));
 
 
     }
