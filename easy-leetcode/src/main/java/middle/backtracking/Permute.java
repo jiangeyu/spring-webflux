@@ -140,29 +140,29 @@ public class Permute {
     public static void backtrack(List<List<Integer>> result, LinkedList<Integer> path, int start, int[] nums) {
         result.add(new LinkedList<>(path));
         for (int i = start; i < nums.length; i++) {
-            if(path.contains(nums[i])) {
+            if (path.contains(nums[i])) {
                 continue;
             }
             path.add(nums[i]);
-            backtrack(result, path, start + 1, nums);
+            backtrack(result, path, i + 1, nums);
             path.removeLast();
         }
     }
 
     public static List<List<Integer>> subsets2(int[] nums) {
-        List<List<Integer>> res = new ArrayList<List<Integer>>();
-        res.add(new ArrayList<Integer>());
-        for(int i = 0; i < nums.length ; i++)
-        {
+        List<List<Integer>> res = new ArrayList<>();
+        res.add(new ArrayList<>());
+        for (int i = 0; i < nums.length; i++) {
             int size = res.size();
             for (int j = 0; j < size; j++) {
-                List<Integer> newtemp = new ArrayList<Integer>(res.get(j));
+                List<Integer> newtemp = new ArrayList<>(res.get(j));
                 newtemp.add(nums[i]);
                 res.add(newtemp);
             }
         }
         return res;
     }
+
 
     /**
      * 给定两个整数 n 和 k，返回 1 ... n 中所有可能的 k 个数的组合。
@@ -183,9 +183,28 @@ public class Permute {
      * @param k
      * @return
      */
-    public List<List<Integer>> combine(int n, int k) {
-        return null;
+    public static List<List<Integer>> combine(int n, int k) {
 
+        int[] nums = new int[n];
+        for (int i = 1; i <= n; i++) {
+            nums[i - 1] = i;
+        }
+        List<List<Integer>> result = new ArrayList<>();
+        LinkedList<Integer> path = new LinkedList<>();
+        backtrack2(result, path, k,0, nums);
+        return result;
+    }
+    public static void backtrack2(List<List<Integer>> result, LinkedList<Integer> path, int k, int start,int[] nums) {
+
+        if(path.size() == k) {
+            result.add(new LinkedList<>(path));
+            return;
+        }
+        for (int i = start; i < nums.length; i++) {
+            path.add(nums[i]);
+            backtrack2(result, path, k,i + 1, nums);
+            path.removeLast();
+        }
     }
 
 
@@ -193,8 +212,9 @@ public class Permute {
 //        System.out.println(permuteUnique(new int[]{1, 2, 3}));
 //        System.out.println(permuteUnique(new int[]{1, 1, 2, 3}));
 //        System.out.println(permuteUnique(new int[]{1, -1, 1, 2, -1, 2, 2, -1}));
-        System.out.println(subsets(new int[]{1,2,3}));
-        System.out.println(subsets2(new int[]{1,2,3}));
+        System.out.println(subsets(new int[]{1, 2, 3}));
+        System.out.println(subsets2(new int[]{1, 2, 3}));
+        System.out.println(combine(3, 2));
 
 
     }
