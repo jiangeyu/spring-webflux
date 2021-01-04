@@ -135,7 +135,7 @@ public class SubSequence {
             dp[0][j] = j;
         }
         for (int i = 1; i <= m; i++) {
-            for (int j = 1; j <= n; j++) {
+            for (int j = 1; j < n; j++) {
                 if (s.charAt(i - 1) == t.charAt(j - 1)) {
                     dp[i][j] = dp[i - 1][j - 1];
                 } else {
@@ -150,13 +150,41 @@ public class SubSequence {
 
     }
 
+    /**
+     * 最长回文串
+     *
+     * @param s
+     * @return
+     */
+    public static String longestPalindrome(String s) {
+        int n = s.length();
+        String res = "";
+        for (int i = 0; i < n - 1; i++) {
+            String s1 = palindrome(s, i, i);
+            String s2 = palindrome(s, i, i + 1);
+            res = res.length() > s1.length() ? res : s1;
+            res = res.length() > s2.length() ? res : s2;
+
+        }
+        return res;
+    }
+
+    public static String palindrome(String s, int l, int r) {
+        while (l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) {
+            l--;
+            r++;
+        }
+        return s.substring(l + 1, r);
+    }
+
     public static void main(String[] args) {
 //        System.out.println(longestCommonSubsequence("abc", "ace"));
 //        System.out.println(longestCommonSubsequence("abcde", "ace"));
 //        System.out.println(minDistance("abcde", "ace"));
 //        System.out.println(minDistance("horse", "ros"));
 //        System.out.println(minDistance("intention", "execution"));
-        System.out.println(minDistance("distance", "springbok"));
+//        System.out.println(minDistance("distance", "springbok"));
+        System.out.println(longestPalindrome("asddg"));
 
 
     }
