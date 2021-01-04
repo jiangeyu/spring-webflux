@@ -2,6 +2,8 @@ package middle.greedy;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
@@ -51,14 +53,51 @@ public class Interval {
         for (int i = 1; i <= n; i++) {
             preSum[i] = nums[i - 1] + preSum[i - 1];
         }
-        for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= i; j++) {
-                if (preSum[j] - nums[j-1] == k) {
+        for (int i = 0; i <= n; i++) {
+            for (int j = i + 1; j <= n; j++) {
+                if (preSum[j] - preSum[i] == k) {
                     count++;
                 }
             }
         }
         return count;
+    }
+
+
+    public static int subarraySum1(int[] nums, int k) {
+        int n = nums.length;
+        if (n == 0) {
+            return 0;
+        }
+        Map<Integer, Integer> map = new HashMap<>(1);
+        int count = 0;
+        int sum = 0;
+        map.put(0, 1);
+        for (int i = 0; i < n; i++) {
+            sum += nums[i];
+            if (map.containsKey(sum - k)) {
+                count += map.get(sum - k) + 1;
+            }
+            map.put(sum, map.getOrDefault(sum - k, 0) + 1);
+        }
+        return count;
+    }
+
+    public static int removeDuplicates(int[] nums) {
+        int n = nums.length;
+        if (n == 0) {
+            return 0;
+        }
+        int slow = 0;
+        int fast = 1;
+        while (fast < n) {
+            if (nums[slow] != nums[fast]) {
+                slow++;
+                nums[slow] = nums[fast];
+            }
+            fast++;
+        }
+        return slow + 1;
     }
 
 
@@ -69,9 +108,16 @@ public class Interval {
 //        System.out.println(eraseOverlapIntervals(new int[][]{{1, 2},{2,3}}));
 //        System.out.println(eraseOverlapIntervals(new int[][]{{1, 100}, {11, 22}, {1, 11}, {2, 12}}));
 //        System.out.println(eraseOverlapIntervals(new int[][]{{1, 2}, {2, 3}, {3, 4}, {-100, -2}, {5, 7}}));
-        System.out.println(subarraySum(new int[]{1, 1, 1, 2}, 2));
+//        System.out.println(subarraySum(new int[]{1, 1, 1, 2}, 2));
+//        System.out.println(subarraySum1(new int[]{1, 1, 1, 2}, 2));
 //        System.out.println(subarraySum(new int[]{0, 1, 1, 1, 2}, 2));
-        System.out.println(subarraySum(new int[]{1, 2, 3}, 3));
+//        System.out.println(subarraySum1(new int[]{0, 1, 1, 1, 2}, 2));
+//        System.out.println(subarraySum(new int[]{1, 2, 3}, 3));
+//        System.out.println(subarraySum1(new int[]{1, 2, 3}, 3));
+//        System.out.println(removeDuplicates(new int[]{1, 2, 3, 4, 4, 4}));
+        System.out.println(removeDuplicates(new int[]{1, 1, 2, 3, 4, 4, 4, 4}));
+//        System.out.println(removeDuplicates(new int[]{1, 2}));
+//        System.out.println(removeDuplicates(new int[]{1, 1, 2}));
     }
 
 }
