@@ -1,5 +1,6 @@
 package middle.backtracking;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,18 +28,23 @@ public class Queens {
      * @param n
      * @return
      */
-
-    List<List<String>> res;
-
-    public List<List<String>> solveNQueens(int n) {
+    public static List<List<String>> solveNQueens(int n) {
+        List<List<String>> res = new ArrayList<>();
         String[] board = new String[n];
-        backtrack(board, 0);
+        String init = "";
+        for (int i = 0; i < n; i++) {
+            init += '.';
+        }
+        Arrays.fill(board, init);
+        backtrack(res, board, 0);
         return res;
     }
 
-    void backtrack(String[] board, int row) {
+    public static void backtrack(List<List<String>> res, String[] board, int row) {
         if (row == board.length) {
             res.add(Arrays.asList(board));
+            System.out.println(res);
+            return;
         }
         int n = board.length;
         for (int col = 0; col < n; col++) {
@@ -48,12 +54,14 @@ public class Queens {
             }
             char[] aa = board[row].toCharArray();
             aa[col] = 'Q';
-            backtrack(board, row + 1);
+            board[row] = new String(aa);
+            backtrack(res, board, row + 1);
             aa[col] = '.';
+            board[row] = new String(aa);
         }
     }
 
-    boolean isValid(String[] board, int row, int col) {
+    public static boolean isValid(String[] board, int row, int col) {
         int n = board.length;
         for (int i = 0; i < row; i++) {
             if (board[i].charAt(col) == 'Q') {
@@ -74,6 +82,23 @@ public class Queens {
     }
 
     public static void main(String[] args) {
+//        Queens queens = new Queens();
+//        queens.solveNQueens(4);
+
+        System.out.println(solveNQueens(1));
+        System.out.println(solveNQueens(4));
+//        String[] aa = new String[4];
+//        String init = "";
+//        for (int i = 0; i < 4; i++) {
+//            init += '.';
+//        }
+//        Arrays.fill(aa, init);
+//
+//        char[] bb = aa[0].toCharArray();
+//        bb[0] = 'Q';
+//        aa[0] = new String(bb);
+//        System.out.println(aa[0].charAt(0));
+
 
     }
 
