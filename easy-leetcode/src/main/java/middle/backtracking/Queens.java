@@ -2,6 +2,7 @@ package middle.backtracking;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -29,7 +30,7 @@ public class Queens {
      * @return
      */
     public static List<List<String>> solveNQueens(int n) {
-        List<List<String>> res = new ArrayList<>();
+        List<List<String>> res = new LinkedList<>();
         String[] board = new String[n];
         String init = "";
         for (int i = 0; i < n; i++) {
@@ -43,7 +44,6 @@ public class Queens {
     public static void backtrack(List<List<String>> res, String[] board, int row) {
         if (row == board.length) {
             res.add(Arrays.asList(board));
-            System.out.println(res);
             return;
         }
         int n = board.length;
@@ -80,6 +80,7 @@ public class Queens {
         }
         return true;
     }
+
 
     public static void main(String[] args) {
 //        Queens queens = new Queens();
