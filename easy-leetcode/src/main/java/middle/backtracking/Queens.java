@@ -29,65 +29,77 @@ public class Queens {
      * @param n
      * @return
      */
-    public static List<List<String>> solveNQueens(int n) {
-        List<List<String>> res = new LinkedList<>();
-        String[] board = new String[n];
-        String init = "";
+
+    List<List<String>> res = new LinkedList<>();
+
+    public List<List<String>> solveNQueens(int n) {
+        List<char[]> board = new LinkedList<>();
+
         for (int i = 0; i < n; i++) {
-            init += '.';
+            char[] arr = new char[n];
+            Arrays.fill(arr, '.');
+            board.add(arr);
         }
-        Arrays.fill(board, init);
-        backtrack(res, board, 0);
+
+        backtrack(board, 0);
         return res;
     }
 
-    public static void backtrack(List<List<String>> res, String[] board, int row) {
-        if (row == board.length) {
-            res.add(Arrays.asList(board));
-            return;
+    void backtrack(List<char[]> board, int row) {
+        if(row == board.size()){ //触发结束条件
+            res.add(transform(board));
         }
-        int n = board.length;
-        for (int col = 0; col < n; col++) {
 
-            if (!isValid(board, row, col)) {
+        int n = board.size();
+        for(int col = 0; col < n; col++){ //遍历所有选择
+            if(!isValid(board, row, col)){ //剪枝
                 continue;
             }
-            char[] aa = board[row].toCharArray();
-            aa[col] = 'Q';
-            board[row] = new String(aa);
-            backtrack(res, board, row + 1);
-            aa[col] = '.';
-            board[row] = new String(aa);
+
+            board.get(row)[col] = 'Q'; //做出选择
+            backtrack(board, row + 1); //进入下一行决策
+            board.get(row)[col] = '.'; //撤销选择
         }
     }
 
-    public static boolean isValid(String[] board, int row, int col) {
-        int n = board.length;
-        for (int i = 0; i < row; i++) {
-            if (board[i].charAt(col) == 'Q') {
+    List<String> transform(List<char[]> board){
+        List<String> newBoard = new LinkedList<>();
+        for(char[] row : board){
+            newBoard.add(new String(row));
+        }
+        return newBoard;
+    }
+
+    Boolean isValid(List<char[]> board, int row, int col) {
+        int n = board.size();
+        for(int i = 0; i < n; i++) { // 检查列是否有皇后互相冲突
+            if(board.get(i)[col] == 'Q'){
                 return false;
             }
         }
-        for (int i = row - 1, j = col + 1; i >= 0 && j < n; i--, j++) {
-            if (board[i].charAt(j) == 'Q') {
+
+        // 检查右上方是否有皇后互相冲突
+        for(int i = row - 1, j = col + 1; i >= 0 && j < n; i--,j++){
+            if(board.get(i)[j] == 'Q'){
                 return false;
             }
         }
-        for (int i = row - 1, j = col - i; i >= 0 && j >= 0; i--, j--) {
-            if (board[i].charAt(j) == 'Q') {
+
+        // 检查左上方是否有皇后互相冲突
+        for(int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--){
+            if(board.get(i)[j] == 'Q'){
                 return false;
             }
         }
         return true;
     }
 
-
     public static void main(String[] args) {
-//        Queens queens = new Queens();
-//        queens.solveNQueens(4);
+        Queens queens = new Queens();
+        queens.solveNQueens(4);
 
-        System.out.println(solveNQueens(1));
-        System.out.println(solveNQueens(4));
+        System.out.println(queens.solveNQueens(1));
+        System.out.println(queens.solveNQueens(4));
 //        String[] aa = new String[4];
 //        String init = "";
 //        for (int i = 0; i < 4; i++) {
