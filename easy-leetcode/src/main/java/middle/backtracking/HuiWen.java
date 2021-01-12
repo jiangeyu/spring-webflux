@@ -1,4 +1,7 @@
-package middle.dynamic;
+package middle.backtracking;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
@@ -105,8 +108,64 @@ public class HuiWen {
                 }
             }
         }
-        return dp[0][n-1];
+        return dp[0][n - 1];
 
+    }
+
+
+    /**
+     * 给定一个字符串 s，将 s 分割成一些子串，使每个子串都是回文串。
+     * <p>
+     * 返回 s 所有可能的分割方案。
+     * <p>
+     * 示例:
+     * <p>
+     * 输入: "aab"
+     * 输出:
+     * [
+     * ["aa","b"],
+     * ["a","a","b"]
+     * ]
+     *
+     * @param s
+     * @return
+     */
+    public static List<List<String>> partition(String s) {
+        List<List<String>> list = new ArrayList<>();
+        dfs(s,0, new ArrayList<>(), list);
+        return list;
+    }
+
+    private static void dfs(String s, int start, ArrayList<String> path, List<List<String>> list) {
+        if (start == s.length()) {
+            list.add(new ArrayList<>(path));
+            return;
+        }
+        for (int i = start; i < s.length(); i++) {
+            String s1 = s.substring(start, i + 1);
+            if (!isPalindrome(s1)) {
+                continue;
+            }
+            path.add(s1);
+            dfs(s,i + 1, path, list);
+            path.remove(path.size() - 1);
+        }
+    }
+
+    private static boolean isPalindrome(String s) {
+        if (s == null || s.length() <= 1) {
+            return true;
+        }
+        int left = 0;
+        int right = s.length() - 1;
+        while (left < right) {
+            if (s.charAt(left) != s.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
     }
 
     public static void main(String[] args) {
@@ -117,5 +176,6 @@ public class HuiWen {
         System.out.println(minInsertions("leetcode"));
         System.out.println(minInsertions("zzazz"));
         System.out.println(minInsertions("no"));
+        System.out.println(partition("aab"));
     }
 }
