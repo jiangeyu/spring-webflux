@@ -45,8 +45,27 @@ public class Jump {
 
     }
 
+
+    public static int climbStairs(int n) {
+        if(n<=2){
+            return n;
+        }
+        int i1 = 1;
+        int i2 = 2;
+        for(int i=3;i<=n;i++){
+            int temp = i1+i2;
+            i1 = i2;
+            i2 = temp;
+        }
+        return i2;
+
+    }
+
     public static void main(String[] args) {
-        int[] nums = new int[]{2,3,1,1,4};
+        int[] nums = new int[]{2, 3, 1, 1, 4};
         System.out.println(jump(nums));
+        System.out.println(climbStairs(6));
+        System.out.println(climbStairs(4));
+        System.out.println(climbStairs(3));//3
     }
 }
