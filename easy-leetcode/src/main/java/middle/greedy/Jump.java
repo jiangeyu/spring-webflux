@@ -1,4 +1,4 @@
-package middle.dynamic;
+package middle.greedy;
 
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
