@@ -87,6 +87,36 @@ public class ArrayArea {
 
         return area;
     }
+
+    /**
+     * 85. 最大矩形
+     *
+     * 给定一个仅包含 0 和 1 、大小为 rows x cols 的二维二进制矩阵，找出只包含 1 的最大矩形，并返回其面积。
+     */
+    public int maximalRectangle(char[][] matrix) {
+        if (matrix.length == 0 || matrix[0].length == 0) {
+            return 0;
+        }
+        int col = matrix.length;
+        int row = matrix[0].length;
+        int[] heights = new int[row];
+        int ans = 0;
+        for (int i = 0; i < col; i++) {
+            for (int j = 0; j < row; j++) {
+                if (matrix[i][j] == '1') {
+                    heights[j] += 1;
+                } else {
+                    heights[j] = 0;
+                }
+            }
+            ans = Math.max(ans, largestRectangleArea(heights));
+        }
+        return ans;
+    }
+
+
+
+
     public static void main(String[] args) {
         System.out.println(maximalSquare(new char[][]{
                 {'1','0','1','0','0'},
