@@ -1,6 +1,7 @@
 package middle.dfs;
 
 import java.util.ArrayDeque;
+import java.util.LinkedList;
 import java.util.Queue;
 
 /**
@@ -55,39 +56,35 @@ public class Tree {
      * @return
      */
     public int widthOfBinaryTree(TreeNode root) {
-        if (root == null) {
+        if (root == null)
             return 0;
-        }
-        if (root.left == null && root.right == null) {
-            return 1;
-        }
-        int minWidth = Integer.MIN_VALUE;
-        Queue<TreeNode> queue = new ArrayDeque<>();
+        int maxW = 1;
+        Queue<TreeNode> queue = new LinkedList<>();
+        LinkedList<Integer> indexList = new LinkedList<>();
         queue.add(root);
+        indexList.add(1);
+        int size = 1;
         while (!queue.isEmpty()) {
-            int size = queue.size();
-            minWidth = Math.max(minWidth, size);
-            for (int i = 0; i < size; i++) {
-                TreeNode node = queue.poll();
-                if (node.left == null && node.right == null) {
-                    break;
+            TreeNode node = queue.poll();
+            size--;
+            int index = indexList.removeFirst();
+            if (node.left != null) {
+                queue.add(node.left);
+                indexList.add(2 * index);
+            }
+            if (node.right != null) {
+                queue.add(node.right);
+                indexList.add(2 * index + 1);
+            }
+            if (size == 0) {
+                if (indexList.size() >= 2) {
+                    maxW = Math.max(maxW, indexList.getLast() - indexList.getFirst() + 1);
                 }
-                if (node.left == null) {
-                    queue.add(new TreeNode());
-                }
-                if (node.right == null) {
-                    queue.add(new TreeNode());
-                }
-
-                if (node.left != null) {
-                    queue.add(node.left);
-                }
-                if (node.right != null) {
-                    queue.add(node.right);
-                }
+                size = queue.size();
             }
         }
-        return minWidth;
+
+        return maxW;
 
     }
 }
