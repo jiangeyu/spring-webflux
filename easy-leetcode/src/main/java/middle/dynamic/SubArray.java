@@ -123,6 +123,52 @@ public class SubArray {
         return dp[n][sum];
     }
 
+    public static List<List<Integer>> fourSum(int[] nums, int target) {
+        Arrays.sort(nums);
+        List<List<Integer>> result = new ArrayList<>();
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            List<List<Integer>> tmp = threeSum(nums, i + 1, target - nums[i]);
+            if (tmp != null && tmp.size() > 0) {
+                for (List<Integer> subList : tmp) {
+                    List<Integer> list = new ArrayList<>();
+                    list.add(nums[i]);
+                    list.add(subList.get(0));
+                    list.add(subList.get(1));
+                    list.add(subList.get(2));
+                    result.add(list);
+                }
+            }
+            while (i < n - 1 && nums[i] == nums[i + 1]) {
+                i++;
+            }
+        }
+        return result;
+
+    }
+
+    public static List<List<Integer>> threeSum(int[] nums, int start, int target) {
+        Arrays.sort(nums);
+        List<List<Integer>> result = new ArrayList<>();
+        int n = nums.length;
+        for (int i = start; i < n; i++) {
+            List<int[]> tmp = twoSum(nums, i + 1, target - nums[i]);
+            if (tmp != null && tmp.size() > 0) {
+                for (int[] b : tmp) {
+                    List<Integer> list = new ArrayList<>();
+                    list.add(nums[i]);
+                    list.add(b[0]);
+                    list.add(b[1]);
+                    result.add(list);
+                }
+            }
+            while (i < n - 1 && nums[i] == nums[i + 1]) {
+                i++;
+            }
+        }
+        return result;
+    }
+
     public static List<List<Integer>> threeSum(int[] nums) {
         Arrays.sort(nums);
         List<List<Integer>> result = new ArrayList<>();
@@ -196,12 +242,12 @@ public class SubArray {
 //        Arrays.sort(array, (o1, o2) -> o1 == o2 ? 0 : o2 - o1);
 //        System.out.println(array[0]);
         List<List<Integer>> result = threeSum(new int[]{-1, 0, 1, 2, -1, -4});
+        List<List<Integer>> result1 = fourSum(new int[]{-1, 0, 1, 2, -1, -4}, 2);
 //        int[] aa = new int[]{-1, 0, 1, 2, -1, -4};
 //        Arrays.sort(aa);
 //        List<int[]> result1 = twoSum(aa, 0, 0);
-//        System.out.println(result1);
+        System.out.println(result1);
         System.out.println(result);
-
     }
 
 

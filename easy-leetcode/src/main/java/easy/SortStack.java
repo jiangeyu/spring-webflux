@@ -143,6 +143,7 @@ public class SortStack {
 
     public static void main(String[] args) {
         System.out.println(nextGreaterElement(new int[]{2, 1, 2, 4, 3}));
+        System.out.println(nextGreaterElement(new int[]{2, 1, 2, 3, 4}));
         System.out.println(nextGreaterElement(new int[]{1, 2, 1, 2, 4, 3}));
         System.out.println(nextGreaterElement(new int[]{4, 1, 2}, new int[]{1, 3, 4, 2}));
     }
