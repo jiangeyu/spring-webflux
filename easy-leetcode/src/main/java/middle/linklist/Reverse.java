@@ -104,10 +104,10 @@ public class Reverse {
         }
         head = pre.next;
         for (int i = m; i < n; i++) {
-            ListNode nex = head.next;
-            head.next = nex.next;
-            nex.next = pre.next;
-            pre.next = nex;
+            ListNode next = head.next;
+            head.next = next.next;
+            next.next = pre.next;
+            pre.next = next;
         }
         return dummy.next;
     }
