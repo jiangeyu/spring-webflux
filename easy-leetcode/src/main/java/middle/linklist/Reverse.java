@@ -46,12 +46,11 @@ public class Reverse {
     }
 
     /**
-     *
      * Leetcode 23
-     *
-     *
+     * <p>
+     * <p>
      * 给你一个链表数组，每个链表都已经按升序排列。
-     *
+     * <p>
      * 请你将所有链表合并到一个升序链表中，返回合并后的链表。
      *
      * @param lists
@@ -113,24 +112,24 @@ public class Reverse {
     }
 
     /**
-     *
      * 给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。
-     *
+     * <p>
      * 你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。
      * 24
-     *
+     * <p>
      * 使用递归来解决该题，主要就是递归的三部曲：
-     *
+     * <p>
      * 找终止条件：本题终止条件很明显，当递归到链表为空或者链表只剩一个元素的时候，没得交换了，自然就终止了。
      * 找返回值：返回给上一层递归的值应该是已经交换完成后的子链表。
      * 单次的过程：因为递归是重复做一样的事情，所以从宏观上考虑，只用考虑某一步是怎么完成的。我们假设待交换的俩节点分别为head和next，
      * next的应该接受上一级返回的子链表(参考第2步)。就相当于是一个含三个节点的链表交换前两个节点，就很简单了，想不明白的画画图就ok。
      * 如果独立写递归函数有困难的，可以参考一下我写的一个博客，附有详细的图文介绍：
+     *
      * @param head
      * @return
      */
     public ListNode swapPairs(ListNode head) {
-        if(head == null || head.next == null){
+        if (head == null || head.next == null) {
             return head;
         }
         ListNode next = head.next;
@@ -269,6 +268,38 @@ public class Reverse {
         boolean res = dfs(head.next) && temp.val == head.val;
         temp = temp.next;
         return res;
+    }
+
+
+    /**
+     * 86
+     * 给你一个链表和一个特定值 x ，请你对链表进行分隔，使得所有小于 x 的节点都出现在大于或等于 x 的节点之前。
+     * <p>
+     * 你应当保留两个分区中每个节点的初始相对位置。
+     *
+     * @param head
+     * @param x
+     * @return
+     */
+    public ListNode partition(ListNode head, int x) {
+        ListNode smallList = new ListNode(0);
+        ListNode smallHead = smallList;
+        ListNode bigList = new ListNode(0);
+        ListNode bigHead = bigList;
+        while (head != null) {
+            if (head.val < x) {
+                smallList.next = head;
+                smallList = smallList.next;
+            } else {
+                bigList.next = head;
+                bigList = bigList.next;
+            }
+            head = head.next;
+        }
+        bigList.next = null;
+        smallList.next = bigHead.next;
+        return smallHead.next;
+
     }
 }
 
