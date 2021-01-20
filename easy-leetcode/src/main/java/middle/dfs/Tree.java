@@ -309,4 +309,131 @@ public class Tree {
         if(t1.val != t2.val) return false;
         return isSymmertric(t1.left, t2.right) && isSymmertric(t1.right, t2.left);
     }
+
+    int max = 0;
+
+    /**
+     *
+     * 543. 二叉树的直径
+     *
+     *给定一棵二叉树，你需要计算它的直径长度。一棵二叉树的直径长度是任意两个结点路径长度中的最大值。这条路径可能穿过也可能不穿过根结点。
+     * @param root
+     * @return
+     */
+    public int diameterOfBinaryTree(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        dfs(root);
+        return max;
+    }
+
+    private int dfs(TreeNode root) {
+        if (root.left == null && root.right == null) {
+            return 0;
+        }
+        int leftSize = root.left == null? 0: dfs(root.left) + 1;
+        int rightSize = root.right == null? 0: dfs(root.right) + 1;
+        max = Math.max(max, leftSize + rightSize);
+        return Math.max(leftSize, rightSize);
+    }
+
+    private int ret = Integer.MIN_VALUE;
+
+    /**
+     * 124. 二叉树中的最大路径和
+     *
+     * 路径 被定义为一条从树中任意节点出发，沿父节点-子节点连接，达到任意节点的序列。该路径 至少包含一个 节点，且不一定经过根节点。
+     *
+     * 路径和 是路径中各节点值的总和。
+     *
+     * 给你一个二叉树的根节点 root ，返回其 最大路径和 。
+     *
+     * @param root
+     * @return
+     */
+    public int maxPathSum(TreeNode root) {
+        /**
+         对于任意一个节点, 如果最大和路径包含该节点, 那么只可能是两种情况:
+         1. 其左右子树中所构成的和路径值较大的那个加上该节点的值后向父节点回溯构成最大路径
+         2. 左右子树都在最大路径中, 加上该节点的值构成了最终的最大路径
+         **/
+        getMax(root);
+        return ret;
+    }
+
+    private int getMax(TreeNode r) {
+        if(r == null) return 0;
+        int left = Math.max(0, getMax(r.left)); // 如果子树路径和为负则应当置0表示最大路径不包含子树
+        int right = Math.max(0, getMax(r.right));
+        ret = Math.max(ret, r.val + left + right); // 判断在该节点包含左右子树的路径和是否大于当前最大路径和
+        return Math.max(left, right) + r.val;
+    }
+
+
+    /**
+     * 617. 合并二叉树
+     *
+     * 给定两个二叉树，想象当你将它们中的一个覆盖到另一个上时，两个二叉树的一些节点便会重叠。
+     *
+     * 你需要将他们合并为一个新的二叉树。合并的规则是如果两个节点重叠，那么将他们的值相加作为节点合并后的新值，否则不为 NULL 的节点将直接作为新二叉树的节点。
+     *
+     *
+     * 不修改原二叉树的解法
+     */
+    public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
+        if (t1 == null && t2 == null) {
+            return null;
+        }
+        // 先合并根节点
+        TreeNode root = new TreeNode((t1 == null ? 0 : t1.val) + (t2 == null ? 0 : t2.val));
+        // 再递归合并左右子树
+        root.left = mergeTrees(t1 == null ? null : t1.left, t2 == null ? null : t2.left);
+        root.right = mergeTrees(t1 == null ? null : t1.right, t2 == null ? null : t2.right);
+        return root;
+    }
+
+
+    /**
+     * 107. 二叉树的层序遍历 II
+     *
+     * 给定一个二叉树，返回其节点值自底向上的层序遍历。 （即按从叶子节点所在层到根节点所在的层，逐层从左向右遍历）
+     *
+     * 例如：
+     * 给定二叉树 [3,9,20,null,null,15,7],
+     *
+     * 返回其自底向上的层序遍历为：
+     * [
+     *   [15,7],
+     *   [9,20],
+     *   [3]
+     * ]
+     *
+     *
+     * @param root
+     * @return
+     */
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        LinkedList<List<Integer>> result = new LinkedList<>();
+        if (root == null)
+            return result;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            List<Integer> oneLevel = new ArrayList<>();
+            // 每次都取出一层的所有数据
+            int count = queue.size();
+            for (int i = 0; i < count; i++) {
+                TreeNode node = queue.poll();
+                oneLevel.add(node.val);
+                if (node.left != null)
+                    queue.add(node.left);
+                if (node.right != null)
+                    queue.add(node.right);
+            }
+            // 每次都往队头塞
+            result.addFirst(oneLevel);
+        }
+        return result;
+    }
 }
