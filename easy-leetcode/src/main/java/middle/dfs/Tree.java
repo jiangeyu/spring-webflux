@@ -432,7 +432,7 @@ public class Tree {
                     queue.add(node.right);
             }
             // 每次都往队头塞
-            result.addFirst(oneLevel);
+            result.addLast(oneLevel);
         }
         return result;
     }
