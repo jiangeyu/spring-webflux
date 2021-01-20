@@ -1,8 +1,6 @@
 package middle.dfs;
 
-import java.util.ArrayDeque;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
@@ -32,6 +30,41 @@ public class Tree {
                 if (node.left == null && node.right == null) {
                     return minDepth;
                 }
+                if (node.left != null) {
+                    queue.add(node.left);
+                }
+                if (node.right != null) {
+                    queue.add(node.right);
+                }
+            }
+            minDepth++;
+        }
+        return minDepth;
+    }
+
+
+    /**
+     *给定一个二叉树，找出其最大深度。
+     *
+     * 二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。
+     *
+     * 说明: 叶子节点是指没有子节点的节点。
+     *
+     *
+     * @param root
+     * @return
+     */
+    public int maxDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int minDepth = 0;
+        Queue<TreeNode> queue = new ArrayDeque<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
                 if (node.left != null) {
                     queue.add(node.left);
                 }
@@ -86,5 +119,58 @@ public class Tree {
 
         return maxW;
 
+    }
+
+    /**
+     * 96
+     * 给定一个整数 n，求以 1 ... n 为节点组成的二叉搜索树有多少种？
+     *
+     * @param n
+     * @return
+     */
+    public int numTrees(int n) {
+        // dp[i] 表示i个节点能组成的二叉搜索树的数量
+        // 那么我们可以通过枚举根节点把原二叉搜索树分解为左子树 根 右子树 三部分，那么问题就变成了规模更小的子问题。
+        // 结题思路：假设n个节点存在二叉排序树的个数是G(n)，1为根节点，2为根节点，...，n为根节点，当1为根节点时，其左子树节点个数为0，右子树节点个数为n-1，
+        // 同理当2为根节点时，其左子树节点个数为1，右子树节点为n-2，所以可得G(n) = G(0)*G(n-1)+G(1)*(n-2)+...+G(n-1)*G(0)
+        int[] dp = new int[n + 1];
+        dp[0] = 1;
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= i; j++) {
+                dp[i] += dp[j - 1] * dp[i - j];
+            }
+        }
+        return dp[n];
+
+    }
+
+    private List<TreeNode> buildTrees(int start, int end){
+        List<TreeNode> result = new ArrayList<>();
+        if (start==end){
+            result.add(new TreeNode(start));
+            return result;
+        }
+        else if (start>end){
+            result.add(null);
+            return result;
+        }
+        else {
+            for (int i=start;i<=end;i++){
+                List<TreeNode> left = buildTrees(start,i-1);
+                List<TreeNode> right = buildTrees(i+1, end);
+                for (TreeNode l:left){
+                    for (TreeNode r:right){
+                        result.add(new TreeNode(i, l, r));
+                    }
+                }
+            }
+            return result;
+        }
+    }
+
+    public List<TreeNode> generateTrees(int n) {
+        if (n==0)
+            return new ArrayList<>();
+        return buildTrees(1,n);
     }
 }
