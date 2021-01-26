@@ -2,9 +2,7 @@ package middle.tree;
 
 import middle.dfs.TreeNode;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
@@ -118,9 +116,8 @@ public class GenerateTree {
     }
 
     /**
-     *
      * 114. 二叉树展开为链表
-     *
+     * <p>
      * 给定一个二叉树，原地将它展开为一个单链表。
      *
      * @param root
@@ -140,4 +137,42 @@ public class GenerateTree {
         flatten(root.right);
 
     }
+
+    /**
+     * 199
+     * 给定一棵二叉树，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。
+     *
+     * @param root
+     * @return
+     */
+
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        if (root == null) {
+            return list;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            while (size > 0) {
+                size--;
+                TreeNode treeNode = queue.poll();
+                if(size == 0) {
+                    list.add(treeNode.val);
+                }
+                if(treeNode.left != null) {
+                    queue.add(treeNode.left);
+                }
+                if(treeNode.right != null) {
+                    queue.add(treeNode.right);
+                }
+
+            }
+        }
+        return list;
+    }
+
+
+
 }
