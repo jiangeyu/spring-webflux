@@ -116,4 +116,28 @@ public class GenerateTree {
         res.right = help(index + 1, end, map, queue);
         return res;
     }
+
+    /**
+     *
+     * 114. 二叉树展开为链表
+     *
+     * 给定一个二叉树，原地将它展开为一个单链表。
+     *
+     * @param root
+     */
+    public void flatten(TreeNode root) {
+
+        if (root == null) return;
+        flatten(root.left);
+        TreeNode left = root.left;
+        TreeNode right = root.right;
+        if (left != null) {
+            root.right = left;
+            while (left.right != null) left = left.right;
+            left.right = right;
+            root.left = null;
+        }
+        flatten(root.right);
+
+    }
 }
