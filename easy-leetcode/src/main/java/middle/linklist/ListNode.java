@@ -6,13 +6,13 @@ package middle.linklist;
  * @Date: Created in 下午11:50 2021/1/14
  */
 public class ListNode {
-    int val;
-    ListNode next;
+    public int val;
+    public ListNode next;
 
     ListNode() {
     }
 
-    ListNode(int val) {
+    public ListNode(int val) {
         this.val = val;
     }
 
