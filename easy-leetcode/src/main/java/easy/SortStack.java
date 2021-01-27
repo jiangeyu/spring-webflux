@@ -1,6 +1,9 @@
 package easy;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.PriorityQueue;
+import java.util.Stack;
 
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
@@ -51,10 +54,10 @@ public class SortStack {
      * 解释:
      *     对于 num1 中的数字 2 ，第二个数组中的下一个较大数字是 3 。
      * 对于 num1 中的数字 4 ，第二个数组中没有下一个更大的数字，因此输出 -1 。
-     *
-     *
+     * <p>
+     * <p>
      * 通过Stack、HashMap解决
-     *
+     * <p>
      * 先遍历大数组nums2，首先将第一个元素入栈；
      * 继续遍历，当当前元素小于栈顶元素时，继续将它入栈；当当前元素大于栈顶元素时，栈顶元素出栈，此时应将该出栈的元素与当前元素形成key-value键值对，存入HashMap中；
      * 当遍历完nums2后，得到nums2中元素所对应的下一个更大元素的hash表；
@@ -84,13 +87,12 @@ public class SortStack {
     }
 
     /**
-     *
      * 739
-     *
+     * <p>
      * 请根据每日 气温 列表，重新生成一个列表。对应位置的输出为：要想观测到更高的气温，至少需要等待的天数。如果气温在这之后都不会升高，请在该位置用 0 来代替。
-     *
+     * <p>
      * 例如，给定一个列表 temperatures = [73, 74, 75, 71, 69, 72, 76, 73]，你的输出应该是 [1, 1, 4, 2, 1, 1, 0, 0]。
-     *
+     * <p>
      * 提示：气温 列表长度的范围是 [1, 30000]。每个气温的值的均为华氏度，都是在 [30, 100] 范围内的整数。
      *
      * @param T
@@ -99,8 +101,8 @@ public class SortStack {
     public int[] dailyTemperatures(int[] T) {
         Stack<Integer> stack = new Stack<>();
         int[] res = new int[T.length];
-        for(int i = 0; i < T.length; ++i){
-            while(!stack.isEmpty() && T[i] > T[stack.peek()]){
+        for (int i = 0; i < T.length; ++i) {
+            while (!stack.isEmpty() && T[i] > T[stack.peek()]) {
                 int temp = stack.pop();
                 res[temp] = i - temp;
             }
@@ -110,10 +112,10 @@ public class SortStack {
     }
 
     /**
-     *
      * 42
-     *
+     * <p>
      * 给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。
+     *
      * @param height
      * @return
      */
@@ -124,7 +126,7 @@ public class SortStack {
         Stack<Integer> stack = new Stack<>();
         int ans = 0;
         for (int i = 0; i < height.length; i++) {
-            while(!stack.isEmpty() && height[stack.peek()] < height[i]) {
+            while (!stack.isEmpty() && height[stack.peek()] < height[i]) {
                 int curIdx = stack.pop();
                 while (!stack.isEmpty() && height[stack.peek()] == height[curIdx]) {
                     stack.pop();
@@ -152,25 +154,25 @@ public class SortStack {
     /**
      * 把每一个元素称作块。因为那个图片给的好像瓷砖啊。
      * 其实做这题一开始都是想的是对于每一个块，去找它四个方向最高的高度中的最小值(二维下则是左右最高的高度取较小的那一个)作为上界，当前块作为下界
-     但是这4个方向每次遍历复杂度过高，且不能像二维那样去提前预存每个方向的最大值
+     * 但是这4个方向每次遍历复杂度过高，且不能像二维那样去提前预存每个方向的最大值
      * 那可以反过来我不以每个块为处理单元，而是以块的四周作为处理单元
      * 那如何保证所有四周的可能性都考虑到呢？
-     我们从矩阵的最外围往里面遍历，像一个圈不断缩小的过程
+     * 我们从矩阵的最外围往里面遍历，像一个圈不断缩小的过程
      * 为了防止重复遍历用visited记录
      * 其次要用小顶堆(以高度为判断基准)来存入所有快的四周(即圈是不断缩小的，小顶堆存的就是这个圈)
      * 为什么要用小顶堆？
-     这样可以保证高度较小的块先出队
-     ** 为什么要让高度较小的块先出队？(关键点)
-     1. 一开始时候就讲了基础做法是：对于每一个块，去找它四个方向最高的高度中的最小值(二维下则是左右最高的高度取较小的那一个)作为上界，当前块作为下界
-     2. 而我们现在反过来不是以中心块为处理单元，而是以四周作为处理单元
-     3. 我们如果能确保当前出队的元素对于该中心块来说是它周围四个高度中的最小值那么就能确定接雨水的大小
-     4. 为什么队头元素的高度比中心块要高它就一定是中心块周围四个高度中的最小值呢？
-     因为我们的前提就是小顶堆：高度小的块先出队，所以对于中心块来说，先出队的必然是中心块四周高度最小的那一个
+     * 这样可以保证高度较小的块先出队
+     * * 为什么要让高度较小的块先出队？(关键点)
+     * 1. 一开始时候就讲了基础做法是：对于每一个块，去找它四个方向最高的高度中的最小值(二维下则是左右最高的高度取较小的那一个)作为上界，当前块作为下界
+     * 2. 而我们现在反过来不是以中心块为处理单元，而是以四周作为处理单元
+     * 3. 我们如果能确保当前出队的元素对于该中心块来说是它周围四个高度中的最小值那么就能确定接雨水的大小
+     * 4. 为什么队头元素的高度比中心块要高它就一定是中心块周围四个高度中的最小值呢？
+     * 因为我们的前提就是小顶堆：高度小的块先出队，所以对于中心块来说，先出队的必然是中心块四周高度最小的那一个
      * 步骤：
-     1. 构建小顶堆，初始化为矩阵的最外围(边界所有元素)
-     2. 不断出队，倘若队头元素的四周(队头元素的四周其实就是上面说的中心块，队头元素是中心块的四周高度中最矮的一个)
-     即代表能够接雨水：队头元素减去该中心块即当前中心块能接雨水的值
-     3. 但是接完雨水之后中心块还要存进队列中，但这时要存入的中心块是接完雨水后的中心块
+     * 1. 构建小顶堆，初始化为矩阵的最外围(边界所有元素)
+     * 2. 不断出队，倘若队头元素的四周(队头元素的四周其实就是上面说的中心块，队头元素是中心块的四周高度中最矮的一个)
+     * 即代表能够接雨水：队头元素减去该中心块即当前中心块能接雨水的值
+     * 3. 但是接完雨水之后中心块还要存进队列中，但这时要存入的中心块是接完雨水后的中心块
      */
     public int trapRainWater(int[][] heights) {
         if (heights == null || heights.length == 0) return 0;
@@ -216,27 +218,59 @@ public class SortStack {
 
     /**
      * 11
-     *
+     * <p>
      * 给你 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，
      * 垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0) 。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
-     *
+     * <p>
      * 说明：你不能倾斜容器。
-     *
-     *
      *
      * @param height
      * @return
      */
     int maxArea(int[] height) {
-        if(height.length <= 1) return -1;
+        if (height.length <= 1) return -1;
         int i = 0, j = height.length - 1, res = 0;
-        while(i < j){
+        while (i < j) {
             int h = Math.min(height[i], height[j]);
             res = Math.max(res, h * (j - i));
-            if(height[i] < height[j]) ++i;
+            if (height[i] < height[j]) ++i;
             else --j;
         }
         return res;
+    }
+
+    /**
+     * 4
+     * 给定两个大小为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。请你找出并返回这两个正序数组的中位数。
+     * <p>
+     * 进阶：你能设计一个时间复杂度为 O(log (m+n)) 的算法解决此问题吗？
+     *
+     * @param nums1
+     * @param nums2
+     * @return
+     */
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int m = nums1.length;
+        int n = nums2.length;
+        int length = nums1.length + nums2.length;
+        int val1 = 0, val2 = 0, p = 0, k = 0;
+        while (p + k < length / 2 + 1) {
+            val1 = val2;
+            if (k == n) {
+                val2 = nums1[p++];
+                continue;
+            }
+            if (p == m || nums1[p] >= nums2[k]) {
+                val2 = nums2[k++];
+            } else {
+                val2 = nums1[p++];
+            }
+        }
+
+        if (length % 2 == 0) {
+            return (double) (val1 + val2) / 2;
+        }
+        return Math.max(val1, val2);
     }
 
 
