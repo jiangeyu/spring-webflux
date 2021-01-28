@@ -1,5 +1,9 @@
 package middle.arrays;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
  * @Description:
@@ -53,6 +57,88 @@ public class NextPermute {
         nums[i] = nums[j];
         nums[j] = tmp;
 
+    }
+
+    /**
+     * 39
+     *
+     *
+     * 给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
+     *
+     * candidates 中的数字可以无限制重复被选取。
+     *
+     * @param candidates
+     * @param target
+     * @return
+     */
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        Arrays.sort(candidates);
+        //System.out.println(candidates);
+        backtrack(candidates, target, res, 0, new ArrayList<Integer>());
+        return res;
+    }
+
+    private void backtrack(int[] candidates, int target, List<List<Integer>> res, int i, ArrayList<Integer> tmp_list) {
+        if (target < 0) return;
+        if (target == 0) {
+            res.add(new ArrayList<>(tmp_list));
+            return;
+        }
+        for (int start = i; start < candidates.length; start++) {
+            if (target < 0) break;
+            //System.out.println(start);
+            tmp_list.add(candidates[start]);
+            //System.out.println(tmp_list);
+            backtrack(candidates, target - candidates[start], res, start, tmp_list);
+            tmp_list.remove(tmp_list.size() - 1);
+        }
+    }
+
+    /**
+     *
+     * 442. 数组中重复的数据
+     *
+     * 给定一个整数数组 a，其中1 ≤ a[i] ≤ n （n为数组长度）, 其中有些元素出现两次而其他元素出现一次。
+     *
+     * 找到所有出现两次的元素。
+     *
+     * 你可以不用到任何额外空间并在O(n)时间复杂度内解决这个问题吗？
+     *
+     * @param nums
+     * @return
+     */
+    public List<Integer> findDuplicates(int[] nums) {
+        List<Integer> ret = new ArrayList<>();
+
+        int n = nums.length;
+        for(int i = 0; i < n; i++){
+            int num = Math.abs(nums[i]);
+            if(nums[num-1]>0) {
+                nums[num-1] *=-1;
+            } else{
+                ret.add(num);
+            }
+        }
+        return ret;
+    }
+
+    public List<Integer> findDuplicates1(int[] nums) {
+        List<Integer> ret = new ArrayList<>();
+
+        int n = nums.length;
+        for(int i = 0; i < n; i++){
+            nums[(nums[i] - 1) % n] += n;
+        }
+
+        for(int i = 0; i < n; i++){
+            if(nums[i] > 2 * n) ret.add(i+1);
+        }
+        return ret;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(Math.abs(-1));
     }
 
 }
