@@ -91,6 +91,32 @@ public class SpinMatrix {
         return list.toArray(new int[list.size()][2]);
     }
 
+    /**
+     * 120. 三角形最小路径和
+     * <p>
+     * 给定一个三角形 triangle ，找出自顶向下的最小路径和。
+     * <p>
+     * 每一步只能移动到下一行中相邻的结点上。相邻的结点 在这里指的是 下标 与 上一层结点下标 相同或者等于 上一层结点下标 + 1 的两个结点。也就是说，如果正位于当前行的下标 i ，那么下一步可以移动到下一行的下标 i 或 i + 1 。
+     *
+     * @param triangle
+     * @return
+     */
+    public int minimumTotal(List<List<Integer>> triangle) {
+        if (triangle == null || triangle.size() == 0) {
+            return 0;
+        }
+        // 加1可以不用初始化最后一层
+        int[][] dp = new int[triangle.size() + 1][triangle.size() + 1];
+
+        for (int i = triangle.size() - 1; i >= 0; i--) {
+            List<Integer> curTr = triangle.get(i);
+            for (int j = 0; j < curTr.size(); j++) {
+                dp[i][j] = Math.min(dp[i + 1][j], dp[i + 1][j + 1]) + curTr.get(j);
+            }
+        }
+        return dp[0][0];
+    }
+
     public static void main(String[] args) {
 //        System.out.println(merge(new int[][]{{1, 2}, {2, 3}, {3, 4}, {1, 3}}));
 //        System.out.println(merge(new int[][]{{1, 4}, {0, 4}}));
