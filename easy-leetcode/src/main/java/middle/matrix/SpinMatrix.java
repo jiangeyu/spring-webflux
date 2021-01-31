@@ -84,6 +84,30 @@ public class SpinMatrix {
     }
 
     /**
+     * 48
+     *
+     * 给定一个 n × n 的二维矩阵表示一个图像。
+     *
+     * 将图像顺时针旋转 90 度。
+     *
+     * @param matrix
+     */
+    public void rotate(int[][] matrix) {
+        int len = matrix.length;
+        for (int i = 0; i < len / 2; i++) {
+            int start = i;
+            int end = len - i - 1;
+            for (int j = 0; j < end - start; j++) {
+                int temp = matrix[start][start + j];
+                matrix[start][start + j] = matrix[end - j][start];
+                matrix[end - j][start] = matrix[end][end - j];
+                matrix[end][end - j] = matrix[start + j][end];
+                matrix[start + j][end] = temp;
+            }
+        }
+    }
+
+    /**
      * 179
      * 给定一组非负整数 nums，重新排列它们每个数字的顺序（每个数字不可拆分）使之组成一个最大的整数。
      * <p>
