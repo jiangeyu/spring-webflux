@@ -40,23 +40,42 @@ public class SpinMatrix {
         return arr;
     }
 
-//    if(matrix.empty() || matrix[0].empty()) return {};
-//    vector<int> res;
-//    int m = matrix.size(), n = matrix[0].size();
-//    // 确定上下左右四条边的位置
-//    int up = 0, down = m - 1, left = 0, right = n - 1;
-//        while (true)
-//    {
-//        for (int i = left; i <= right; i++) res.push_back(matrix[up][i]);
-//        if (++up > down) break;
-//        for (int i = up; i <= down; i++) res.push_back(matrix[i][right]);
-//        if (--right < left) break;
-//        for (int i = right; i >= left; i--) res.push_back(matrix[down][i]);
-//        if (--down < up) break;
-//        for (int i = down; i >= up; i--) res.push_back(matrix[i][left]);
-//        if (++left > right) break;
-//    }
-//        return res;
+    /**
+     * 189. 旋转数组
+     *
+     * 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。
+     *
+     * @param nums
+     * @param k
+     */
+    public void rotate(int[] nums, int k) {
+        int n = nums.length;
+        k %= n;
+        for (int i = 0; i < k; i++) {
+            int temp = nums[n - 1];
+            for (int j = n - 1; j > 0; j--) {
+                nums[j] = nums[j - 1];
+            }
+            nums[0] = temp;
+        }
+    }
+
+    public void rotate_2(int[] nums, int k) {
+        int n = nums.length;
+        k %= n;
+        reverse(nums, 0, n - 1);
+        reverse(nums, 0, k - 1);
+        reverse(nums, k, n - 1);
+    }
+
+
+    private void reverse(int[] nums, int start, int end) {
+        while (start < end) {
+            int temp = nums[start];
+            nums[start++] = nums[end];
+            nums[end--] = temp;
+        }
+    }
 
     /**
      * 54. 螺旋矩阵
