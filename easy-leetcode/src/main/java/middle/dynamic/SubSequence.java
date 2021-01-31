@@ -1,6 +1,7 @@
 package middle.dynamic;
 
 import java.util.Arrays;
+import java.util.Stack;
 
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
@@ -11,8 +12,37 @@ public class SubSequence {
 
 
     /**
-     * 392. 判断子序列
+     * 316
+     * <p>
+     * 给你一个字符串 s ，请你去除字符串中重复的字母，使得每个字母只出现一次
+     * 。需保证 返回结果的字典序最小（要求不能打乱其他字符的相对位置）。
      *
+     * @param s
+     * @return
+     */
+    public static String removeDuplicateLetters(String s) {
+        Stack<Character> stack = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            Character c = s.charAt(i);
+            if (stack.contains(c))
+                continue;
+            while (!stack.isEmpty() && stack.peek() > c && s.indexOf(stack.peek(), i) != -1) {
+                stack.pop();
+            }
+            stack.push(c);
+        }
+        char chars[] = new char[stack.size()];
+        for (int i = 0; i < stack.size(); i++) {
+            chars[i] = stack.get(i);
+        }
+        return new String(chars);
+
+    }
+
+
+    /**
+     * 392. 判断子序列
+     * <p>
      * 给定字符串 s 和 t ，判断 s 是否为 t 的子序列。
      * 字符串的一个子序列是原始字符串删除一些（也可以不删除）字符而不改变剩余字符相对位置形成的新字符串。
      * （例如，"ace"是"abcde"的一个子序列，而"aec"不是）。
@@ -249,12 +279,10 @@ public class SubSequence {
 
     /**
      * 33. 搜索旋转排序数组
-     *
+     * <p>
      * 升序排列的整数数组 nums 在预先未知的某个点上进行了旋转（例如， [0,1,2,4,5,6,7] 经旋转后可能变为 [4,5,6,7,0,1,2] ）。
-     *
+     * <p>
      * 请你在数组中搜索 target ，如果数组中存在这个目标值，则返回它的索引，否则返回 -1 。
-     *
-     *
      *
      * @param nums
      * @param target
@@ -262,22 +290,21 @@ public class SubSequence {
      */
     public int search(int[] nums, int target) {
         int len = nums.length;
-        int left = 0, right = len-1;
-        while(left <= right){
+        int left = 0, right = len - 1;
+        while (left <= right) {
             int mid = (left + right) / 2;
-            if(nums[mid] == target)
+            if (nums[mid] == target)
                 return mid;
-            else if(nums[mid] < nums[right]){
-                if(nums[mid] < target && target <= nums[right])
-                    left = mid+1;
+            else if (nums[mid] < nums[right]) {
+                if (nums[mid] < target && target <= nums[right])
+                    left = mid + 1;
                 else
-                    right = mid-1;
-            }
-            else{
-                if(nums[left] <= target && target < nums[mid])
-                    right = mid-1;
+                    right = mid - 1;
+            } else {
+                if (nums[left] <= target && target < nums[mid])
+                    right = mid - 1;
                 else
-                    left = mid+1;
+                    left = mid + 1;
             }
         }
         return -1;
@@ -293,7 +320,8 @@ public class SubSequence {
         System.out.println(longestPalindrome("asddg"));
         System.out.println(longestConsecutive(new int[]{100, 4, 200, 1, 3, 2}));
         System.out.println(longestConsecutive(new int[]{1, 2, 0, 1}));
-        System.out.println(longestConsecutive(new int[]{9,1,4,7,3,-1,0,5,8,-1,6}));
+        System.out.println(longestConsecutive(new int[]{9, 1, 4, 7, 3, -1, 0, 5, 8, -1, 6}));
+        System.out.println(removeDuplicateLetters("bcabc"));
 
 
     }
