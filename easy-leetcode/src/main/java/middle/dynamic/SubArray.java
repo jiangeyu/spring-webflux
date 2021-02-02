@@ -245,7 +245,7 @@ public class SubArray {
 
     /**
      * 152. 乘积最大子数组
-     *
+     * <p>
      * 给你一个整数数组 nums ，请你找出数组中乘积最大的连续子数组（该子数组中至少包含一个数字）
      * ，并返回该子数组所对应的乘积。
      *
@@ -266,6 +266,35 @@ public class SubArray {
             max = Math.max(max, imax);
         }
         return max;
+    }
+
+
+    /**
+     * 75 颜色分类
+     *
+     * 给定一个包含红色、白色和蓝色，一共 n 个元素的数组，原地对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。
+     *
+     * 此题中，我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。
+     *
+     * 计数排序
+     *
+     *
+     * @param nums
+     */
+    public void sortColors(int[] nums) {
+        int[] temp = new int[3];
+        for (int num : nums) {
+            temp[num]++;
+        }
+
+        int index = 0;
+        for (int i = 0; i < temp.length; i++) {
+            int count = temp[i];
+            for (int j = 0; j < count; j++) {
+                nums[index] = i;
+                index++;
+            }
+        }
     }
 
 
