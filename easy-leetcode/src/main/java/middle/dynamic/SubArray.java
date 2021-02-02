@@ -222,6 +222,29 @@ public class SubArray {
         return list;
     }
 
+    /**
+     * 209
+     * 给定一个含有 n 个正整数的数组和一个正整数 s ，找出该数组中满足其和 ≥ s 的长度最小的
+     * 连续 子数组，并返回其长度。如果不存在符合条件的子数组，返回 0。
+     *
+     * @param s
+     * @param nums
+     * @return
+     */
+    public int minSubArrayLen(int s, int[] nums) {
+        int i = 0;
+        int sum = 0;
+        int len = 0;
+        for (int j = 0; j < nums.length; j++) {
+            sum += nums[j];
+            while (sum >= s) {
+                len = len == 0 ? j - i + 1 : Math.min(len, j - i + 1);
+                sum -= nums[i++];
+            }
+        }
+        return len;
+    }
+
     public static void main(String[] args) {
 //        System.out.println(maxSubArray1(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4}));
 //        System.out.println(maxSubArray2(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4}));
