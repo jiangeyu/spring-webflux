@@ -1,8 +1,6 @@
 package middle.dynamic;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
@@ -245,6 +243,60 @@ public class SubArray {
         return len;
     }
 
+    /**
+     * 152. 乘积最大子数组
+     *
+     * 给你一个整数数组 nums ，请你找出数组中乘积最大的连续子数组（该子数组中至少包含一个数字）
+     * ，并返回该子数组所对应的乘积。
+     *
+     * @param nums
+     * @return
+     */
+    public int maxProduct(int[] nums) {
+        int max = Integer.MIN_VALUE, imax = 1, imin = 1; //一个保存最大的，一个保存最小的。
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] < 0) {
+                int tmp = imax;
+                imax = imin;
+                imin = tmp;
+            } //如果数组的数是负数，那么会导致最大的变最小的，最小的变最大的。因此交换两个的值。
+            imax = Math.max(imax * nums[i], nums[i]);
+            imin = Math.min(imin * nums[i], nums[i]);
+
+            max = Math.max(max, imax);
+        }
+        return max;
+    }
+
+
+    /**
+     * 229. 求众数 II
+     * <p>
+     * 给定一个大小为 n 的整数数组，找出其中所有出现超过 ⌊ n/3 ⌋ 次的元素。
+     * <p>
+     * 进阶：尝试设计时间复杂度为 O(n)、空间复杂度为 O(1)的算法解决此问题。
+     *
+     * @param nums
+     * @return
+     */
+    public static List<Integer> majorityElement(int[] nums) {
+        List<Integer> res = new ArrayList<>();
+        Map<Integer, Integer> map = new HashMap<>();
+        int len = nums.length / 3;
+        // 开始构建一个哈希表
+        for (int num : nums) {
+            map.compute(num, (k, v) -> map.get(k) != null ? map.get(k) + 1 : 1);
+        }
+        // 对哈希表进行遍历，求出值大于n/3的值
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            if (entry.getValue() > len) {
+                res.add(entry.getKey());
+            }
+        }
+        return res;
+
+    }
+
     public static void main(String[] args) {
 //        System.out.println(maxSubArray1(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4}));
 //        System.out.println(maxSubArray2(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4}));
@@ -271,6 +323,7 @@ public class SubArray {
 //        List<int[]> result1 = twoSum(aa, 0, 0);
         System.out.println(result1);
         System.out.println(result);
+        System.out.println(majorityElement(new int[]{3, 2, 3}));
     }
 
 
