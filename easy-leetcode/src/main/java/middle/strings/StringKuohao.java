@@ -232,6 +232,24 @@ public class StringKuohao {
         return stack.isEmpty();
     }
 
+    /**
+     * 67. 二进制求和
+     *
+     * @param a
+     * @param b
+     * @return
+     */
+    public String addBinary(String a, String b) {
+        StringBuilder res = new StringBuilder();
+        for (int i = a.length() - 1, j = b.length() - 1, t = 0; i >= 0 || j >= 0 || t > 0; i--, j--) {
+            if (i >= 0) t += (a.charAt(i) - '0');
+            if (j >= 0) t += (b.charAt(j) - '0');
+            res.insert(0, t % 2);
+            t >>= 1;
+        }
+        return res.toString();
+    }
+
     public static void main(String[] args) {
         System.out.println(generateParenthesis(3));
         System.out.println(convert("PAYPALISHIRING", 3));
