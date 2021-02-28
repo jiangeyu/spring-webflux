@@ -162,6 +162,20 @@ public class StringKuohao {
         return sb.reverse().toString();
     }
 
+    /**
+     * 557. 反转字符串中的单词 III
+     * @param s
+     * @return
+     */
+    public String reverseWords(String s) {
+        String[] strs = s.split(" ");
+        StringBuffer buffer = new StringBuffer();
+        for (int i = 0; i < strs.length; i++) {
+            buffer.append(new StringBuffer(strs[i]).reverse().toString());
+            buffer.append(" ");
+        }
+        return buffer.toString().trim();
+    }
     public static void main(String[] args) {
         System.out.println(generateParenthesis(3));
         System.out.println(convert("PAYPALISHIRING", 3));
