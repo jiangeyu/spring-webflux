@@ -2,6 +2,7 @@ package middle.strings;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
@@ -80,28 +81,41 @@ public class StringKuohao {
     public int romanToInt(String s) {
         int n = s.length();
         int roman_int = 0;
-        for(int i=0;i<n;i++)
-        {
-            switch(s.charAt(i))
-            {
-                case 'I' : roman_int = roman_int + 1;break;
-                case 'V' : roman_int = roman_int + 5;break;
-                case 'X' : roman_int = roman_int + 10;break;
-                case 'L' : roman_int = roman_int + 50;break;
-                case 'C' : roman_int = roman_int + 100;break;
-                case 'D' : roman_int = roman_int + 500;break;
-                case 'M' : roman_int = roman_int + 1000;break;
-                default: System.out.println("default");break;
+        for (int i = 0; i < n; i++) {
+            switch (s.charAt(i)) {
+                case 'I':
+                    roman_int = roman_int + 1;
+                    break;
+                case 'V':
+                    roman_int = roman_int + 5;
+                    break;
+                case 'X':
+                    roman_int = roman_int + 10;
+                    break;
+                case 'L':
+                    roman_int = roman_int + 50;
+                    break;
+                case 'C':
+                    roman_int = roman_int + 100;
+                    break;
+                case 'D':
+                    roman_int = roman_int + 500;
+                    break;
+                case 'M':
+                    roman_int = roman_int + 1000;
+                    break;
+                default:
+                    System.out.println("default");
+                    break;
             }
 
-            if(i!=0)
-            {
-                if(((s.charAt(i)=='V')||(s.charAt(i)=='X'))&&(s.charAt(i-1)=='I'))
-                    roman_int = roman_int-1*2;
-                if(((s.charAt(i)=='L')||(s.charAt(i)=='C'))&&(s.charAt(i-1)=='X'))
-                    roman_int = roman_int-10*2;
-                if(((s.charAt(i)=='D')||(s.charAt(i)=='M'))&&(s.charAt(i-1)=='C'))
-                    roman_int = roman_int-100*2;
+            if (i != 0) {
+                if (((s.charAt(i) == 'V') || (s.charAt(i) == 'X')) && (s.charAt(i - 1) == 'I'))
+                    roman_int = roman_int - 1 * 2;
+                if (((s.charAt(i) == 'L') || (s.charAt(i) == 'C')) && (s.charAt(i - 1) == 'X'))
+                    roman_int = roman_int - 10 * 2;
+                if (((s.charAt(i) == 'D') || (s.charAt(i) == 'M')) && (s.charAt(i - 1) == 'C'))
+                    roman_int = roman_int - 100 * 2;
             }
         }
         return roman_int;
@@ -115,26 +129,26 @@ public class StringKuohao {
      */
     public String countAndSay(int n) {
         String s = "1";
-        for(int i=2;i<=n;i++){
+        for (int i = 2; i <= n; i++) {
             s = toConver(s);
         }
         return s;
     }
 
-    String toConver(String s){
+    String toConver(String s) {
         int len = s.length();
-        int n=0;
+        int n = 0;
         StringBuilder sb = new StringBuilder();
         char c = s.charAt(0);
-        int i=0;
-        while(i<len){
-            if(c == s.charAt(i)){
+        int i = 0;
+        while (i < len) {
+            if (c == s.charAt(i)) {
                 n++;
                 i++;
-            }else{
+            } else {
                 sb.append(n).append(c);
-                n=1;
-                c=s.charAt(i);
+                n = 1;
+                c = s.charAt(i);
                 i++;
             }
         }
@@ -144,19 +158,20 @@ public class StringKuohao {
 
     /**
      * 415. 字符串相加
-     *
+     * <p>
      * 给定两个字符串形式的非负整数 num1 和num2 ，计算它们的和。
+     *
      * @param num1
      * @param num2
      * @return
      */
     public String addStrings(String num1, String num2) {
         StringBuilder sb = new StringBuilder();
-        int carry = 0, i = num1.length()-1, j = num2.length()-1;
-        while(i >= 0 || j >= 0 || carry != 0){
-            if(i>=0) carry += num1.charAt(i--)-'0';
-            if(j>=0) carry += num2.charAt(j--)-'0';
-            sb.append(carry%10);
+        int carry = 0, i = num1.length() - 1, j = num2.length() - 1;
+        while (i >= 0 || j >= 0 || carry != 0) {
+            if (i >= 0) carry += num1.charAt(i--) - '0';
+            if (j >= 0) carry += num2.charAt(j--) - '0';
+            sb.append(carry % 10);
             carry /= 10;
         }
         return sb.reverse().toString();
@@ -164,6 +179,7 @@ public class StringKuohao {
 
     /**
      * 557. 反转字符串中的单词 III
+     *
      * @param s
      * @return
      */
@@ -176,6 +192,46 @@ public class StringKuohao {
         }
         return buffer.toString().trim();
     }
+
+
+    /**
+     * 14. 最长公共前缀
+     *
+     * @param strs
+     * @return
+     */
+    public String longestCommonPrefix(String[] strs) {
+        if (strs.length == 0) return "";
+        //公共前缀比所有字符串都短，随便选一个先
+        String s = strs[0];
+        for (String string : strs) {
+            while (!string.startsWith(s)) {
+                if (s.length() == 0) return "";
+                //公共前缀不匹配就让它变短！
+                s = s.substring(0, s.length() - 1);
+            }
+        }
+        return s;
+    }
+
+
+    /**
+     * 20. 有效的括号
+     *
+     * @param s
+     * @return
+     */
+    public boolean isValid(String s) {
+        Stack<Character> stack = new Stack<Character>();
+        for (char c : s.toCharArray()) {
+            if (c == '(') stack.push(')');
+            else if (c == '[') stack.push(']');
+            else if (c == '{') stack.push('}');
+            else if (stack.isEmpty() || c != stack.pop()) return false;
+        }
+        return stack.isEmpty();
+    }
+
     public static void main(String[] args) {
         System.out.println(generateParenthesis(3));
         System.out.println(convert("PAYPALISHIRING", 3));
