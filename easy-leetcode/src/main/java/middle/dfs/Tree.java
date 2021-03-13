@@ -45,13 +45,12 @@ public class Tree {
 
     /**
      * 104. 二叉树的最大深度
-     *
-     *给定一个二叉树，找出其最大深度。
-     *
+     * <p>
+     * 给定一个二叉树，找出其最大深度。
+     * <p>
      * 二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。
-     *
+     * <p>
      * 说明: 叶子节点是指没有子节点的节点。
-     *
      *
      * @param root
      * @return
@@ -81,6 +80,7 @@ public class Tree {
 
     /**
      * 104. 二叉树的最大深度
+     *
      * @param root
      * @return
      */
@@ -133,22 +133,20 @@ public class Tree {
     }
 
 
-    private List<TreeNode> buildTrees(int start, int end){
+    private List<TreeNode> buildTrees(int start, int end) {
         List<TreeNode> result = new ArrayList<>();
-        if (start==end){
+        if (start == end) {
             result.add(new TreeNode(start));
             return result;
-        }
-        else if (start>end){
+        } else if (start > end) {
             result.add(null);
             return result;
-        }
-        else {
-            for (int i=start;i<=end;i++){
-                List<TreeNode> left = buildTrees(start,i-1);
-                List<TreeNode> right = buildTrees(i+1, end);
-                for (TreeNode l:left){
-                    for (TreeNode r:right){
+        } else {
+            for (int i = start; i <= end; i++) {
+                List<TreeNode> left = buildTrees(start, i - 1);
+                List<TreeNode> right = buildTrees(i + 1, end);
+                for (TreeNode l : left) {
+                    for (TreeNode r : right) {
                         result.add(new TreeNode(i, l, r));
                     }
                 }
@@ -158,15 +156,14 @@ public class Tree {
     }
 
     public List<TreeNode> generateTrees(int n) {
-        if (n==0)
+        if (n == 0)
             return new ArrayList<>();
-        return buildTrees(1,n);
+        return buildTrees(1, n);
     }
 
 
     /**
      * 226. 翻转二叉树
-     *
      *
      * @param root
      * @return
@@ -178,7 +175,7 @@ public class Tree {
     }
 
     public void preorder(TreeNode node) {
-        if(node==null){
+        if (node == null) {
             return;
         }
         TreeNode left = node.left;
@@ -216,41 +213,41 @@ public class Tree {
 
     /**
      * 257. 二叉树的所有路径
-     *
-     *
+     * <p>
+     * <p>
      * 给定一个二叉树，返回所有从根节点到叶子节点的路径。
-     *
+     * <p>
      * 说明: 叶子节点是指没有子节点的节点。
+     *
      * @param root
      * @return
      */
     public List<String> binaryTreePaths(TreeNode root) {
-        if(root == null){
+        if (root == null) {
             return ans;
         }
         dfs(root, "");
         return ans;
     }
 
-    public void dfs(TreeNode root, String s){
+    public void dfs(TreeNode root, String s) {
         s += root.val;  //拼接上新的节点值
-        if(root.left == null && root.right == null){
+        if (root.left == null && root.right == null) {
             ans.add(s);
         }
-        if(root.left != null){
+        if (root.left != null) {
             dfs(root.left, s + "->");
         }
-        if(root.right != null){
+        if (root.right != null) {
             dfs(root.right, s + "->");
         }
     }
 
     /**
-     *
      * 112. 路径总和
-     *
+     * <p>
      * 定一个二叉树和一个目标和，判断该树中是否存在根节点到叶子节点的路径，这条路径上所有节点值相加等于目标和。
-     *
+     * <p>
      * 说明: 叶子节点是指没有子节点的节点。
      *
      * @param root
@@ -271,30 +268,31 @@ public class Tree {
 
     /**
      * 101. 对称二叉树
-     *
+     * <p>
      * 给定一个二叉树，检查它是否是镜像对称的。
+     *
      * @param root
      * @return
      */
     public boolean isSymmetric(TreeNode root) {
-        if(root == null) return true;
+        if (root == null) return true;
         return isSymmertric(root.left, root.right);
     }
 
-    private boolean isSymmertric(TreeNode t1,TreeNode t2) {
-        if(t1 == null && t2 == null) return true;
-        if(t1 == null || t2 == null) return false;
-        if(t1.val != t2.val) return false;
+    private boolean isSymmertric(TreeNode t1, TreeNode t2) {
+        if (t1 == null && t2 == null) return true;
+        if (t1 == null || t2 == null) return false;
+        if (t1.val != t2.val) return false;
         return isSymmertric(t1.left, t2.right) && isSymmertric(t1.right, t2.left);
     }
 
     int max = 0;
 
     /**
-     *
      * 543. 二叉树的直径
+     * <p>
+     * 给定一棵二叉树，你需要计算它的直径长度。一棵二叉树的直径长度是任意两个结点路径长度中的最大值。这条路径可能穿过也可能不穿过根结点。
      *
-     *给定一棵二叉树，你需要计算它的直径长度。一棵二叉树的直径长度是任意两个结点路径长度中的最大值。这条路径可能穿过也可能不穿过根结点。
      * @param root
      * @return
      */
@@ -310,8 +308,8 @@ public class Tree {
         if (root.left == null && root.right == null) {
             return 0;
         }
-        int leftSize = root.left == null? 0: dfs(root.left) + 1;
-        int rightSize = root.right == null? 0: dfs(root.right) + 1;
+        int leftSize = root.left == null ? 0 : dfs(root.left) + 1;
+        int rightSize = root.right == null ? 0 : dfs(root.right) + 1;
         max = Math.max(max, leftSize + rightSize);
         return Math.max(leftSize, rightSize);
     }
@@ -320,11 +318,11 @@ public class Tree {
 
     /**
      * 124. 二叉树中的最大路径和
-     *
+     * <p>
      * 路径 被定义为一条从树中任意节点出发，沿父节点-子节点连接，达到任意节点的序列。该路径 至少包含一个 节点，且不一定经过根节点。
-     *
+     * <p>
      * 路径和 是路径中各节点值的总和。
-     *
+     * <p>
      * 给你一个二叉树的根节点 root ，返回其 最大路径和 。
      *
      * @param root
@@ -341,7 +339,7 @@ public class Tree {
     }
 
     private int getMax(TreeNode r) {
-        if(r == null) return 0;
+        if (r == null) return 0;
         int left = Math.max(0, getMax(r.left)); // 如果子树路径和为负则应当置0表示最大路径不包含子树
         int right = Math.max(0, getMax(r.right));
         ret = Math.max(ret, r.val + left + right); // 判断在该节点包含左右子树的路径和是否大于当前最大路径和
@@ -351,12 +349,12 @@ public class Tree {
 
     /**
      * 617. 合并二叉树
-     *
+     * <p>
      * 给定两个二叉树，想象当你将它们中的一个覆盖到另一个上时，两个二叉树的一些节点便会重叠。
-     *
+     * <p>
      * 你需要将他们合并为一个新的二叉树。合并的规则是如果两个节点重叠，那么将他们的值相加作为节点合并后的新值，否则不为 NULL 的节点将直接作为新二叉树的节点。
-     *
-     *
+     * <p>
+     * <p>
      * 不修改原二叉树的解法
      */
     public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
@@ -374,19 +372,18 @@ public class Tree {
 
     /**
      * 107. 二叉树的层序遍历 II
-     *
+     * <p>
      * 给定一个二叉树，返回其节点值自底向上的层序遍历。 （即按从叶子节点所在层到根节点所在的层，逐层从左向右遍历）
-     *
+     * <p>
      * 例如：
      * 给定二叉树 [3,9,20,null,null,15,7],
-     *
+     * <p>
      * 返回其自底向上的层序遍历为：
      * [
-     *   [15,7],
-     *   [9,20],
-     *   [3]
+     * [15,7],
+     * [9,20],
+     * [3]
      * ]
-     *
      *
      * @param root
      * @return
@@ -413,5 +410,98 @@ public class Tree {
             result.addLast(oneLevel);
         }
         return result;
+    }
+
+    /**
+     * 103. 二叉树的锯齿形层序遍历
+     *
+     * @param root
+     * @return
+     */
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> lists = new ArrayList();
+        if (root == null) return lists;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        int temp = 0;
+        while (!queue.isEmpty()) {
+            List<Integer> list = new ArrayList<>();
+            int num = queue.size();
+            for (int i = 0; i < num; i++) {
+                TreeNode node = queue.poll();
+                list.add(node.val);
+                if (node.left != null) queue.offer(node.left);
+                if (node.right != null) queue.offer(node.right);
+            }
+            if (temp % 2 == 1) {
+                Collections.reverse(list);
+            }
+            lists.add(list);
+            temp += 1;
+        }
+        return lists;
+    }
+
+    /**
+     * 给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
+     *
+     * @param root
+     * @param p
+     * @param q
+     * @return
+     */
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        // LCA 问题
+        if (root == null) {
+            return root;
+        }
+        if (root == p || root == q) {
+            return root;
+        }
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        if (left != null && right != null) {
+            return root;
+        } else if (left != null) {
+            return left;
+        } else if (right != null) {
+            return right;
+        }
+        return null;
+    }
+
+    /**
+     *
+     * 给你二叉树的根节点 root 和一个整数目标和 targetSum ，找出所有 从根节点到叶子节点 路径总和等于给定目标和的路径。
+     *
+     * 叶子节点 是指没有子节点的节点。
+     *
+     *
+     * @param root
+     * @param targetSum
+     * @return
+     */
+    List<List<Integer>> res = new ArrayList<>();
+
+    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+        List<Integer> cur = new ArrayList<>();
+        dfs(root, cur, 0, sum);
+        return res;
+    }
+
+    public void dfs(TreeNode node, List<Integer> cur, int sum, int target) {
+        if (node == null) {
+            return;
+        }
+        if (node.left == null && node.right == null && node.val + sum == target) {
+            cur.add(node.val);
+            res.add(new ArrayList<>(cur));
+            cur.remove(cur.size() - 1);
+            return;
+        }
+        cur.add(node.val);
+        dfs(node.left, cur, sum + node.val, target);
+        dfs(node.right, cur, sum + node.val, target);
+        cur.remove(cur.size() - 1);
     }
 }
