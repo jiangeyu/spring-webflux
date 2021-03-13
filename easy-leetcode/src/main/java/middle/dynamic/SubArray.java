@@ -271,13 +271,12 @@ public class SubArray {
 
     /**
      * 75 颜色分类
-     *
+     * <p>
      * 给定一个包含红色、白色和蓝色，一共 n 个元素的数组，原地对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。
-     *
+     * <p>
      * 此题中，我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。
-     *
+     * <p>
      * 计数排序
-     *
      *
      * @param nums
      */
@@ -317,11 +316,11 @@ public class SubArray {
 
     public int reverse(int x) {
         long n = 0;
-        while(x != 0) {
-            n = n*10 + x%10;
-            x = x/10;
+        while (x != 0) {
+            n = n * 10 + x % 10;
+            x = x / 10;
         }
-        return (int)n==n? (int)n:0;
+        return (int) n == n ? (int) n : 0;
     }
 
     /**
@@ -352,6 +351,23 @@ public class SubArray {
 
     }
 
+    public static int findKthLargest(int[] nums, int k) {
+        Arrays.sort(nums);
+        int n = nums.length;
+        int result = 0;
+        int count = 1;
+        for (int i = n - 1; i > 0; i--) {
+            if (nums[i] != nums[i - 1]) {
+                count++;
+            }
+            if (count == k) {
+                result = nums[i-1];
+                break;
+            }
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
 //        System.out.println(maxSubArray1(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4}));
 //        System.out.println(maxSubArray2(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4}));
@@ -379,6 +395,8 @@ public class SubArray {
         System.out.println(result1);
         System.out.println(result);
         System.out.println(majorityElement(new int[]{3, 2, 3}));
+        System.out.println(findKthLargest(new int[]{-1, 0, 1, 2, -1, -4}, 2));
+        System.out.println(findKthLargest(new int[]{3,2,3,1,2,4,5,5,6}, 4));
     }
 
 
