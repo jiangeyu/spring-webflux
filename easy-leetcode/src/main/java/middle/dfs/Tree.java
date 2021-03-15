@@ -533,4 +533,86 @@ public class Tree {
         }
         return res;
     }
+
+    /**
+     * 广度遍历二叉树，当出现 null 值时停止遍历，如果此时还有没有遍历到的结点，说明该树非完全二叉树。
+     */
+    public boolean isCompleteTree(TreeNode root) {
+        LinkedList<TreeNode> q = new LinkedList<>();
+        TreeNode cur;
+        q.addLast(root);
+        while ((cur = q.removeFirst()) != null) {
+            q.addLast(cur.left);
+            q.addLast(cur.right);
+        }
+        while (!q.isEmpty()) {
+            if (q.removeLast() != null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 二叉树的完全性检验
+     *
+     * @param root
+     * @return
+     */
+    public boolean isCompleteTree2(TreeNode root) {
+        if (root == null) return true;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        TreeNode temp;
+        boolean flag = false;
+        while (!queue.isEmpty()) {
+            temp = queue.remove();
+            if (temp == null){
+                flag = true;
+                continue;
+            }
+            if (flag) return false;
+            queue.add(temp.left);
+            queue.add(temp.right);
+        }
+        return true;
+    }
+
+    public boolean isBalanced(TreeNode root) {
+        return height(root) >= 0;
+    }
+
+    private int height(TreeNode root) {
+        if(root == null)
+            return 0;
+        int lh = height(root.left), rh = height(root.right);
+        if(lh >= 0 && rh >= 0 && Math.abs(lh - rh) <= 1) {
+            return Math.max(lh, rh) + 1;
+        } else {
+            return -1;
+        }
+    }
+
+
+    /**
+     * 二叉树的中序遍历
+     * @param root
+     * @return
+     */
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode cur = root;
+        while (cur != null || !stack.isEmpty()) {
+            if (cur != null) {
+                stack.push(cur);
+                cur = cur.left;
+            } else {
+                cur = stack.pop();
+                list.add(cur.val);
+                cur = cur.right;
+            }
+        }
+        return list;
+    }
 }

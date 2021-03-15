@@ -1,9 +1,6 @@
 package middle.strings;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
@@ -194,6 +191,12 @@ public class StringKuohao {
         return buffer.toString().trim();
     }
 
+    public String reverseWords(String s) {
+        String[] words = s.trim().split(" +");
+        Collections.reverse(Arrays.asList(words));
+        return String.join(" ", words);
+    }
+
 
     /**
      * 14. 最长公共前缀
@@ -301,6 +304,14 @@ public class StringKuohao {
             default:
                 return new ArrayList();
         }
+    }
+
+    public String reverseWords(String s) {
+        return Arrays.stream(s.split(" "))
+                .map(String::trim)
+                .filter(word -> !word.isEmpty())
+                .reduce((word1, word2) -> word2 + " " + word1)
+                .orElse("");
     }
 
     public static void main(String[] args) {
