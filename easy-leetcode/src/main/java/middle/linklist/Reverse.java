@@ -1,6 +1,7 @@
 package middle.linklist;
 
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 /**
@@ -399,6 +400,37 @@ public class Reverse {
             }
         }
         return head;
+    }
+
+    /**
+     * 143. 重排链表
+     * 给定一个单链表 L：L0→L1→…→Ln-1→Ln ，
+     * 将其重新排列后变为： L0→Ln→L1→Ln-1→L2→Ln-2→…
+     *
+     * 你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。
+     *
+     * @param head
+     */
+    public void reorderList(ListNode head) {
+        LinkedList<ListNode> queue = new LinkedList<>();
+        ListNode cur = head;
+        while (cur != null) {
+            queue.addLast(cur);
+            cur = cur.next;
+        }
+        while (!queue.isEmpty()) {
+            if (cur == null) {
+                cur = queue.pollFirst();
+            } else {
+                cur.next = queue.pollFirst();
+                cur = cur.next;
+            }
+            cur.next = queue.pollLast();
+            cur = cur.next;
+        }
+        if (cur != null) {
+            cur.next = null;
+        }
     }
 }
 
