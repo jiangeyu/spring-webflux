@@ -245,4 +245,52 @@ public class GenerateTree {
     }
 
 
+    static int sum;
+
+    /**
+     *
+     * @param root
+     * @return
+     */
+    public int sumNumbers(TreeNode root) {
+        sum = 0;
+        childSum(0, root);
+        return sum;
+    }
+    public static void  childSum(int val, TreeNode root) {
+        if(root == null) return;
+        int k = (val * 10 + root.val) ;
+        if(root.left == null && root.right == null) {
+            sum += k;
+        }
+        childSum(k, root.left);
+        childSum(k, root.right);
+    }
+
+
+    /**
+     * 二叉树前序遍历
+     *
+     * @param root
+     * @return
+     */
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        pre(root, res);
+        return res;
+    }
+
+    private void pre(TreeNode root, List<Integer> res) {
+        Stack<TreeNode> stack = new Stack<>();
+        while (root != null || !stack.isEmpty()) {
+            while (root != null) {
+                res.add(root.val);
+                stack.add(root);
+                root = root.left;
+            }
+            root = stack.pop().right;
+        }
+    }
+
+
 }

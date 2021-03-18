@@ -380,9 +380,9 @@ public class Reverse {
 
     /**
      * 剑指 Offer 22. 链表中倒数第k个节点
-     *
+     * <p>
      * 输入一个链表，输出该链表中倒数第k个节点。为了符合大多数人的习惯，本题从1开始计数，即链表的尾节点是倒数第1个节点。
-     *
+     * <p>
      * 例如，一个链表有 6 个节点，从头节点开始，它们的值依次是 1、2、3、4、5、6。这个链表的倒数第 3 个节点是值为 4 的节点。
      *
      * @param head
@@ -391,11 +391,11 @@ public class Reverse {
      */
     public ListNode getKthFromEnd(ListNode head, int k) {
         ListNode fast = head;
-        while(fast!=null) {
+        while (fast != null) {
             fast = fast.next;
-            if(k==0) {
+            if (k == 0) {
                 head = head.next;
-            }else {
+            } else {
                 k--;
             }
         }
@@ -406,7 +406,7 @@ public class Reverse {
      * 143. 重排链表
      * 给定一个单链表 L：L0→L1→…→Ln-1→Ln ，
      * 将其重新排列后变为： L0→Ln→L1→Ln-1→L2→Ln-2→…
-     *
+     * <p>
      * 你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。
      *
      * @param head
@@ -431,6 +431,51 @@ public class Reverse {
         if (cur != null) {
             cur.next = null;
         }
+    }
+
+    /**
+     * 83. 删除排序链表中的重复元素
+     *
+     * @param head
+     * @return
+     */
+    public ListNode deleteDuplicates(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        if (head.next == null) {
+            return head;
+        }
+        if (head.val == head.next.val) {
+            head = deleteDuplicates(head.next);
+        } else {
+            head.next = deleteDuplicates(head.next);
+        }
+        return head;
+    }
+
+    /**
+     * 19. 删除链表的倒数第 N 个结点
+     */
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        if ((head == null) || (head.next == null)) {
+            return null;
+        }
+        ;
+        ListNode fast = head, slow = head;
+        for (int i = 0; i < n; i++) {
+            fast = fast.next;
+        }
+        if (fast == null) {
+            return head.next;
+        }
+
+        while (fast.next != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        slow.next = slow.next.next;
+        return head;
     }
 }
 

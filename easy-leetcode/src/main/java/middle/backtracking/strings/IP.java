@@ -2,6 +2,7 @@ package middle.backtracking.strings;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
@@ -11,7 +12,7 @@ import java.util.List;
 public class IP {
 
     /**
-     * 复制ip地址
+     * 93. 复原 IP 地址
      *
      * @param s
      * @return
@@ -62,7 +63,54 @@ public class IP {
         }
     }
 
+    /**
+     * 394. 字符串解码
+     * <p>
+     * 给定一个经过编码的字符串，返回它解码后的字符串。
+     * <p>
+     * 编码规则为: k[encoded_string]，表示其中方括号内部的 encoded_string 正好重复 k 次。注意 k 保证为正整数。
+     * <p>
+     * 你可以认为输入字符串总是有效的；输入字符串中没有额外的空格，且输入的方括号总是符合格式要求的。
+     * <p>
+     * 此外，你可以认为原始数据不包含数字，所有的数字只表示重复的次数 k ，例如不会出现像 3a 或 2[4] 的输入。
+     *
+     * @param s
+     * @return
+     */
+    public String decodeString(String s) {
 
+        Stack<String> stack = new Stack<String>();
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == ']') {
+                String string = "";
+                while (!stack.peek().equals("[")) {
+                    string = stack.pop() + string;
+                }
+                stack.pop();
+
+                String countString = "";
+                while ((!stack.isEmpty()) && (stack.peek().charAt(0) >= '0' && stack.peek().charAt(0) <= '9')) {
+                    countString = stack.pop() + countString;
+                }
+                int count = Integer.parseInt(countString);
+
+                String retString = "";
+                for (int j = 0; j < count; j++) {
+                    retString = retString + string;
+                }
+                stack.push(retString);
+            } else {
+                String str = "" + s.charAt(i);
+                stack.push(str);
+            }
+        }
+
+        String result = "";
+        while (!stack.isEmpty()) {
+            result = stack.pop() + result;
+        }
+        return result;
+    }
 
 
 }
