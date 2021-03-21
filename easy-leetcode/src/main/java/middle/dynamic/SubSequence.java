@@ -310,6 +310,38 @@ public class SubSequence {
         return -1;
     }
 
+    /**
+     * 剑指 Offer 67. 把字符串转换成整数
+     *
+     *
+     * @param str
+     * @return
+     */
+    public int strToInt(String str) {
+        boolean isNegative = false;
+        int i = 0;
+        int j = 0;
+        long res = 0;
+        str = str.trim();
+        if (str.length() == 0) return 0;
+        //判断首位
+        char[] ch = str.toCharArray();
+        //首位有三种情况，+ - 或者数字
+        if (ch[0] != '-' && ch[0] != '+' && !Character.isDigit(ch[0])) return 0;
+        if (ch[0] == '-') {
+            isNegative = true;
+            i++;
+        } else if (ch[0] == '+') {
+            i++;
+        }
+        while (i < str.length() && Character.isDigit(ch[i])) {
+            res = res * 10 + (ch[i++] - '0');
+            if (res > Integer.MAX_VALUE && isNegative == false) return Integer.MAX_VALUE;
+            if (res > Integer.MAX_VALUE && isNegative == true) return Integer.MIN_VALUE;
+        }
+        return isNegative == false ? (int) res : (int) -res;
+    }
+
     public static void main(String[] args) {
 //        System.out.println(longestCommonSubsequence("abc", "ace"));
 //        System.out.println(longestCommonSubsequence("abcde", "ace"));

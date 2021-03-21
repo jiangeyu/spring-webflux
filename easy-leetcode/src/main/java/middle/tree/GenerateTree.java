@@ -221,9 +221,9 @@ public class GenerateTree {
     /**
      * 98. 验证二叉搜索树
      * 给定一个二叉树，判断其是否是一个有效的二叉搜索树。
-     *
+     * <p>
      * 假设一个二叉搜索树具有如下特征：
-     *
+     * <p>
      * 节点的左子树只包含小于当前节点的数。
      * 节点的右子树只包含大于当前节点的数。
      * 所有左子树和右子树自身必须也是二叉搜索树。
@@ -248,7 +248,6 @@ public class GenerateTree {
     static int sum;
 
     /**
-     *
      * @param root
      * @return
      */
@@ -257,10 +256,11 @@ public class GenerateTree {
         childSum(0, root);
         return sum;
     }
-    public static void  childSum(int val, TreeNode root) {
-        if(root == null) return;
-        int k = (val * 10 + root.val) ;
-        if(root.left == null && root.right == null) {
+
+    public static void childSum(int val, TreeNode root) {
+        if (root == null) return;
+        int k = (val * 10 + root.val);
+        if (root.left == null && root.right == null) {
             sum += k;
         }
         childSum(k, root.left);
@@ -290,6 +290,34 @@ public class GenerateTree {
             }
             root = stack.pop().right;
         }
+    }
+
+    /**
+     * 查找左子树节点个数为leftN,如果K<=leftN,则所查找节点在左子树上.
+     * 若K=leftN+1,则所查找节点为根节点
+     * 若K>leftN+1,则所查找节点在右子树上,按照同样方法查找右子树第K-leftN个节点
+     *
+     * @param root
+     * @param k
+     * @return
+     */
+    public int kthSmallest(TreeNode root, int k) {
+        int leftN = findChild(root.left);
+        if (leftN + 1 == k) return root.val;
+        else if (k <= leftN) {
+            return kthSmallest(root.left, k);
+        } else return kthSmallest(root.right, k - leftN - 1);
+    }
+
+    /**
+     * 查找子节点个数
+     *
+     * @param root
+     * @return
+     */
+    public int findChild(TreeNode root) {
+        if (root == null) return 0;
+        return findChild(root.left) + findChild(root.right) + 1;
     }
 
 

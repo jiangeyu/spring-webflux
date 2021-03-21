@@ -47,18 +47,42 @@ public class Jump {
 
 
     public static int climbStairs(int n) {
-        if(n<=2){
+        if (n <= 2) {
             return n;
         }
         int i1 = 1;
         int i2 = 2;
-        for(int i=3;i<=n;i++){
-            int temp = i1+i2;
+        for (int i = 3; i <= n; i++) {
+            int temp = i1 + i2;
             i1 = i2;
             i2 = temp;
         }
         return i2;
 
+    }
+
+
+    /**
+     * 剑指 Offer 10- II. 青蛙跳台阶问题
+     * <p>
+     * 一只青蛙一次可以跳上1级台阶，也可以跳上2级台阶。求该青蛙跳上一个 n 级的台阶总共有多少种跳法。
+     * <p>
+     * 答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。
+     *
+     * @param n
+     * @return
+     */
+    public int numWays(int n) {
+        if (n <= 1) return 1;
+        if (n == 2) return 2;
+        int pre = 1;
+        int next = 2;
+        for (int i = 2; i < n; i++) {
+            int temp = next;
+            next = (pre + next) % 1000000007;
+            pre = temp;
+        }
+        return next;
     }
 
     public static void main(String[] args) {

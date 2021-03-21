@@ -1,8 +1,6 @@
 package middle.backtracking.strings;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
@@ -112,5 +110,38 @@ public class IP {
         return result;
     }
 
+    /**
+     * 242. 有效的字母异位词
+     *
+     * @param s
+     * @param t
+     * @return
+     */
+
+    public boolean isAnagram(String s, String t) {
+        char[] sChars = s.toCharArray();
+        char[] tChars = t.toCharArray();
+        Arrays.sort(sChars);
+        Arrays.sort(tChars);
+        return Arrays.equals(sChars, tChars);
+    }
+
+    /**
+     * 49. 字母异位词分组
+     *
+     * @param strs
+     * @return
+     */
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String, ArrayList<String>> map = new HashMap<>();
+        for (String s : strs) {
+            char[] ch = s.toCharArray();
+            Arrays.sort(ch);
+            String key = String.valueOf(ch);
+            if (!map.containsKey(key)) map.put(key, new ArrayList<>());
+            map.get(key).add(s);
+        }
+        return new ArrayList(map.values());
+    }
 
 }

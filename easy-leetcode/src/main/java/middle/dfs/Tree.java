@@ -615,4 +615,46 @@ public class Tree {
         }
         return list;
     }
+
+    /**
+     * 剑指 Offer 27. 二叉树的镜像
+     *
+     *
+     * @param root
+     * @return
+     */
+    public TreeNode mirrorTree(TreeNode root) {
+        return swap(root);
+    }
+
+    TreeNode swap(TreeNode root){
+        if(root == null) return root;
+        swap(root.left);
+        swap(root.right);
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+        return root;
+    }
+
+    /**
+     * 剑指 Offer 54. 二叉搜索树的第k大节点
+     *
+     * @param root
+     * @param k
+     * @return
+     */
+    public int kthLargest(TreeNode root, int k) {
+        // clarification:  root == null?   k <= 1?
+        List<Integer> list = new ArrayList<>();
+        helper(root, list);
+        return list.get(list.size() - k);
+    }
+
+    private void helper(TreeNode root, List<Integer> list) {
+        if (root == null) return;
+        if (root.left != null) helper(root.left, list);
+        list.add(root.val);
+        if (root.right != null) helper(root.right, list);
+    }
 }

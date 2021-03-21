@@ -454,6 +454,8 @@ public class Reverse {
         return head;
     }
 
+
+
     /**
      * 19. 删除链表的倒数第 N 个结点
      */
@@ -476,6 +478,37 @@ public class Reverse {
         }
         slow.next = slow.next.next;
         return head;
+    }
+
+
+    /**
+     *
+     * 977. 有序数组的平方
+     *
+     *
+     *给你一个按 非递减顺序 排序的整数数组 nums，返回 每个数字的平方 组成的新数组，要求也按 非递减顺序 排序。
+     *
+     * @param nums
+     * @return
+     */
+    public int[] sortedSquares(int[] nums) {
+        int i = 0 ,j = nums.length - 1;
+        int x = nums.length - 1;
+        int[] nums2 = new int[nums.length];
+        while (i <= j) {
+            int s1 = nums[i] * nums[i];
+            int s2 = nums[j] * nums[j];
+            if (s1 > s2) {
+                nums2[x] = s1;
+                i++;
+                x--;
+            }else {
+                nums2[x] = s2;
+                j--;
+                x--;
+            }
+        }
+        return nums2;
     }
 }
 
