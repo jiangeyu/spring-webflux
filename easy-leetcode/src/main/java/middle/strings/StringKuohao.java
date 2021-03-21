@@ -197,11 +197,11 @@ public class StringKuohao {
         return buffer.toString().trim();
     }
 
-    public String reverseWords(String s) {
-        String[] words = s.trim().split(" +");
-        Collections.reverse(Arrays.asList(words));
-        return String.join(" ", words);
-    }
+//    public String reverseWords(String s) {
+//        String[] words = s.trim().split(" +");
+//        Collections.reverse(Arrays.asList(words));
+//        return String.join(" ", words);
+//    }
 
 
     /**
@@ -314,13 +314,13 @@ public class StringKuohao {
         }
     }
 
-    public String reverseWords(String s) {
-        return Arrays.stream(s.split(" "))
-                .map(String::trim)
-                .filter(word -> !word.isEmpty())
-                .reduce((word1, word2) -> word2 + " " + word1)
-                .orElse("");
-    }
+//    public String reverseWords(String s) {
+//        return Arrays.stream(s.split(" "))
+//                .map(String::trim)
+//                .filter(word -> !word.isEmpty())
+//                .reduce((word1, word2) -> word2 + " " + word1)
+//                .orElse("");
+//    }
 
 
     /**

@@ -1,9 +1,6 @@
 package middle.matrix;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
@@ -263,6 +260,55 @@ public class SpinMatrix {
             nums[j++] = 0;
         }
 
+    }
+
+    private int[] preSum;
+    private int sum;
+
+    /**
+     * 528. 按权重随机选择
+     *
+     * 给定一个正整数数组 w ，其中 w[i] 代表下标 i 的权重（下标从 0 开始），
+     * 请写一个函数 pickIndex ，它可以随机地获取下标 i，选取下标 i 的概率与 w[i] 成正比。
+     *
+     * 例如，对于 w = [1, 3]，挑选下标 0 的概率为 1 / (1 + 3) = 0.25 （即，25%）
+     * ，而选取下标 1 的概率为 3 / (1 + 3) = 0.75（即，75%）。
+     *
+     * 也就是说，选取下标 i 的概率为 w[i] / sum(w) 。
+     *
+     * @param w
+     */
+//    public Solution(int[] w) {
+//        preSum = new int[w.length+1];
+//        preSum[0] = 0;
+//        for (int i = 1; i <= preSum.length-1; i++) {
+//            preSum[i] = preSum[i - 1] + w[i-1];
+//        }
+//        sum = preSum[preSum.length-1];
+//    }
+
+    public int pickIndex() {
+        int r = new Random().nextInt(sum);
+        return binSearchPreSumReturnWIndex(r);
+    }
+
+    private int binSearchPreSumReturnWIndex(int r) {
+        int start = 0;
+        int end = preSum.length - 1;
+        int memo = 0;
+        while (start <= end) {
+            int mid = start + ((end - start) >> 1);
+            if (preSum[mid] == r) {
+                return mid;
+            }
+            if (preSum[mid] < r) {
+                memo = mid;
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+        return memo;
     }
 
 
