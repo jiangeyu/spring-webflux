@@ -1,8 +1,6 @@
 package middle.linklist;
 
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
@@ -304,6 +302,36 @@ public class Reverse {
     }
 
     /**
+     * 328. 奇偶链表
+     * <p>
+     * 给定一个单链表，把所有的奇数节点和偶数节点分别排在一起。请注意，这里的奇数节点和偶数节点指的是节点编号的奇偶性，而不是节点的值的奇偶性。
+     * <p>
+     * 请尝试使用原地算法完成。你的算法的空间复杂度应为 O(1)，时间复杂度应为 O(nodes)，nodes 为节点总数。
+     *
+     * @param head
+     * @return
+     */
+    public ListNode oddEvenList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        // head 为奇链表头结点，o 为奇链表尾节点
+        ListNode o = head;
+        // p 为偶链表头结点
+        ListNode p = head.next;
+        // e 为偶链表尾节点
+        ListNode e = p;
+        while (o.next != null && e.next != null) {
+            o.next = e.next;
+            o = o.next;
+            e.next = o.next;
+            e = e.next;
+        }
+        o.next = p;
+        return head;
+    }
+
+    /**
      * 相交链表
      * 编写一个程序，找到两个单链表相交的起始节点。
      *
@@ -455,7 +483,6 @@ public class Reverse {
     }
 
 
-
     /**
      * 19. 删除链表的倒数第 N 个结点
      */
@@ -482,17 +509,16 @@ public class Reverse {
 
 
     /**
-     *
      * 977. 有序数组的平方
-     *
-     *
-     *给你一个按 非递减顺序 排序的整数数组 nums，返回 每个数字的平方 组成的新数组，要求也按 非递减顺序 排序。
+     * <p>
+     * <p>
+     * 给你一个按 非递减顺序 排序的整数数组 nums，返回 每个数字的平方 组成的新数组，要求也按 非递减顺序 排序。
      *
      * @param nums
      * @return
      */
     public int[] sortedSquares(int[] nums) {
-        int i = 0 ,j = nums.length - 1;
+        int i = 0, j = nums.length - 1;
         int x = nums.length - 1;
         int[] nums2 = new int[nums.length];
         while (i <= j) {
@@ -502,13 +528,93 @@ public class Reverse {
                 nums2[x] = s1;
                 i++;
                 x--;
-            }else {
+            } else {
                 nums2[x] = s2;
                 j--;
                 x--;
             }
         }
         return nums2;
+    }
+
+
+    /**
+     * 61. 旋转链表
+     * 给定一个链表，旋转链表，将链表每个节点向右移动 k 个位置，其中 k 是非负数。
+     *
+     * @param head
+     * @param k
+     * @return
+     */
+    public ListNode rotateRight(ListNode head, int k) {
+        if (head == null || head.next == null || k == 0) {
+            return head;
+        }
+
+        int count = 1; // 用来统计链表总结点数
+        ListNode tmp = head;
+        while (tmp.next != null) {
+            count++;
+            tmp = tmp.next;
+        }
+        k %= count;
+        // 当k为0时，不需要旋转，
+        if (k == 0) {
+            return head;
+        }
+
+        // 不满足上述条件，必将进行旋转，所以先将首尾相连
+        tmp.next = head;
+        // 现在只需要找到倒数第k+1个节点
+        for (int i = 0; i < count - k; i++) {
+            tmp = tmp.next;
+        }
+        ListNode newHead = tmp.next;
+        tmp.next = null;
+        return newHead;
+    }
+
+
+    /**
+     * 138. 复制带随机指针的链表
+     * <p>
+     * 给你一个长度为 n 的链表，每个节点包含一个额外增加的随机指针 random ，该指针可以指向链表中的任何节点或空节点。
+     * <p>
+     * 构造这个链表的 深拷贝。 深拷贝应该正好由 n 个 全新 节点组成，其中每个新节点的值都设为其对应的原节点的值。新节点的 next 指针和 random 指针也都应指向复制链表中的新节点，并使原链表和复制链表中的这些指针能够表示相同的链表状态。复制链表中的指针都不应指向原链表中的节点 。
+     * <p>
+     * 例如，如果原链表中有 X 和 Y 两个节点，其中 X.random --> Y 。那么在复制链表中对应的两个节点 x 和 y ，同样有 x.random --> y 。
+     * <p>
+     * 返回复制链表的头节点。
+     * <p>
+     * 用一个由 n 个节点组成的链表来表示输入/输出中的链表。每个节点用一个 [val, random_index] 表示：
+     * <p>
+     * val：一个表示 Node.val 的整数。
+     * random_index：随机指针指向的节点索引（范围从 0 到 n-1）；如果不指向任何节点，则为  null 。
+     * 你的代码 只 接受原链表的头节点 head 作为传入参数。
+     *
+     * @param head
+     * @return
+     */
+    public Node copyRandomList(Node head) {
+        if (head == null) {
+            return head;
+        }
+        // map方法，空间复杂度O(n)
+        Node node = head;
+        // 使用hash表存储旧结点和新结点的映射
+        Map<Node, Node> map = new HashMap<>();
+        while (node != null) {
+            Node clone = new Node(node.val, null, null);
+            map.put(node, clone);
+            node = node.next;
+        }
+        node = head;
+        while (node != null) {
+            map.get(node).next = map.get(node.next);
+            map.get(node).random = map.get(node.random);
+            node = node.next;
+        }
+        return map.get(head);
     }
 }
 

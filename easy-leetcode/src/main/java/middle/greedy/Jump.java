@@ -1,5 +1,7 @@
 package middle.greedy;
 
+import java.util.Arrays;
+
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
  * @Description:
@@ -108,6 +110,10 @@ public class Jump {
             }
         }
         return rest < 0 ? -1 : start;
+    }
+
+    public int singleNumber(int[] nums) {
+        return Arrays.stream(nums).reduce((a, b)->a^b).getAsInt();
     }
 
     public static void main(String[] args) {

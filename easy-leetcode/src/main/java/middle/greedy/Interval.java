@@ -80,6 +80,12 @@ public class Interval {
         return count;
     }
 
+    /**
+     * 26. 删除有序数组中的重复项
+     *
+     * @param nums
+     * @return
+     */
     public static int removeDuplicates(int[] nums) {
         int n = nums.length;
         if (n == 0) {
@@ -95,6 +101,40 @@ public class Interval {
             fast++;
         }
         return slow + 1;
+    }
+
+    /**
+     * 1047. 删除字符串中的所有相邻重复项
+     * 给出由小写字母组成的字符串 S，重复项删除操作会选择两个相邻且相同的字母，并删除它们。
+     * <p>
+     * 在 S 上反复执行重复项删除操作，直到无法继续删除。
+     * <p>
+     * 在完成所有重复项删除操作后返回最终的字符串。答案保证唯一。
+     *
+     * @param S
+     * @return
+     */
+    public String removeDuplicates(String S) {
+        int n = S.length();
+        char[] ss = S.toCharArray();//转为字符数组
+        char[] stack = new char[n];//定义栈
+        int top = -1; //定义栈指针
+        //以下for循环将不重复的字符存放在栈里
+        for (int j = 0; j < n; j++) {
+            if (top > -1 && stack[top] == ss[j]) {
+                top--;//栈针移动，代替真是出栈
+            } else {
+                stack[++top] = ss[j];//根据栈针移动直接覆盖重复的值
+            }
+        }
+        //以下打印栈内不重复的字符
+        char[] ans = new char[top + 1];
+        for (int i = 0; i < top + 1; i++) {
+            ans[i] = stack[i];
+        }
+        //通过有参构造传递字符数组，直接创建字符串对象
+        String str = new String(ans);
+        return str;
     }
 
     /**

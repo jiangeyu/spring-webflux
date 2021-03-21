@@ -1,8 +1,6 @@
 package middle.arrays;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
@@ -162,12 +160,10 @@ public class NextPermute {
 
     /**
      * 287. 寻找重复数
-     *
+     * <p>
      * 给定一个包含 n + 1 个整数的数组 nums ，其数字都在 1 到 n 之间（包括 1 和 n），可知至少存在一个重复的整数。
-     *
+     * <p>
      * 假设 nums 只有 一个重复的整数 ，找出 这个重复的数 。
-     *
-     *
      *
      * @param nums
      * @return
@@ -180,12 +176,12 @@ public class NextPermute {
          即按照寻找链表环入口的思路来做
          **/
         int fast = 0, slow = 0;
-        while(true) {
+        while (true) {
             fast = nums[nums[fast]];
             slow = nums[slow];
-            if(slow == fast) {
+            if (slow == fast) {
                 fast = 0;
-                while(nums[slow] != nums[fast]) {
+                while (nums[slow] != nums[fast]) {
                     fast = nums[fast];
                     slow = nums[slow];
                 }
@@ -212,7 +208,7 @@ public class NextPermute {
 
     /**
      * 238
-     *
+     * <p>
      * 给你一个长度为 n 的整数数组 nums，其中 n > 1，返回输出数组 output ，其中 output[i] 等于 nums 中除 nums[i] 之外其余各元素的乘积。
      *
      * @param nums
@@ -223,7 +219,7 @@ public class NextPermute {
         int left = 1;
         int right = 1;
         int[] result = new int[length];
-        Arrays.fill(result,1);
+        Arrays.fill(result, 1);
         for (int i = 0; i < length; i++) {
 
             result[i] *= left;
@@ -238,7 +234,6 @@ public class NextPermute {
     }
 
 
-
     /**
      * 这个题目的解题思想是这样的。由于nums内的元素存在重复，那么我们必然需要
      * 考虑如果元素重复了，怎么去处理这个元素。最直观的想法是说比如我碰到了
@@ -246,7 +241,7 @@ public class NextPermute {
      * nums:[1,2,2]  i=2的时候就满足上式，那么我们可以认为这个元素已经处理过了
      * 就直接跳过吗？ 显然不能 因为如果直接跳过我们就会漏掉[2,2] 和 [1,2,2]
      * 这两个组合。那么说明我们必须找出某种方式，将部分重复的元素去除。
-     *
+     * <p>
      * 我们仔细思考一下nums[1,2,2] 当i=0的时候由于我们用于存储所有已知集合的
      * retList只含有一个[]元素，那么不存在重复问题，我们经过这一步可以得到
      * retList: [] [1] 来到2的时候我们在看 由于也不存在重复我们的2可以和
@@ -265,41 +260,39 @@ public class NextPermute {
      * retList中有四个元素[] [1] [2] [1,2] 按照刚才我们说的他只可以组合两个元素，
      * 否则必然引起重复，而且是从后往前数两个元素（这个方向是因为，新的组合总是添加在数组的
      * 尾巴上），如果照我们说的 他只应该和[2],[1,2]发生组合最后的出[] [1] [2] [1,2] [2,2] [1,2,2].
-     *
+     * <p>
      * 接下来说点别的，为什么第二个重复元素只能去和倒数的 上一次没有出现重复元素时，retList的长度个
      * 元素进行组合？
-     *
+     * <p>
      * 原因是这样的，比如当nums[i] != num[i-1]时，此时nums[i]需要和retList中所有元素进行组合
      * 该过程完成后retList的大小会由原大小m 变化为2m。当我们继续往后走时，当前nums[i] == nums[i-1]
      * 我们直到我们当前的nums[i]只应该和之前的nums[i-1]没处理过的部分，或者之前的nums[i-1]在上一次
      * 组合中新生成的部分进行组合（否则必然造成重复），那这个新生成部分的大小是多少呢？答案是m，因为再不重复时
      * 每一次的组合结束大小都会变为原来的1倍，一半是之前的值，一半是新生成的值，而这个m就是上一次没有出现重复元素时，retList的长度。
-     *
+     * <p>
      * 以此类推 当我们的nums[1,2,2,2] 当i=3时，这个时候他还是只需要和上一次retList的最后m个元素进行组合
-     *
-     *
      */
     public List<List<Integer>> subsetsWithDup(int[] nums) {
         List<List<Integer>> retList = new ArrayList<>();
         retList.add(new ArrayList<>());
-        if(nums == null || nums.length == 0) return retList;
+        if (nums == null || nums.length == 0) return retList;
         Arrays.sort(nums);
 
 
         List<Integer> tmp = new ArrayList<>();
         tmp.add(nums[0]);
         retList.add(tmp);
-        if(nums.length == 1) return retList;
+        if (nums.length == 1) return retList;
 
         int lastLen = 1;
 
-        for(int i = 1; i < nums.length; i++){
+        for (int i = 1; i < nums.length; i++) {
             int size = retList.size();
-            if(nums[i] != nums[i-1]){
+            if (nums[i] != nums[i - 1]) {
                 lastLen = size;
             }
 
-            for(int j = size - lastLen; j < size; j++){
+            for (int j = size - lastLen; j < size; j++) {
                 List<Integer> inner = new ArrayList(retList.get(j));
                 inner.add(nums[i]);
                 retList.add(inner);
@@ -341,7 +334,6 @@ public class NextPermute {
     }
 
     /**
-     *
      * @param nums
      * @return
      */
@@ -364,6 +356,165 @@ public class NextPermute {
         return nums;
     }
 
+
+    /**
+     * 210. 课程表 II
+     * 现在你总共有 n 门课需要选，记为 0 到 n-1。
+     * <p>
+     * 在选修某些课程之前需要一些先修课程。 例如，想要学习课程 0 ，你需要先完成课程 1 ，
+     * 我们用一个匹配来表示他们: [0,1]
+     * <p>
+     * 给定课程总量以及它们的先决条件，返回你为了学完所有课程所安排的学习顺序。
+     * <p>
+     * 可能会有多个正确的顺序，你只要返回一种就可以了。如果不可能完成所有课程，返回一个空数组。
+     *
+     * @param numCourses
+     * @param prerequisites
+     * @return
+     */
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+
+        /*
+        我们先记录每个节点的入度，以及使用 map 记录每个节点所能到达的其他节点
+
+        当某个节点的入度为 0，表示没有节点指向它，即该课程不需要先修其他课程，那么我们就可以从 该课程 出发
+
+        然后我们将入度为 0 的节点存储进队列中，将它和它所能到达的节点 next 的通路断开，即 next 的入度 -1，
+        当减为 0 的时候，表示入度为 0，那么添加进队列中
+        */
+
+        //存储某个节点能够到达的其他节点集合（这里最开始我是使用 map 的，后面发现节点是 [0, n -1] ，那么节点值可以直接作为下标
+        List<Integer>[] lists = new ArrayList[numCourses];
+        //记录某个节点的入度
+        int[] points = new int[numCourses];
+        for (int[] p : prerequisites) {
+            /*
+            [3, 5] 表示学习 3 之前需要先学习 5
+            那么对于 3 来说， 5 指向 3，即 3 的入度 + 1
+            而 5 能到达的节点集合需要增加 3 这个节点
+            */
+            points[p[0]]++;
+            if (lists[p[1]] == null) {
+                lists[p[1]] = new ArrayList<>();
+            }
+            lists[p[1]].add(p[0]);
+        }
+
+        Queue<Integer> queue = new LinkedList<>();
+        //找到入度为 0 的节点
+
+        for (int i = 0; i < numCourses; i++) {
+            //入度为 0，添加到队列中
+            if (points[i] == 0) {
+                queue.add(i);
+            }
+        }
+
+        //记录遍历的课程顺序
+        int[] res = new int[numCourses];
+        int idx = 0;
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            /*
+            首先我们应该明确这么一点，在队列中的元素都是 0 入度的课程，即没有需要前修的课程就可以直接学习
+            那么我们遍历到该课程，假设学习完，那么它指向的课程入度都需要 -1，当它指向的某个课程入度为 0 的时候，同时也需要将该课程添加到队列中
+            */
+            while (size-- > 0) {
+                int p = queue.poll();
+                res[idx++] = p;
+                List<Integer> list = lists[p];
+                if (list == null) {
+                    continue;
+                }
+                for (int val : list) {
+                    points[val]--;
+                    if (points[val] == 0) {
+                        queue.add(val);
+                    }
+                }
+            }
+        }
+        //idx == numCourses 意味着全部课程都访问过了，即最终都能够满足 0 入度的条件，即全部能够学习完成
+        return idx == numCourses ? res : new int[0];
+    }
+
+    /**
+     * 71. 简化路径
+     * 给你一个字符串 path ，表示指向某一文件或目录的 Unix 风格 绝对路径 （以 '/' 开头），请你将其转化为更加简洁的规范路径。
+     * <p>
+     * 在 Unix 风格的文件系统中，一个点（.）表示当前目录本身；此外，两个点 （..） 表示将目录切换到上一级（指向父目录）；两者都可以是复杂相对路径的组成部分。任意多个连续的斜杠（即，'//'）都被视为单个斜杠 '/' 。 对于此问题，任何其他格式的点（例如，'...'）均被视为文件/目录名称。
+     * <p>
+     * 请注意，返回的 规范路径 必须遵循下述格式：
+     * <p>
+     * 始终以斜杠 '/' 开头。
+     * 两个目录名之间必须只有一个斜杠 '/' 。
+     * 最后一个目录名（如果存在）不能 以 '/' 结尾。
+     * 此外，路径仅包含从根目录到目标文件或目录的路径上的目录（即，不含 '.' 或 '..'）。
+     * 返回简化后得到的 规范路径 。
+     *
+     * @param path
+     * @return
+     */
+    public String simplifyPath(String path) {
+        String[] split = path.split("\\/");
+        if (split.length == 0) {
+            return "/";
+        }
+        LinkedList<String> linkedList = new LinkedList<>();
+        for (String s : split) {
+            switch (s) {
+                case ".":
+                case "":
+                    continue;
+                case "..":
+                    if (linkedList.isEmpty()) {
+                        continue;
+                    } else {
+                        linkedList.removeLast();
+                    }
+                    break;
+                default:
+                    linkedList.add(s);
+                    break;
+            }
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+
+        while (!linkedList.isEmpty()) {
+            stringBuilder.append("/");
+            stringBuilder.append(linkedList.removeFirst());
+        }
+        if (stringBuilder.length() == 0) {
+            stringBuilder.append("/");
+        }
+        return stringBuilder.toString();
+    }
+
+
+    /**
+     * 503. 下一个更大元素 II
+     * 给定一个循环数组（最后一个元素的下一个元素是数组的第一个元素），
+     * 输出每个元素的下一个更大元素。数字 x 的下一个更大的元素是按数组遍历顺序，
+     * 这个数字之后的第一个比它更大的数，这意味着你应该循环地搜索它的下一个更大的数。如果不存在，则输出 -1。
+     *
+     * @param nums
+     * @return
+     */
+    public int[] nextGreaterElements(int[] nums) {
+        int n = nums.length;
+        int[] res = new int[n];
+        Arrays.fill(res, -1);
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < n * 2; i++) {
+            int num = nums[i % n];
+            while (!stack.isEmpty() && num > nums[stack.peek()]) {
+                res[stack.pop()] = num;
+            }
+            if (i < n) stack.add(i);
+        }
+        return res;
+    }
 
     public static void main(String[] args) {
         System.out.println(Math.abs(-1));
