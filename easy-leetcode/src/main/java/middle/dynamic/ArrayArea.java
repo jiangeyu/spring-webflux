@@ -19,7 +19,7 @@ public class ArrayArea {
 
         int n = matrix.length;
         int m = matrix[0].length;
-        if(n < 1) return 0;
+        if (n < 1) return 0;
         int[][] dp = new int[n + 1][m + 1];
         int max = Integer.MIN_VALUE;
 
@@ -36,14 +36,13 @@ public class ArrayArea {
 
     /**
      * 给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。
-     *
+     * <p>
      * 求在该柱状图中，能够勾勒出来的矩形的最大面积。
-     *
      *
      * @param heights
      * @return
      */
-    public  static int largestRectangleArea(int[] heights) {
+    public static int largestRectangleArea(int[] heights) {
         // 这里为了代码简便，在柱体数组的头和尾加了两个高度为 0 的柱体。
         int[] tmp = new int[heights.length + 2];
         System.arraycopy(heights, 0, tmp, 1, heights.length);
@@ -63,6 +62,7 @@ public class ArrayArea {
 
         return area;
     }
+
     /**
      * 暴力解法
      *
@@ -90,7 +90,7 @@ public class ArrayArea {
 
     /**
      * 85. 最大矩形
-     *
+     * <p>
      * 给定一个仅包含 0 和 1 、大小为 rows x cols 的二维二进制矩阵，找出只包含 1 的最大矩形，并返回其面积。
      */
     public int maximalRectangle(char[][] matrix) {
@@ -114,17 +114,114 @@ public class ArrayArea {
         return ans;
     }
 
+    /**
+     * 剑指 Offer 46. 把数字翻译成字符串
+     * <p>
+     * 给定一个数字，我们按照如下规则把它翻译为字符串：0 翻译成 “a” ，1 翻译成 “b”，……，11 翻译成 “l”，……，25 翻译成 “z”。一个数字可能有多个翻译。请编程实现一个函数，用来计算一个数字有多少种不同的翻译方法。
+     *
+     * @param num
+     * @return
+     */
+    public int translateNum(int num) {
+        String str = String.valueOf(num);
+        int[] dp = new int[str.length() + 1];
+        dp[0] = dp[1] = 1;
+        for (int i = 2; i <= str.length(); i++) {
+            String tmpStr = str.substring(i - 2, i);
+            if (tmpStr.compareTo("10") >= 0 && tmpStr.compareTo("25") <= 0) {
+                dp[i] = dp[i - 1] + dp[i - 2];
+            } else {
+                dp[i] = dp[i - 1];
+            }
+        }
+        return dp[dp.length - 1];
+    }
 
+    /**
+     *
+     * 91. 解码方法
+     * 一条包含字母 A-Z 的消息通过以下映射进行了 编码 ：
+     * 要 解码 已编码的消息，所有数字必须基于上述映射的方法，反向映射回字母（可能有多种方法）。例如，"111" 可以将 "1" 中的每个 "1" 映射为 "A" ，从而得到 "AAA" ，或者可以将 "11" 和 "1"（分别为 "K" 和 "A" ）映射为 "KA" 。注意，"06" 不能映射为 "F" ，因为 "6" 和 "06" 不同。
+     *
+     * 给你一个只含数字的 非空 字符串 num ，请计算并返回 解码 方法的 总数 。
+     *
+     * 题目数据保证答案肯定是一个 32 位 的整数。
+     *
+     * @param s
+     * @return
+     */
+    public int numDecodings(String s) {
+        final int length = s.length();
+        if (length == 0) return 0;
+        if (s.charAt(0) == '0') return 0;
+
+        int[] dp = new int[length + 1];
+        dp[0] = 1;
+
+        for (int i = 0; i < length; i++) {
+            dp[i + 1] = s.charAt(i) == '0' ? 0 : dp[i];
+            if (i > 0 && (s.charAt(i - 1) == '1' || (s.charAt(i - 1) == '2' && s.charAt(i) <= '6'))) {
+                dp[i + 1] += dp[i - 1];
+            }
+        }
+
+        return dp[length];
+    }
+
+    /**
+     * 剑指 Offer 62. 圆圈中最后剩下的数字
+     * 0,1,···,n-1这n个数字排成一个圆圈，从数字0开始，每次从这个圆圈里删除第m个数字（删除后从下一个数字开始计数）。求出这个圆圈里剩下的最后一个数字。
+     * <p>
+     * 例如，0、1、2、3、4这5个数字组成一个圆圈，从数字0开始每次删除第3个数字，则删除的前4个数字依次是2、0、4、1，因此最后剩下的数字是3。
+     *
+     * @param n
+     * @param m
+     * @return
+     */
+    public int lastRemaining(int n, int m) {
+        int index = 0; // 当只有一人的时候 胜利者下标肯定为0
+        for (int i = 2; i <= n; i++) {
+            index = (index + m) % i; // 每多一人 胜利者下标相当于往右挪动了m位,再对当前人数取模求得新的胜利者下标
+        }
+        return index;
+    }
+
+    /**
+     * 剑指 Offer 04. 二维数组中的查找
+     * 在一个 n * m 的二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。
+     * 请完成一个高效的函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。
+     *
+     * @param matrix
+     * @param target
+     * @return
+     */
+    public boolean findNumberIn2DArray(int[][] matrix, int target) {
+        if(matrix == null || matrix.length == 0) {
+            return false;
+        }
+        int m = matrix.length, n = matrix[0].length;
+        int row = 0, col = n - 1;
+        while(row < m && col >= 0) {
+            if(matrix[row][col] > target) {
+                col--;
+            }else if(matrix[row][col] < target) {
+                row++;
+            }else {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
     public static void main(String[] args) {
         System.out.println(maximalSquare(new char[][]{
-                {'1','0','1','0','0'},
-                {'1','0','1','1','1'},
-                {'1','1','1','1','1'},
-                {'1','0','0','1','0'}
+                {'1', '0', '1', '0', '0'},
+                {'1', '0', '1', '1', '1'},
+                {'1', '1', '1', '1', '1'},
+                {'1', '0', '0', '1', '0'}
 
         }));
-        System.out.println(largestRectangleArea(new int[]{2,1,5,6,2,3}));
+        System.out.println(largestRectangleArea(new int[]{2, 1, 5, 6, 2, 3}));
     }
 }

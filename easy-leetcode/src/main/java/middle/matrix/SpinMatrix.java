@@ -206,39 +206,63 @@ public class SpinMatrix {
 
     /**
      * 695. 岛屿的最大面积
-     *
+     * <p>
      * 给定一个包含了一些 0 和 1 的非空二维数组 grid 。
-     *
+     * <p>
      * 一个 岛屿 是由一些相邻的 1 (代表土地) 构成的组合，这里的「相邻」要求两个 1 必须在水平或者竖直方向上相邻。你可以假设 grid 的四个边缘都被 0（代表水）包围着。
-     *
+     * <p>
      * 找到给定的二维数组中最大的岛屿面积。(如果没有岛屿，则返回面积为 0 。)
-     *
+     * <p>
      *  
+     *
      * @param grid
      * @return
      */
     public int maxAreaOfIsland(int[][] grid) {
         int max = 0;
-        for(int i = 0; i < grid.length; i++){
-            for(int j = 0; j < grid[0].length; j++){
-                if(grid[i][j] == 1){
-                    max = Math.max (dfs(grid, i, j), max);
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == 1) {
+                    max = Math.max(dfs(grid, i, j), max);
                 }
             }
         }
         return max;
     }
-    int dfs(int[][] grid, int i, int j){
-        if(i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] == 0){
+
+    int dfs(int[][] grid, int i, int j) {
+        if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] == 0) {
             return 0;
         }
         grid[i][j] = 0;
         int count = 1;
-        count += dfs(grid, i+1, j);
-        count += dfs(grid, i-1, j);
-        count += dfs(grid, i, j+1);
-        count += dfs(grid, i, j-1);
+        count += dfs(grid, i + 1, j);
+        count += dfs(grid, i - 1, j);
+        count += dfs(grid, i, j + 1);
+        count += dfs(grid, i, j - 1);
         return count;
+    }
+
+    /**
+     * 283. 移动零
+     *
+     * 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
+     *
+     * @param nums
+     */
+    public void moveZeroes(int[] nums) {
+        int i = 0;
+        int j = 0;
+        int length = nums.length;
+        for (i = 0; i < length; i++) {
+            if (nums[i] != 0) {
+                nums[j++] = nums[i];
+            }
+        }
+        while (j < length) {
+            nums[j++] = 0;
+        }
+
     }
 
 
