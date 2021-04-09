@@ -1,4 +1,4 @@
-package middle.dfs;
+package middle.tree;
 
 import java.util.*;
 
@@ -471,11 +471,9 @@ public class Tree {
     }
 
     /**
-     *
      * 给你二叉树的根节点 root 和一个整数目标和 targetSum ，找出所有 从根节点到叶子节点 路径总和等于给定目标和的路径。
-     *
+     * <p>
      * 叶子节点 是指没有子节点的节点。
-     *
      *
      * @param root
      * @param targetSum
@@ -483,6 +481,13 @@ public class Tree {
      */
     List<List<Integer>> res = new ArrayList<>();
 
+    /**
+     * 113. 路径总和 II
+     *
+     * @param root
+     * @param sum
+     * @return
+     */
     public List<List<Integer>> pathSum(TreeNode root, int sum) {
         List<Integer> cur = new ArrayList<>();
         dfs(root, cur, 0, sum);
@@ -512,20 +517,20 @@ public class Tree {
      * @return
      */
     public List<List<Integer>> levelOrder(TreeNode root) {
-        if(root == null)
+        if (root == null)
             return new ArrayList<>();
         List<List<Integer>> res = new ArrayList<>();
         Queue<TreeNode> queue = new LinkedList<TreeNode>();
         queue.add(root);
-        while(!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             int count = queue.size();
             List<Integer> list = new ArrayList<Integer>();
-            while(count > 0){
+            while (count > 0) {
                 TreeNode node = queue.poll();
                 list.add(node.val);
-                if(node.left != null)
+                if (node.left != null)
                     queue.add(node.left);
-                if(node.right != null)
+                if (node.right != null)
                     queue.add(node.right);
                 count--;
             }
@@ -554,7 +559,7 @@ public class Tree {
     }
 
     /**
-     * 二叉树的完全性检验
+     * 958  二叉树的完全性检验
      *
      * @param root
      * @return
@@ -567,7 +572,7 @@ public class Tree {
         boolean flag = false;
         while (!queue.isEmpty()) {
             temp = queue.remove();
-            if (temp == null){
+            if (temp == null) {
                 flag = true;
                 continue;
             }
@@ -583,10 +588,10 @@ public class Tree {
     }
 
     private int height(TreeNode root) {
-        if(root == null)
+        if (root == null)
             return 0;
         int lh = height(root.left), rh = height(root.right);
-        if(lh >= 0 && rh >= 0 && Math.abs(lh - rh) <= 1) {
+        if (lh >= 0 && rh >= 0 && Math.abs(lh - rh) <= 1) {
             return Math.max(lh, rh) + 1;
         } else {
             return -1;
@@ -596,6 +601,7 @@ public class Tree {
 
     /**
      * 二叉树的中序遍历
+     *
      * @param root
      * @return
      */
@@ -619,7 +625,6 @@ public class Tree {
     /**
      * 剑指 Offer 27. 二叉树的镜像
      *
-     *
      * @param root
      * @return
      */
@@ -627,8 +632,8 @@ public class Tree {
         return swap(root);
     }
 
-    TreeNode swap(TreeNode root){
-        if(root == null) return root;
+    TreeNode swap(TreeNode root) {
+        if (root == null) return root;
         swap(root.left);
         swap(root.right);
         TreeNode temp = root.left;
@@ -656,5 +661,63 @@ public class Tree {
         if (root.left != null) helper(root.left, list);
         list.add(root.val);
         if (root.right != null) helper(root.right, list);
+    }
+
+
+    /**
+     * 剑指 Offer 36. 二叉搜索树与双向链表
+     * <p>
+     * 输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的循环双向链表。
+     * 要求不能创建任何新的节点，只能调整树中节点指针的指向。
+     *
+     * @param root
+     * @return
+     */
+    public TreeNode treeToDoublyList(TreeNode root) {
+
+        if (root == null) return null;
+
+        // 连接 root 与左侧和右侧已经排好序的链表
+        inOrder(root);
+
+        // 找已经排好序链表的最小节点
+        while (root.left != null)
+            root = root.left;
+
+        TreeNode res = root;
+
+        // 找已经排好序链表的最大节点
+        while (root.right != null)
+            root = root.right;
+
+        // 连接最小最大节点
+        res.left = root;
+        root.right = res;
+
+        return res;
+    }
+
+    // inorder 将 root 与 root 左子树最大的节点和 root 右子数最小的节点连接起来
+    public void inOrder(TreeNode root) {
+        if (root == null) return;
+        if (root.left != null) {
+            inOrder(root.left);
+            TreeNode leftNode = root.left;
+            while (leftNode.right != null) {
+                leftNode = leftNode.right;
+            }
+            root.left = leftNode;
+            leftNode.right = root;
+        }
+
+        if (root.right != null) {
+            inOrder(root.right);
+            TreeNode rightNode = root.right;
+            while (rightNode.left != null) {
+                rightNode = rightNode.left;
+            }
+            root.right = rightNode;
+            rightNode.left = root;
+        }
     }
 }

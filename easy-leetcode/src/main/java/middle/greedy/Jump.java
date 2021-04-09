@@ -112,6 +112,12 @@ public class Jump {
         return rest < 0 ? -1 : start;
     }
 
+    /**
+     * 136. 只出现一次的数字
+     *
+     * @param nums
+     * @return
+     */
     public int singleNumber(int[] nums) {
         return Arrays.stream(nums).reduce((a, b)->a^b).getAsInt();
     }

@@ -44,6 +44,26 @@ public class Reverse {
         return dummy.next;
     }
 
+
+    /**
+     * 反转一个单链表。
+     *
+     * @param head
+     * @return
+     */
+    public static ListNode reverseListIterative(ListNode head) {
+        ListNode prev = null; //前指针节点
+        ListNode curr = head; //当前指针节点
+        //每次循环，都将当前节点指向它前面的节点，然后当前节点和前节点后移
+        while (curr != null) {
+            ListNode nextTemp = curr.next; //临时节点，暂存当前节点的下一节点，用于后移
+            curr.next = prev; //将当前节点指向它前面的节点
+            prev = curr; //前指针后移
+            curr = nextTemp; //当前指针后移
+        }
+        return prev;
+    }
+
     /**
      * Leetcode 23
      * <p>
@@ -83,6 +103,49 @@ public class Reverse {
     }
 
     /**
+     * @param lists
+     * @return
+     */
+    public ListNode mergeKLists1(ListNode[] lists) {
+        if (lists.length == 0)
+            return null;
+        if (lists.length == 1)
+            return lists[0];
+        if (lists.length == 2) {
+            return mergeTwoLists(lists[0], lists[1]);
+        }
+
+        int mid = lists.length / 2;
+        ListNode[] l1 = new ListNode[mid];
+        for (int i = 0; i < mid; i++) {
+            l1[i] = lists[i];
+        }
+
+        ListNode[] l2 = new ListNode[lists.length - mid];
+        for (int i = mid, j = 0; i < lists.length; i++, j++) {
+            l2[j] = lists[i];
+        }
+
+        return mergeTwoLists(mergeKLists(l1), mergeKLists(l2));
+
+    }
+//    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+//        if (l1 == null) return l2;
+//        if (l2 == null) return l1;
+//
+//        ListNode head = null;
+//        if (l1.val <= l2.val){
+//            head = l1;
+//            head.next = mergeTwoLists(l1.next, l2);
+//        } else {
+//            head = l2;
+//            head.next = mergeTwoLists(l1, l2.next);
+//        }
+//        return head;
+//    }
+
+    /**
+     * 92 反转链表
      * 反转从位置 m 到 n 的链表。请使用一趟扫描完成反转。
      * <p>
      * 说明:
@@ -172,7 +235,8 @@ public class Reverse {
 
 
     /**
-     * 将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。
+     * 将两个升序链表合并为一个新的 升序 链表并返回。
+     * 新链表是通过拼接给定的两个链表的所有节点组成的。
      *
      * @param l1
      * @param l2
@@ -224,25 +288,6 @@ public class Reverse {
         head.next.next = head;
         head.next = null;
         return last;
-    }
-
-    /**
-     * 反转一个单链表。
-     *
-     * @param head
-     * @return
-     */
-    public static ListNode reverseListIterative(ListNode head) {
-        ListNode prev = null; //前指针节点
-        ListNode curr = head; //当前指针节点
-        //每次循环，都将当前节点指向它前面的节点，然后当前节点和前节点后移
-        while (curr != null) {
-            ListNode nextTemp = curr.next; //临时节点，暂存当前节点的下一节点，用于后移
-            curr.next = prev; //将当前节点指向它前面的节点
-            prev = curr; //前指针后移
-            curr = nextTemp; //当前指针后移
-        }
-        return prev;
     }
 
 
@@ -341,7 +386,8 @@ public class Reverse {
      */
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         /**
-         定义两个指针, 第一轮让两个到达末尾的节点指向另一个链表的头部, 最后如果相遇则为交点(在第一轮移动中恰好抹除了长度差)
+         定义两个指针, 第一轮让两个到达末尾的节点指向另一个链表的头部,
+         最后如果相遇则为交点(在第一轮移动中恰好抹除了长度差)
          两个指针等于移动了相同的距离, 有交点就返回, 无交点就是各走了两条指针的长度
          **/
         if (headA == null || headB == null) return null;
@@ -374,35 +420,41 @@ public class Reverse {
     }
 
     /**
-     * 岛屿数量
+     * 142. 环形链表 II
+     * 给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。
+     * <p>
+     * 为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。注意，pos 仅仅是用于标识环的情况，并不会作为参数传递到函数中。
+     * <p>
+     * 说明：不允许修改给定的链表。
      *
-     * @param grid
+     * @param head
      * @return
      */
-    public int numIslands(char[][] grid) {
-        int islandNum = 0;
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[0].length; j++) {
-                if (grid[i][j] == '1') {
-                    infect(grid, i, j);
-                    islandNum++;
-                }
+    public ListNode detectCycle(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        ListNode fast = head;
+        ListNode slow = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+
+            if (fast == slow) {
+                break;
             }
         }
-        return islandNum;
-    }
 
-    //感染函数
-    public void infect(char[][] grid, int i, int j) {
-        if (i < 0 || i >= grid.length ||
-                j < 0 || j >= grid[0].length || grid[i][j] != '1') {
-            return;
+        if (fast != slow || fast == null || fast.next == null) {
+            return null;
         }
-        grid[i][j] = '2';
-        infect(grid, i + 1, j);
-        infect(grid, i - 1, j);
-        infect(grid, i, j + 1);
-        infect(grid, i, j - 1);
+
+        slow = head;
+        while (fast != slow) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        return fast;
     }
 
 
@@ -464,20 +516,25 @@ public class Reverse {
     /**
      * 83. 删除排序链表中的重复元素
      *
+     * 输入：head = [1,1,2]
+     * 输出：[1,2]
+     *
      * @param head
      * @return
      */
     public ListNode deleteDuplicates(ListNode head) {
-        if (head == null) {
-            return null;
-        }
-        if (head.next == null) {
+        if (head == null || head.next == null) {
             return head;
         }
-        if (head.val == head.next.val) {
-            head = deleteDuplicates(head.next);
-        } else {
-            head.next = deleteDuplicates(head.next);
+        ListNode pre = head, next = head.next;
+        while (next != null) {
+            if (next.val == pre.val) {
+                pre.next = next.next;
+                next = next.next;
+            } else {
+                pre = next;
+                next = next.next;
+            }
         }
         return head;
     }
@@ -485,6 +542,8 @@ public class Reverse {
 
     /**
      * 19. 删除链表的倒数第 N 个结点
+     * <p>
+     * fast 先走n个节点，再走length-n个节点，再一起走，如果slow走lenth-k,当前指针就在倒数k位置
      */
     public ListNode removeNthFromEnd(ListNode head, int n) {
         if ((head == null) || (head.next == null)) {
@@ -580,7 +639,8 @@ public class Reverse {
      * <p>
      * 给你一个长度为 n 的链表，每个节点包含一个额外增加的随机指针 random ，该指针可以指向链表中的任何节点或空节点。
      * <p>
-     * 构造这个链表的 深拷贝。 深拷贝应该正好由 n 个 全新 节点组成，其中每个新节点的值都设为其对应的原节点的值。新节点的 next 指针和 random 指针也都应指向复制链表中的新节点，并使原链表和复制链表中的这些指针能够表示相同的链表状态。复制链表中的指针都不应指向原链表中的节点 。
+     * 构造这个链表的 深拷贝。 深拷贝应该正好由 n 个 全新 节点组成，其中每个新节点的值都设为其对应的原节点的值。新节点的 next 指针和 random 指针也都应指向复制链表中的新节点，
+     * 并使原链表和复制链表中的这些指针能够表示相同的链表状态。复制链表中的指针都不应指向原链表中的节点 。
      * <p>
      * 例如，如果原链表中有 X 和 Y 两个节点，其中 X.random --> Y 。那么在复制链表中对应的两个节点 x 和 y ，同样有 x.random --> y 。
      * <p>
@@ -615,6 +675,19 @@ public class Reverse {
             node = node.next;
         }
         return map.get(head);
+    }
+
+
+    public Node reverse(Node head) {
+        Node cur = head;
+        Node prev = null;
+        while (cur != null) {
+            Node tmp = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = tmp;
+        }
+        return prev;
     }
 }
 

@@ -1,7 +1,5 @@
 package middle.tree;
 
-import middle.dfs.TreeNode;
-
 import java.util.LinkedList;
 import java.util.Queue;
 

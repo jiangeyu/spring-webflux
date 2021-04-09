@@ -1,7 +1,5 @@
 package middle.tree;
 
-import middle.dfs.TreeNode;
-
 import java.util.*;
 
 /**
@@ -116,7 +114,7 @@ public class GenerateTree {
     }
 
     /**
-     * 114. 二叉树展开为链表
+     *    114. 二叉树展开为链表
      * <p>
      * 给定一个二叉树，原地将它展开为一个单链表。
      *
@@ -248,6 +246,7 @@ public class GenerateTree {
     static int sum;
 
     /**
+     *  求根到叶子节点数字之和 129
      * @param root
      * @return
      */

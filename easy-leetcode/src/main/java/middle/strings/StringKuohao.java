@@ -1,6 +1,9 @@
 package middle.strings;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Stack;
 
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>

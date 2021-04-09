@@ -117,7 +117,8 @@ public class ArrayArea {
     /**
      * 剑指 Offer 46. 把数字翻译成字符串
      * <p>
-     * 给定一个数字，我们按照如下规则把它翻译为字符串：0 翻译成 “a” ，1 翻译成 “b”，……，11 翻译成 “l”，……，25 翻译成 “z”。一个数字可能有多个翻译。请编程实现一个函数，用来计算一个数字有多少种不同的翻译方法。
+     * 给定一个数字，我们按照如下规则把它翻译为字符串：0 翻译成 “a” ，1 翻译成 “b”，……，11 翻译成 “l”，……，25 翻译成 “z”。
+     * 一个数字可能有多个翻译。请编程实现一个函数，用来计算一个数字有多少种不同的翻译方法。
      *
      * @param num
      * @return
@@ -138,13 +139,13 @@ public class ArrayArea {
     }
 
     /**
-     *
      * 91. 解码方法
      * 一条包含字母 A-Z 的消息通过以下映射进行了 编码 ：
-     * 要 解码 已编码的消息，所有数字必须基于上述映射的方法，反向映射回字母（可能有多种方法）。例如，"111" 可以将 "1" 中的每个 "1" 映射为 "A" ，从而得到 "AAA" ，或者可以将 "11" 和 "1"（分别为 "K" 和 "A" ）映射为 "KA" 。注意，"06" 不能映射为 "F" ，因为 "6" 和 "06" 不同。
-     *
+     * 要 解码 已编码的消息，所有数字必须基于上述映射的方法，反向映射回字母（可能有多种方法）。例如，"111" 可以将 "1" 中的每个 "1" 映射为 "A" ，从而得到 "AAA" ，
+     * 或者可以将 "11" 和 "1"（分别为 "K" 和 "A" ）映射为 "KA" 。注意，"06" 不能映射为 "F" ，因为 "6" 和 "06" 不同。
+     * <p>
      * 给你一个只含数字的 非空 字符串 num ，请计算并返回 解码 方法的 总数 。
-     *
+     * <p>
      * 题目数据保证答案肯定是一个 32 位 的整数。
      *
      * @param s
@@ -196,21 +197,63 @@ public class ArrayArea {
      * @return
      */
     public boolean findNumberIn2DArray(int[][] matrix, int target) {
-        if(matrix == null || matrix.length == 0) {
+        if (matrix == null || matrix.length == 0) {
             return false;
         }
         int m = matrix.length, n = matrix[0].length;
         int row = 0, col = n - 1;
-        while(row < m && col >= 0) {
-            if(matrix[row][col] > target) {
+        while (row < m && col >= 0) {
+            if (matrix[row][col] > target) {
                 col--;
-            }else if(matrix[row][col] < target) {
+            } else if (matrix[row][col] < target) {
                 row++;
-            }else {
+            } else {
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * 443  压缩字符串
+     *
+     * @param chars
+     * @return
+     */
+    public int compress(char[] chars) {
+        char cur = chars[0];  //当前比较的字符
+        char last = chars[0]; //j-1下标在原数组中对应的字符
+        int cnt = 1;   //计数
+        int j = 1; //原地法  当前可写入的位置
+        for (int i = 1; i < chars.length; i++) {
+            // 处理['a','a','b','b']和['7','7','2']的情况。
+            if ((i != j && chars[i] != chars[i - 1]) || (i == j && last != chars[i])) {
+                cnt = 1;
+                cur = chars[i];
+                last = chars[j];
+                chars[j] = cur;
+                j++;
+                continue;
+            }
+            while (i < chars.length && chars[i] == cur) {
+                cnt++;
+                i++;
+            }
+            if (cnt != 1) {
+                i--;
+            }
+            if (cnt > 1) {
+                char[] newChars = String.valueOf(cnt).toCharArray();
+                int k = 0;
+                while (k < newChars.length && j < chars.length) {
+                    last = chars[j];
+                    chars[j] = newChars[k];
+                    j++;
+                    k++;
+                }
+            }
+        }
+        return j;
     }
 
 

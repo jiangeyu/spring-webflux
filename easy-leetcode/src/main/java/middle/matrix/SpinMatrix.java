@@ -154,6 +154,12 @@ public class SpinMatrix {
                 .orElse("0");
     }
 
+    /**
+     * 合并区间
+     *
+     * @param intervals
+     * @return
+     */
     public static int[][] merge(int[][] intervals) {
         if (intervals == null || intervals.length <= 1)
             return intervals;
@@ -206,7 +212,8 @@ public class SpinMatrix {
      * <p>
      * 给定一个包含了一些 0 和 1 的非空二维数组 grid 。
      * <p>
-     * 一个 岛屿 是由一些相邻的 1 (代表土地) 构成的组合，这里的「相邻」要求两个 1 必须在水平或者竖直方向上相邻。你可以假设 grid 的四个边缘都被 0（代表水）包围着。
+     * 一个 岛屿 是由一些相邻的 1 (代表土地) 构成的组合，这里的「相邻」要求两个 1 必须在水平或者竖直方向上相邻。
+     * 你可以假设 grid 的四个边缘都被 0（代表水）包围着。
      * <p>
      * 找到给定的二维数组中最大的岛屿面积。(如果没有岛屿，则返回面积为 0 。)
      * <p>
@@ -240,9 +247,43 @@ public class SpinMatrix {
         return count;
     }
 
+
+    /**
+     * 岛屿数量 200
+     *
+     * @param grid
+     * @return
+     */
+    public int numIslands(char[][] grid) {
+        int islandNum = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == '1') {
+                    infect(grid, i, j);
+                    islandNum++;
+                }
+            }
+        }
+        return islandNum;
+    }
+
+    //感染函数
+    public void infect(char[][] grid, int i, int j) {
+        if (i < 0 || i >= grid.length ||
+                j < 0 || j >= grid[0].length || grid[i][j] != '1') {
+            return;
+        }
+        grid[i][j] = '2';
+        infect(grid, i + 1, j);
+        infect(grid, i - 1, j);
+        infect(grid, i, j + 1);
+        infect(grid, i, j - 1);
+    }
+
+
     /**
      * 283. 移动零
-     *
+     * <p>
      * 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
      *
      * @param nums
@@ -267,13 +308,13 @@ public class SpinMatrix {
 
     /**
      * 528. 按权重随机选择
-     *
+     * <p>
      * 给定一个正整数数组 w ，其中 w[i] 代表下标 i 的权重（下标从 0 开始），
      * 请写一个函数 pickIndex ，它可以随机地获取下标 i，选取下标 i 的概率与 w[i] 成正比。
-     *
+     * <p>
      * 例如，对于 w = [1, 3]，挑选下标 0 的概率为 1 / (1 + 3) = 0.25 （即，25%）
      * ，而选取下标 1 的概率为 3 / (1 + 3) = 0.75（即，75%）。
-     *
+     * <p>
      * 也就是说，选取下标 i 的概率为 w[i] / sum(w) 。
      *
      * @param w
@@ -286,7 +327,6 @@ public class SpinMatrix {
 //        }
 //        sum = preSum[preSum.length-1];
 //    }
-
     public int pickIndex() {
         int r = new Random().nextInt(sum);
         return binSearchPreSumReturnWIndex(r);

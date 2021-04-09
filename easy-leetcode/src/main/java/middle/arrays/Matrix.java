@@ -41,7 +41,8 @@ public class Matrix {
      * 162. 寻找峰值
      * 峰值元素是指其值大于左右相邻值的元素。
      * <p>
-     * 给你一个输入数组 nums，找到峰值元素并返回其索引。数组可能包含多个峰值，在这种情况下，返回 任何一个峰值 所在位置即可。
+     * 给你一个输入数组 nums，找到峰值元素并返回其索引。数组可能包含多个峰值，
+     * 在这种情况下，返回 任何一个峰值 所在位置即可。
      * <p>
      * 你可以假设 nums[-1] = nums[n] = -∞ 。
      *
@@ -307,7 +308,6 @@ public class Matrix {
      * 670. 最大交换
      * 给定一个非负整数，你至多可以交换一次数字中的任意两位。返回你能得到的最大值。
      *
-     *
      * @param num
      * @return
      */
@@ -335,5 +335,24 @@ public class Matrix {
             }
         }
         return Integer.parseInt(new String(chars));
+    }
+
+    /**
+     * 合并两个有序数组 88
+     *
+     * @param nums1
+     * @param m
+     * @param nums2
+     * @param n
+     */
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int p = m-- + n-- - 1;
+        while (m >= 0 && n >= 0) {
+            nums1[p--] = nums1[m] > nums2[n] ? nums1[m--] : nums2[n--];
+        }
+
+        while (n >= 0) {
+            nums1[p--] = nums2[n--];
+        }
     }
 }

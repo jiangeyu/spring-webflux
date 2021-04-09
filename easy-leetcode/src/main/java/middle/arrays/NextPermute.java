@@ -11,7 +11,7 @@ public class NextPermute {
 
 
     /**
-     * 31
+     *   31
      * <p>
      * 实现获取 下一个排列 的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。
      * <p>
@@ -72,7 +72,7 @@ public class NextPermute {
         List<List<Integer>> res = new ArrayList<>();
         Arrays.sort(candidates);
         //System.out.println(candidates);
-        backtrack(candidates, target, res, 0, new ArrayList<Integer>());
+        backtrack(candidates, target, res, 0, new ArrayList<>());
         return res;
     }
 
@@ -317,14 +317,17 @@ public class NextPermute {
                 nums[i] = n + 1;
             }
         }
-        //我们遍历数组中的每一个数 x，它可能已经被打了标记，因此原本对应的数为 |x|，其中 ∣∣ 为绝对值符号。如果∣x∣∈[1,N]，那么我们给数组中的第 |x| - 1个位置的数添加一个负号。注意如果它已经有负号，不需要重复添加
+        //我们遍历数组中的每一个数 x，它可能已经被打了标记，因此原本对应的数为
+        // |x|，其中 ∣∣ 为绝对值符号。如果∣x∣∈[1,N]，那么我们给数组中的第 |x| - 1个位
+        // 置的数添加一个负号。注意如果它已经有负号，不需要重复添加
         for (int i = 0; i < n; ++i) {
             int num = Math.abs(nums[i]);
             if (num <= n) {
                 nums[num - 1] = -Math.abs(nums[num - 1]);
             }
         }
-        //在遍历完成之后，如果数组中的每一个数都是负数，那么答案是 N+1，否则答案是第一个正数的位置加 1
+        //在遍历完成之后，如果数组中的每一个数都是负数，那么答案是 N+1，否则
+        // 答案是第一个正数的位置加 1
         for (int i = 0; i < n; ++i) {
             if (nums[i] > 0) {
                 return i + 1;
@@ -514,6 +517,26 @@ public class NextPermute {
             if (i < n) stack.add(i);
         }
         return res;
+    }
+
+    /**
+     * 比较版本号
+     *
+     * @param version1
+     * @param version2
+     * @return
+     */
+    public int compareVersion(String version1, String version2) {
+        String[] a1 = version1.split("\\.");
+        String[] a2 = version2.split("\\.");
+
+        for(int n = 0; n < Math.max(a1.length, a2.length); n++){
+            int i = (n < a1.length ? Integer.valueOf(a1[n]) : 0);
+            int j = (n < a2.length ? Integer.valueOf(a2[n]) : 0);
+            if(i < j) return -1;
+            else if(i > j) return 1;
+        }
+        return 0;
     }
 
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package middle.dfs;
+package middle.tree;
 
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>

@@ -1,6 +1,7 @@
 package middle.dynamic;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
@@ -9,40 +10,6 @@ import java.util.*;
  */
 public class SubArray {
 
-    /**
-     * 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
-     * <p>
-     * 输入: [-2,1,-3,4,-1,2,1,-5,4]
-     * 输出: 6
-     * 解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。
-     *
-     * @param nums
-     * @return
-     */
-
-    public static int maxSubArray1(int[] nums) {
-        if (nums.length == 1) {
-            return nums[0];
-        }
-        int sum = Integer.MIN_VALUE;
-        int[][] dp = new int[nums.length][nums.length + 1];
-        dp[0][0] = nums[0];
-        for (int i = 1; i < nums.length; i++) {
-            dp[i][i] = nums[i];
-        }
-
-        for (int i = 0; i < nums.length; i++) {
-            for (int j = i + 1; j < nums.length; j++) {
-                dp[i][j] = dp[i][j - 1] + nums[j];
-            }
-        }
-        for (int i = 0; i < nums.length; i++) {
-            for (int j = i; j < nums.length; j++) {
-                sum = Math.max(sum, dp[i][j]);
-            }
-        }
-        return sum;
-    }
 
     public static int maxSubArray2(int[] nums) {
         /**
@@ -361,7 +328,7 @@ public class SubArray {
                 count++;
             }
             if (count == k) {
-                result = nums[i-1];
+                result = nums[i - 1];
                 break;
             }
         }
@@ -370,15 +337,16 @@ public class SubArray {
 
     /**
      * 680. 验证回文字符串 Ⅱ
-     *
+     * <p>
      * 给定一个非空字符串 s，最多删除一个字符。判断是否能成为回文字符串。
+     *
      * @param s
      * @return
      */
     public boolean validPalindrome(String s) {
         int i = 0, j = s.length() - 1;
-        while(i < j){
-            if(s.charAt(i) != s.charAt(j)){
+        while (i < j) {
+            if (s.charAt(i) != s.charAt(j)) {
                 return isValid(s, i + 1, j) || isValid(s, i, j - 1);
             }
             i++;
@@ -387,9 +355,9 @@ public class SubArray {
         return true;
     }
 
-    public boolean isValid(String s, int i, int j){
-        while(i < j){
-            if(s.charAt(i) != s.charAt(j)){
+    public boolean isValid(String s, int i, int j) {
+        while (i < j) {
+            if (s.charAt(i) != s.charAt(j)) {
                 return false;
             }
             i++;
@@ -426,7 +394,14 @@ public class SubArray {
         System.out.println(result);
         System.out.println(majorityElement(new int[]{3, 2, 3}));
         System.out.println(findKthLargest(new int[]{-1, 0, 1, 2, -1, -4}, 2));
-        System.out.println(findKthLargest(new int[]{3,2,3,1,2,4,5,5,6}, 4));
+        System.out.println(findKthLargest(new int[]{3, 2, 3, 1, 2, 4, 5, 5, 6}, 4));
+        Map<String, Object> staticResMap = new HashMap<>();
+//        System.out.println(Optional.ofNullable(staticResMap.get("videoUrl").toString()).orElse(null));
+        System.out.println(Optional.ofNullable(staticResMap.get("videoUrl")).map(o -> o.toString()).orElse(null));
+
+        List<Integer> list = Arrays.asList(1,2,3,4);
+        System.out.println(list.stream().filter(i -> i%2 == 0).collect(Collectors.toList()));
+        System.out.println(list.remove(list.get(1)));
     }
 
 
