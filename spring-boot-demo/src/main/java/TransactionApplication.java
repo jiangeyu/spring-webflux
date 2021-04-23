@@ -22,6 +22,10 @@ public class TransactionApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(TransactionApplication.class, args);
+        short s = 1;
+        s= (short) (s+1);
+        System.out.println(s);
+
     }
 
 

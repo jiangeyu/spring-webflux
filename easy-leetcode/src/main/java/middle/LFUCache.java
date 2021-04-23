@@ -115,11 +115,12 @@ class Node {
 }
 
 class DoublyLinkedList {
-    int freq;
     DoublyLinkedList pre;
     DoublyLinkedList post;
     Node head;
     Node tail;
+    int freq;
+
 
     public DoublyLinkedList() {
         head = new Node();

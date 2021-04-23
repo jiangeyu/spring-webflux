@@ -1,10 +1,13 @@
 package middle.tree;
 
+import lombok.Data;
+
 /**
  * @Author: <a href="mailto:">jiaxue.pjx@alibaba-inc.com</a>
  * @Description:
  * @Date: Created in 下午12:35 2021/1/14
  */
+@Data
 public class TreeNode {
     public int val;
     public TreeNode left;

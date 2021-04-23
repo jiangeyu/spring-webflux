@@ -66,19 +66,6 @@ public class Coin {
         return -1;
     }
 
-    public static int change(int n) {
-
-        int[] coins = new int[]{25, 10, 5, 1};
-        int length = coins.length;
-        int[] dp = new int[n + 1];
-        dp[0] = 1; // base case
-        for (int i = 0; i < length; i++)
-            for (int j = 1; j <= n; j++)
-                if (j - coins[i] >= 0)
-                    dp[j] = dp[j] + dp[j - coins[i]];
-
-        return dp[n] > Integer.MAX_VALUE ? dp[n] % 1000000007 : dp[n];
-    }
 
     /**
      * @param {number[]} nums
@@ -125,6 +112,7 @@ public class Coin {
 
 
     /**
+     *  518
      * 给定不同面额的硬币和一个总金额。写出函数来计算可以凑成总金额的硬币组合数。假设每一种面额的硬币有无限个。
      *
      * 输入: amount = 5, coins = [1, 2, 5]

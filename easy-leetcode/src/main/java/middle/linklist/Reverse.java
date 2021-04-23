@@ -44,6 +44,35 @@ public class Reverse {
         return dummy.next;
     }
 
+    /**
+     * 92 反转链表
+     * 反转从位置 m 到 n 的链表。请使用一趟扫描完成反转。
+     * <p>
+     * 说明:
+     * 1 ≤ m ≤ n ≤ 链表长度。
+     *
+     * @param head
+     * @param m
+     * @param n
+     * @return
+     */
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode pre = dummy;
+        for (int i = 1; i < m; i++) {
+            pre = pre.next;
+        }
+        head = pre.next;
+        for (int i = m; i < n; i++) {
+            ListNode next = head.next;
+            head.next = next.next;
+            next.next = pre.next;
+            pre.next = next;
+        }
+        return dummy.next;
+    }
+
 
     /**
      * 反转一个单链表。
@@ -64,8 +93,9 @@ public class Reverse {
         return prev;
     }
 
+
     /**
-     * Leetcode 23
+     * Leetcode 23 合并k个排序链表
      * <p>
      * <p>
      * 给你一个链表数组，每个链表都已经按升序排列。
@@ -144,34 +174,6 @@ public class Reverse {
 //        return head;
 //    }
 
-    /**
-     * 92 反转链表
-     * 反转从位置 m 到 n 的链表。请使用一趟扫描完成反转。
-     * <p>
-     * 说明:
-     * 1 ≤ m ≤ n ≤ 链表长度。
-     *
-     * @param head
-     * @param m
-     * @param n
-     * @return
-     */
-    public ListNode reverseBetween(ListNode head, int m, int n) {
-        ListNode dummy = new ListNode(0);
-        dummy.next = head;
-        ListNode pre = dummy;
-        for (int i = 1; i < m; i++) {
-            pre = pre.next;
-        }
-        head = pre.next;
-        for (int i = m; i < n; i++) {
-            ListNode next = head.next;
-            head.next = next.next;
-            next.next = pre.next;
-            pre.next = next;
-        }
-        return dummy.next;
-    }
 
     /**
      * 给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。
@@ -291,14 +293,14 @@ public class Reverse {
     }
 
 
-    ListNode temp;
-
     /**
      * 回文链表
      *
      * @param head
      * @return
      */
+    ListNode temp;
+
     public boolean isPalindrome(ListNode head) {
         if (head == null || head.next == null) {
             return true;
@@ -308,7 +310,9 @@ public class Reverse {
     }
 
     public boolean dfs(ListNode head) {
-        if (head == null) return true;
+        if (head == null) {
+            return true;
+        }
         boolean res = dfs(head.next) && temp.val == head.val;
         temp = temp.next;
         return res;
@@ -392,7 +396,8 @@ public class Reverse {
          **/
         if (headA == null || headB == null) return null;
         ListNode pA = headA, pB = headB;
-        // 在这里第一轮体现在pA和pB第一次到达尾部会移向另一链表的表头, 而第二轮体现在如果pA或pB相交就返回交点, 不相交最后就是null==null
+        // 在这里第一轮体现在pA和pB第一次到达尾部会移向另一链表的表头,
+        // 而第二轮体现在如果pA或pB相交就返回交点, 不相交最后就是null==null
         while (pA != pB) {
             pA = pA == null ? headB : pA.next;
             pB = pB == null ? headA : pB.next;
@@ -423,7 +428,8 @@ public class Reverse {
      * 142. 环形链表 II
      * 给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。
      * <p>
-     * 为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。注意，pos 仅仅是用于标识环的情况，并不会作为参数传递到函数中。
+     * 为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。
+     * 如果 pos 是 -1，则在该链表中没有环。注意，pos 仅仅是用于标识环的情况，并不会作为参数传递到函数中。
      * <p>
      * 说明：不允许修改给定的链表。
      *
@@ -436,6 +442,7 @@ public class Reverse {
         }
         ListNode fast = head;
         ListNode slow = head;
+        //先判断有没有环
         while (fast != null && fast.next != null) {
             fast = fast.next.next;
             slow = slow.next;
@@ -450,6 +457,7 @@ public class Reverse {
         }
 
         slow = head;
+        //返回环的起点
         while (fast != slow) {
             fast = fast.next;
             slow = slow.next;
@@ -515,7 +523,7 @@ public class Reverse {
 
     /**
      * 83. 删除排序链表中的重复元素
-     *
+     * <p>
      * 输入：head = [1,1,2]
      * 输出：[1,2]
      *
@@ -566,40 +574,12 @@ public class Reverse {
         return head;
     }
 
-
-    /**
-     * 977. 有序数组的平方
-     * <p>
-     * <p>
-     * 给你一个按 非递减顺序 排序的整数数组 nums，返回 每个数字的平方 组成的新数组，要求也按 非递减顺序 排序。
-     *
-     * @param nums
-     * @return
-     */
-    public int[] sortedSquares(int[] nums) {
-        int i = 0, j = nums.length - 1;
-        int x = nums.length - 1;
-        int[] nums2 = new int[nums.length];
-        while (i <= j) {
-            int s1 = nums[i] * nums[i];
-            int s2 = nums[j] * nums[j];
-            if (s1 > s2) {
-                nums2[x] = s1;
-                i++;
-                x--;
-            } else {
-                nums2[x] = s2;
-                j--;
-                x--;
-            }
-        }
-        return nums2;
-    }
-
-
     /**
      * 61. 旋转链表
      * 给定一个链表，旋转链表，将链表每个节点向右移动 k 个位置，其中 k 是非负数。
+     * <p>
+     * 先遍历求得链表总长度count，同时将链表首尾相连；
+     * 再找到原链表的倒数第k+1个节点，该节点的next就是新链表的头结点。
      *
      * @param head
      * @param k
@@ -622,7 +602,7 @@ public class Reverse {
             return head;
         }
 
-        // 不满足上述条件，必将进行旋转，所以先将首尾相连
+        // 将首尾相连
         tmp.next = head;
         // 现在只需要找到倒数第k+1个节点
         for (int i = 0; i < count - k; i++) {
@@ -639,7 +619,8 @@ public class Reverse {
      * <p>
      * 给你一个长度为 n 的链表，每个节点包含一个额外增加的随机指针 random ，该指针可以指向链表中的任何节点或空节点。
      * <p>
-     * 构造这个链表的 深拷贝。 深拷贝应该正好由 n 个 全新 节点组成，其中每个新节点的值都设为其对应的原节点的值。新节点的 next 指针和 random 指针也都应指向复制链表中的新节点，
+     * 构造这个链表的 深拷贝。 深拷贝应该正好由 n 个 全新 节点组成，其中每个新节点的值都设为其对应的原节点的值。
+     * 新节点的 next 指针和 random 指针也都应指向复制链表中的新节点，
      * 并使原链表和复制链表中的这些指针能够表示相同的链表状态。复制链表中的指针都不应指向原链表中的节点 。
      * <p>
      * 例如，如果原链表中有 X 和 Y 两个节点，其中 X.random --> Y 。那么在复制链表中对应的两个节点 x 和 y ，同样有 x.random --> y 。
@@ -677,18 +658,30 @@ public class Reverse {
         return map.get(head);
     }
 
-
-    public Node reverse(Node head) {
-        Node cur = head;
-        Node prev = null;
-        while (cur != null) {
-            Node tmp = cur.next;
-            cur.next = prev;
-            prev = cur;
-            cur = tmp;
+    public ListNode reverseKGroup1(ListNode head, int k) {
+        ListNode dump = new ListNode(0);
+        ListNode prev = dump;
+        ListNode cur = head;
+        ListNode next;
+        int length = 1;
+        while (head != null) {
+            length++;
+            head = head.next;
         }
-        return prev;
+        for (int i = 0; i < length / k; i++) {
+            for (int j = 0; j < k - 1; j++) {
+                next = cur.next;
+                cur.next = next.next;
+                next.next = prev.next;
+                prev.next = next;
+            }
+            prev = cur;
+            cur = prev.next;
+        }
+        return dump.next;
     }
+
+
 }
 
 

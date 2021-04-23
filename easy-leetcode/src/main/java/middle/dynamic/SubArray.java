@@ -11,6 +11,12 @@ import java.util.stream.Collectors;
 public class SubArray {
 
 
+    /**
+     * 最大子序和 53
+     *
+     * @param nums
+     * @return
+     */
     public static int maxSubArray2(int[] nums) {
         /**
          * nums[i]为结尾的「最大子数组和」为dp[i]

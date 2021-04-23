@@ -53,13 +53,15 @@ public class Keyboard {
 
     /**
      * 224. 基本计算器
-     *
+     * <p>
      * 给你一个字符串表达式 s ，请你实现一个基本计算器来计算并返回它的值。
+     * <p>
+     * s = "(1+(4+5+2)-3)+(6+8)"
      *
      * @param s
      * @return
      */
-    public int calculate(String s) {
+    public static int calculate(String s) {
         Stack<Integer> stack = new Stack<>();
         // sign 代表正负
         int sign = 1, res = 0;
@@ -68,8 +70,9 @@ public class Keyboard {
             char ch = s.charAt(i);
             if (Character.isDigit(ch)) {
                 int cur = ch - '0';
-                while (i + 1 < length && Character.isDigit(s.charAt(i + 1)))
+                while (i + 1 < length && Character.isDigit(s.charAt(i + 1))) {
                     cur = cur * 10 + s.charAt(++i) - '0';
+                }
                 res = res + sign * cur;
             } else if (ch == '+') {
                 sign = 1;
@@ -88,11 +91,12 @@ public class Keyboard {
     }
 
     public static void main(String[] args) {
-        System.out.println(calculateTime("pqrstuvwxyzabcdefghijklmno", "com/github/leetcode"));
-        System.out.println(calculateTime("abcdefghijklmnopqrstuvwxyz", "cba"));
+//        System.out.println(calculateTime("pqrstuvwxyzabcdefghijklmno", "com/github/leetcode"));
+//        System.out.println(calculateTime("abcdefghijklmnopqrstuvwxyz", "cba"));
 
 //        System.out.println(reversePairs(new int[] {1,3,2,3,1}));
 //        System.out.println(reversePairs(new int[] {2,4,3,5,1}));
         System.out.println(reversePairs(new int[]{2147483647, 2147483647, 2147483647, 2147483647, 2147483647, 2147483647}));
+        System.out.println(calculate("(1+(4+5+2)-3)+(6+8)"));
     }
 }

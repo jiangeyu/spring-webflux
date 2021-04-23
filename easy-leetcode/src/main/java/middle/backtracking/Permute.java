@@ -28,6 +28,8 @@ public class Permute {
      * <p>
      * leetcode 47
      *
+     * 组合总和 39
+     *
      * @param num
      * @return
      */
@@ -55,7 +57,7 @@ public class Permute {
 
 
     /**
-     * leetcode 46
+     * leetcode  46 全排列
      * 给定一个可包含重复数字的序列 nums ，按任意顺序 返回所有不重复的全排列。
      * <p>
      * 输入：nums = [1,1,2]
@@ -112,6 +114,9 @@ public class Permute {
 
     /**
      * 给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。
+     *
+     * 子集 78
+     *
      * <p>
      * 说明：解集不能包含重复的子集。
      * 输入: nums = [1,2,3]

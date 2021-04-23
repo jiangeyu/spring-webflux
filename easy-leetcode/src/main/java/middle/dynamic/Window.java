@@ -14,7 +14,7 @@ public class Window {
 
     /**
      * 76. 最小覆盖子串
-     *
+     * <p>
      * 给你一个字符串 s 、一个字符串 t 。返回 s 中涵盖 t 所有字符的最小子串。
      * 如果 s 中不存在涵盖 t 所有字符的子串，则返回空字符串 "" 。
      *
@@ -231,6 +231,46 @@ public class Window {
         return res;
     }
 
+    public static String minWindow2(String s, String t) {
+        int left = 0;
+        int right = 0;
+        int length = Integer.MAX_VALUE;
+        int sLength = s.length();
+        int start = 0;
+        Map<Character, Integer> need = new HashMap<>();
+        char[] characters = t.toCharArray();
+        for (Character character : characters) {
+            need.compute(character, (k, v) -> need.get(k) == null ? 1 : need.get(k) + 1);
+        }
+        Map<Character, Integer> window = new HashMap<>();
+        int valid = 0;
+        while (right < sLength) {
+            char value = s.charAt(right);
+            right++;
+            if (need.containsKey(value)) {
+                window.compute(value, (k, v) -> window.get(k) == null ? 1 : window.get(k) + 1);
+                if (window.get(value).equals(need.get(value))) {
+                    valid++;
+                }
+            }
+            while (valid == need.size()) {
+                if (right - left < length) {
+                    start = left;
+                    length = right - left;
+                }
+                char leftValue = s.charAt(left);
+                left++;
+                if (need.containsKey(leftValue)) {
+                    if (need.get(leftValue).equals(window.get(leftValue))) {
+                        valid--;
+                    }
+                    window.put(leftValue, window.get(leftValue) - 1);
+                }
+            }
+        }
+        return length == Integer.MAX_VALUE ? "" : s.substring(start, start + length);
+    }
+
     public static void main(String[] args) {
 //        System.out.println(minWindow("ADOBECODEBANC", "ABC"));
 //        Map<Character, Integer> map = new HashMap<>();
@@ -245,5 +285,6 @@ public class Window {
 //        System.out.println(findAnagrams("cbaebabacd", "abc"));
         System.out.println(lengthOfLongestSubstring("abcabcbb"));
         System.out.println(lengthOfLongestSubstring1("abcabcbb"));
+        System.out.println(minWindow2("ADOBECODEBANC", "ABC"));
     }
 }

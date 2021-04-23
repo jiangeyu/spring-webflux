@@ -84,6 +84,9 @@ public class GenerateTree {
      * <p>
      * 前序遍历 preorder = [3,9,20,15,7]
      * 中序遍历 inorder = [9,3,15,20,7]
+     * <p>
+     * preorder第一个元素为root，在inorder里面找到root，在它之前的为左子树（长l1），之后为右子树（长l2）。
+     * preorder[1]到preorder[l1]为左子树,之后为右子树，分别递归。
      *
      * @param preorder
      * @param inorder
@@ -113,28 +116,6 @@ public class GenerateTree {
         return res;
     }
 
-    /**
-     *    114. 二叉树展开为链表
-     * <p>
-     * 给定一个二叉树，原地将它展开为一个单链表。
-     *
-     * @param root
-     */
-    public void flatten(TreeNode root) {
-
-        if (root == null) return;
-        flatten(root.left);
-        TreeNode left = root.left;
-        TreeNode right = root.right;
-        if (left != null) {
-            root.right = left;
-            while (left.right != null) left = left.right;
-            left.right = right;
-            root.left = null;
-        }
-        flatten(root.right);
-
-    }
 
     /**
      * 199
@@ -214,7 +195,6 @@ public class GenerateTree {
         return Math.max(getLevel(root.left), getLevel(root.right)) + 1;
     }
 
-    double last = -Double.MAX_VALUE;
 
     /**
      * 98. 验证二叉搜索树
@@ -229,6 +209,9 @@ public class GenerateTree {
      * @param root
      * @return
      */
+
+    double last = -Double.MAX_VALUE;
+
     public boolean isValidBST(TreeNode root) {
         if (root == null) {
             return true;
@@ -246,7 +229,8 @@ public class GenerateTree {
     static int sum;
 
     /**
-     *  求根到叶子节点数字之和 129
+     * 求根到叶子节点数字之和 129
+     *
      * @param root
      * @return
      */
@@ -257,66 +241,15 @@ public class GenerateTree {
     }
 
     public static void childSum(int val, TreeNode root) {
-        if (root == null) return;
+        if (root == null) {
+            return;
+        }
         int k = (val * 10 + root.val);
         if (root.left == null && root.right == null) {
             sum += k;
         }
         childSum(k, root.left);
         childSum(k, root.right);
-    }
-
-
-    /**
-     * 二叉树前序遍历
-     *
-     * @param root
-     * @return
-     */
-    public List<Integer> preorderTraversal(TreeNode root) {
-        List<Integer> res = new ArrayList<>();
-        pre(root, res);
-        return res;
-    }
-
-    private void pre(TreeNode root, List<Integer> res) {
-        Stack<TreeNode> stack = new Stack<>();
-        while (root != null || !stack.isEmpty()) {
-            while (root != null) {
-                res.add(root.val);
-                stack.add(root);
-                root = root.left;
-            }
-            root = stack.pop().right;
-        }
-    }
-
-    /**
-     * 查找左子树节点个数为leftN,如果K<=leftN,则所查找节点在左子树上.
-     * 若K=leftN+1,则所查找节点为根节点
-     * 若K>leftN+1,则所查找节点在右子树上,按照同样方法查找右子树第K-leftN个节点
-     *
-     * @param root
-     * @param k
-     * @return
-     */
-    public int kthSmallest(TreeNode root, int k) {
-        int leftN = findChild(root.left);
-        if (leftN + 1 == k) return root.val;
-        else if (k <= leftN) {
-            return kthSmallest(root.left, k);
-        } else return kthSmallest(root.right, k - leftN - 1);
-    }
-
-    /**
-     * 查找子节点个数
-     *
-     * @param root
-     * @return
-     */
-    public int findChild(TreeNode root) {
-        if (root == null) return 0;
-        return findChild(root.left) + findChild(root.right) + 1;
     }
 
 

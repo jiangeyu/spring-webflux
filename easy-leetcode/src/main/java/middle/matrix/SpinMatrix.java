@@ -10,7 +10,7 @@ import java.util.*;
 public class SpinMatrix {
 
     /**
-     * 59
+     * 59 螺旋矩阵
      * 给定一个正整数 n，生成一个包含 1 到 n2 所有元素，且元素按顺时针顺序螺旋排列的正方形矩阵。
      *
      * @param n
@@ -57,23 +57,6 @@ public class SpinMatrix {
         }
     }
 
-    public void rotate_2(int[] nums, int k) {
-        int n = nums.length;
-        k %= n;
-        reverse(nums, 0, n - 1);
-        reverse(nums, 0, k - 1);
-        reverse(nums, k, n - 1);
-    }
-
-
-    private void reverse(int[] nums, int start, int end) {
-        while (start < end) {
-            int temp = nums[start];
-            nums[start++] = nums[end];
-            nums[end--] = temp;
-        }
-    }
-
     /**
      * 54. 螺旋矩阵
      * 给定一个包含 m x n 个元素的矩阵（m 行, n 列），请按照顺时针螺旋顺序，返回矩阵中的所有元素。
@@ -84,17 +67,36 @@ public class SpinMatrix {
     public List<Integer> spiralOrder(int[][] matrix) {
         int m = matrix.length;
         int n = matrix[0].length;
-        int up = 0, down = m - 1, left = 0, right = n - 1;
+        int up = 0;
+        int down = m - 1;
+        int left = 0;
+        int right = n - 1;
         List<Integer> list = new ArrayList<>();
         while (true) {
-            for (int i = left; i <= right; i++) list.add(matrix[up][i]);
-            if (++up > down) break;
-            for (int i = up; i <= down; i++) list.add(matrix[i][right]);
-            if (--right < left) break;
-            for (int i = right; i >= left; i--) list.add(matrix[down][i]);
-            if (--down < up) break;
-            for (int i = down; i >= up; i--) list.add(matrix[i][left]);
-            if (++left > right) break;
+            for (int i = left; i <= right; i++) {
+                list.add(matrix[up][i]);
+            }
+            if (++up > down) {
+                break;
+            }
+            for (int i = up; i <= down; i++) {
+                list.add(matrix[i][right]);
+            }
+            if (--right < left) {
+                break;
+            }
+            for (int i = right; i >= left; i--) {
+                list.add(matrix[down][i]);
+            }
+            if (--down < up) {
+                break;
+            }
+            for (int i = down; i >= up; i--) {
+                list.add(matrix[i][left]);
+            }
+            if (++left > right) {
+                break;
+            }
         }
         return list;
     }
@@ -155,7 +157,7 @@ public class SpinMatrix {
     }
 
     /**
-     * 合并区间
+     * 合并区间 56
      *
      * @param intervals
      * @return
@@ -280,6 +282,41 @@ public class SpinMatrix {
         infect(grid, i, j - 1);
     }
 
+    /**
+     * 79. 单词搜索
+     * 给定一个二维网格和一个单词，找出该单词是否存在于网格中。
+     * <p>
+     * 单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。
+     *
+     * @param board
+     * @param word
+     * @return
+     */
+    public boolean exist(char[][] board, String word) {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                if (search(board, word, i, j, 0)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    boolean search(char[][] board, String word, int i, int j, int k) {
+        if (k >= word.length()) {
+            return true;
+        }
+        if (i < 0 || i >= board.length || j < 0 || j >= board[0].length || board[i][j] != word.charAt(k)) {
+            return false;
+        }
+        board[i][j] += 256;
+        boolean result = search(board, word, i - 1, j, k + 1) || search(board, word, i + 1, j, k + 1)
+                || search(board, word, i, j - 1, k + 1) || search(board, word, i, j + 1, k + 1);
+        board[i][j] -= 256;
+        return result;
+    }
+
 
     /**
      * 283. 移动零
@@ -351,6 +388,72 @@ public class SpinMatrix {
         return memo;
     }
 
+    /**
+     * 977. 有序数组的平方
+     * <p>
+     * <p>
+     * 给你一个按 非递减顺序 排序的整数数组 nums，返回 每个数字的平方 组成的新数组，要求也按 非递减顺序 排序。
+     *
+     * @param nums
+     * @return
+     */
+    public int[] sortedSquares(int[] nums) {
+        int i = 0, j = nums.length - 1;
+        int x = nums.length - 1;
+        int[] nums2 = new int[nums.length];
+        while (i <= j) {
+            int s1 = nums[i] * nums[i];
+            int s2 = nums[j] * nums[j];
+            if (s1 > s2) {
+                nums2[x] = s1;
+                i++;
+                x--;
+            } else {
+                nums2[x] = s2;
+                j--;
+                x--;
+            }
+        }
+        return nums2;
+    }
+
+    public List<Integer> spiralOrder1(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int up = 0;
+        int down = m - 1;
+        int left = 0;
+        int right = n - 1;
+        List<Integer> list = new ArrayList<>();
+        while (true) {
+            for (int i = left; i <= right; i++) {
+                list.add(matrix[up][i]);
+            }
+            if (++up > down) {
+                break;
+            }
+            for (int i = up; i <= down; i++) {
+                list.add(matrix[right][i]);
+            }
+            if (--right < left) {
+                break;
+            }
+            for (int i = right; i >= left; i--) {
+                list.add(matrix[down][i]);
+            }
+            if (--down < up) {
+                break;
+            }
+            for (int i = down; i >= up; i--) {
+                list.add(matrix[i][left]);
+            }
+            if (++left > right) {
+                break;
+            }
+
+        }
+        return list;
+    }
 
     public static void main(String[] args) {
 //        System.out.println(merge(new int[][]{{1, 2}, {2, 3}, {3, 4}, {1, 3}}));

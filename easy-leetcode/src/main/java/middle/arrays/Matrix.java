@@ -65,37 +65,6 @@ public class Matrix {
 
 
     /**
-     * 79. 单词搜索
-     * 给定一个二维网格和一个单词，找出该单词是否存在于网格中。
-     * <p>
-     * 单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。
-     *
-     * @param board
-     * @param word
-     * @return
-     */
-    public boolean exist(char[][] board, String word) {
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++) {
-                if (search(board, word, i, j, 0)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    boolean search(char[][] board, String word, int i, int j, int k) {
-        if (k >= word.length()) return true;
-        if (i < 0 || i >= board.length || j < 0 || j >= board[0].length || board[i][j] != word.charAt(k)) return false;
-        board[i][j] += 256;
-        boolean result = search(board, word, i - 1, j, k + 1) || search(board, word, i + 1, j, k + 1)
-                || search(board, word, i, j - 1, k + 1) || search(board, word, i, j + 1, k + 1);
-        board[i][j] -= 256;
-        return result;
-    }
-
-    /**
      * 34. 在排序数组中查找元素的第一个和最后一个位置
      *
      * @param nums
@@ -132,8 +101,22 @@ public class Matrix {
     }
 
 
+    /**
+     * 剑指 Offer 51. 数组中的逆序对
+     * 在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组，求出这个数组中的逆序对的总数。
+     *
+     * @param nums
+     * @return
+     */
     int ans;
     int[] temp;
+
+    public int reversePairs(int[] nums) {
+        int n = nums.length;
+        temp = new int[n];
+        mergeSort(nums, 0, n - 1);
+        return ans;
+    }
 
     public void mergeSort(int[] nums, int l, int r) {
         if (l >= r) return;
@@ -153,24 +136,15 @@ public class Matrix {
                 temp[id++] = nums[j++];
             }
         }
-        while (i <= mid) temp[id++] = nums[i++];
-        while (j <= r) temp[id++] = nums[j++];
-        for (int k = l; k <= r; k++) nums[k] = temp[k];
-    }
-
-    /**
-     * 剑指 Offer 51. 数组中的逆序对
-     * 在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组，求出这个数组中的逆序对的总数。
-     *
-     * @param nums
-     * @return
-     */
-    public int reversePairs(int[] nums) {
-        ans = 0;
-        int n = nums.length;
-        temp = new int[n];
-        mergeSort(nums, 0, n - 1);
-        return ans;
+        while (i <= mid) {
+            temp[id++] = nums[i++];
+        }
+        while (j <= r) {
+            temp[id++] = nums[j++];
+        }
+        for (int k = l; k <= r; k++) {
+            nums[k] = temp[k];
+        }
     }
 
 
@@ -251,7 +225,7 @@ public class Matrix {
      * @return
      */
 
-    public int[] maxSlidingWindow(int[] nums, int k) {
+    public static int[] maxSlidingWindow(int[] nums, int k) {
         if (nums == null || nums.length < 2) {
             return nums;
         }
@@ -281,7 +255,8 @@ public class Matrix {
     /**
      * 剑指 Offer 61. 扑克牌中的顺子
      * <p>
-     * 从扑克牌中随机抽5张牌，判断是不是一个顺子，即这5张牌是不是连续的。2～10为数字本身，A为1，J为11，Q为12，K为13，而大、小王为 0 ，可以看成任意数字。A 不能视为 14。
+     * 从扑克牌中随机抽5张牌，判断是不是一个顺子，即这5张牌是不是连续的。2～10为数字本身，A为1，J为11，Q为12，K为13，
+     * 而大、小王为 0 ，可以看成任意数字。A 不能视为 14。
      * <p>
      *  
      *
@@ -312,8 +287,9 @@ public class Matrix {
      * @return
      */
     public int maximumSwap(int num) {
-        if (num == 0)
+        if (num == 0) {
             return 0;
+        }
         char[] chars = String.valueOf(num).toCharArray();
         int[] maxIndex = new int[chars.length];
         int max = chars.length - 1;
@@ -354,5 +330,12 @@ public class Matrix {
         while (n >= 0) {
             nums1[p--] = nums2[n--];
         }
+    }
+
+    public static void main(String[] args) {
+//        int[] a = maxSlidingWindow(new int[]{1, 4, 2, 3, 5, 7, 6, 8}, 3);
+//        int[] a1 = maxSlidingWindow(new int[]{1, 2, 3, 4, 5, 6, 7}, 3);
+        int[] a3 = maxSlidingWindow(new int[]{8, 7, 6, 5, 4, 3, 2, 1}, 3);
+//        System.out.println(maxSlidingWindow());
     }
 }

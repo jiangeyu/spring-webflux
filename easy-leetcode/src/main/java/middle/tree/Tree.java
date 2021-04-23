@@ -103,6 +103,11 @@ public class Tree {
         if (root == null)
             return 0;
         int maxW = 1;
+
+        /**
+         * 层序遍历，记录每个节点的索引，当每层遍历完成后计算下一层的最大宽度
+         * (链表最后一个元素索引-链表的最前面元素索引+1)
+         */
         Queue<TreeNode> queue = new LinkedList<>();
         LinkedList<Integer> indexList = new LinkedList<>();
         queue.add(root);
@@ -275,18 +280,25 @@ public class Tree {
      * @return
      */
     public boolean isSymmetric(TreeNode root) {
-        if (root == null) return true;
+        if (root == null) {
+            return true;
+        }
         return isSymmertric(root.left, root.right);
     }
 
     private boolean isSymmertric(TreeNode t1, TreeNode t2) {
-        if (t1 == null && t2 == null) return true;
-        if (t1 == null || t2 == null) return false;
-        if (t1.val != t2.val) return false;
+        if (t1 == null && t2 == null) {
+            return true;
+        }
+        if (t1 == null || t2 == null) {
+            return false;
+        }
+        if (t1.val != t2.val) {
+            return false;
+        }
         return isSymmertric(t1.left, t2.right) && isSymmertric(t1.right, t2.left);
     }
 
-    int max = 0;
 
     /**
      * 543. 二叉树的直径
@@ -296,6 +308,8 @@ public class Tree {
      * @param root
      * @return
      */
+    int max = 0;
+
     public int diameterOfBinaryTree(TreeNode root) {
         if (root == null) {
             return 0;
@@ -314,7 +328,6 @@ public class Tree {
         return Math.max(leftSize, rightSize);
     }
 
-    private int ret = Integer.MIN_VALUE;
 
     /**
      * 124. 二叉树中的最大路径和
@@ -328,6 +341,8 @@ public class Tree {
      * @param root
      * @return
      */
+    private int ret = Integer.MIN_VALUE;
+
     public int maxPathSum(TreeNode root) {
         /**
          对于任意一个节点, 如果最大和路径包含该节点, 那么只可能是两种情况:
@@ -443,7 +458,12 @@ public class Tree {
     }
 
     /**
+     * 二叉树的最近公共祖先 236
+     * <p>
      * 给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
+     * <p>
+     * 百度百科中最近公共祖先的定义为：“对于有根树 T 的两个节点 p、q，最近公共祖先表示为一个节点 x，
+     * 满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”
      *
      * @param root
      * @param p
@@ -576,7 +596,9 @@ public class Tree {
                 flag = true;
                 continue;
             }
-            if (flag) return false;
+            if (flag) {
+                return false;
+            }
             queue.add(temp.left);
             queue.add(temp.right);
         }
@@ -600,7 +622,7 @@ public class Tree {
 
 
     /**
-     * 二叉树的中序遍历
+     * 二叉树的中序遍历  94
      *
      * @param root
      * @return
@@ -633,7 +655,9 @@ public class Tree {
     }
 
     TreeNode swap(TreeNode root) {
-        if (root == null) return root;
+        if (root == null) {
+            return root;
+        }
         swap(root.left);
         swap(root.right);
         TreeNode temp = root.left;
@@ -657,10 +681,75 @@ public class Tree {
     }
 
     private void helper(TreeNode root, List<Integer> list) {
-        if (root == null) return;
-        if (root.left != null) helper(root.left, list);
+        if (root == null) {
+            return;
+        }
+        if (root.left != null) {
+            helper(root.left, list);
+        }
         list.add(root.val);
-        if (root.right != null) helper(root.right, list);
+        if (root.right != null) {
+            helper(root.right, list);
+        }
+    }
+
+    public int kthSmallest1(TreeNode root, int k) {
+        List<Integer> list = new ArrayList<>();
+        helper(root, list);
+        return list.get(k);
+    }
+
+    /**
+     * 230. 二叉搜索树中第K小的元素
+     *
+     * @param root
+     * @param k
+     * @return
+     */
+    public int kthSmallest(TreeNode root, int k) {
+        int leftN = findChild(root.left);
+        if (leftN + 1 == k) {
+            return root.val;
+        } else if (k <= leftN) {
+            return kthSmallest(root.left, k);
+        } else {
+            return kthSmallest(root.right, k - leftN - 1);
+        }
+    }
+
+    /**
+     * 查找子节点个数
+     *
+     * @param root
+     * @return
+     */
+    public int findChild(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        return findChild(root.left) + findChild(root.right) + 1;
+    }
+
+
+    /**
+     * 114. 二叉树展开为链表
+     * <p>
+     * 给定一个二叉树，原地将它展开为一个单链表。
+     *
+     * @param root
+     */
+
+    TreeNode last = null;
+
+    public void flatten(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        flatten(root.right);
+        flatten(root.left);
+        root.right = last;
+        root.left = null;
+        last = root;
     }
 
 
@@ -675,25 +764,24 @@ public class Tree {
      */
     public TreeNode treeToDoublyList(TreeNode root) {
 
-        if (root == null) return null;
-
+        if (root == null) {
+            return null;
+        }
         // 连接 root 与左侧和右侧已经排好序的链表
         inOrder(root);
-
         // 找已经排好序链表的最小节点
-        while (root.left != null)
+        while (root.left != null) {
             root = root.left;
-
+        }
         TreeNode res = root;
-
         // 找已经排好序链表的最大节点
-        while (root.right != null)
+        while (root.right != null) {
             root = root.right;
+        }
 
         // 连接最小最大节点
         res.left = root;
         root.right = res;
-
         return res;
     }
 

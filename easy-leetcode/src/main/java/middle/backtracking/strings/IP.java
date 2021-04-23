@@ -11,6 +11,12 @@ public class IP {
 
     /**
      * 93. 复原 IP 地址
+     * <p>
+     * 给定一个只包含数字的字符串，用以表示一个 IP 地址，返回所有可能从 s 获得的 有效 IP 地址 。你可以按任何顺序返回答案。
+     * <p>
+     * 有效 IP 地址 正好由四个整数（每个整数位于 0 到 255 之间组成，且不能含有前导 0），整数之间用 '.' 分隔。
+     * <p>
+     * 例如："0.1.2.201" 和 "192.168.1.1" 是 有效 IP 地址，但是 "0.011.255.245"、"192.168.1.312" 和 "192.168@1.1" 是 无效 IP 地址。
      *
      * @param s
      * @return
@@ -71,13 +77,16 @@ public class IP {
      * 你可以认为输入字符串总是有效的；输入字符串中没有额外的空格，且输入的方括号总是符合格式要求的。
      * <p>
      * 此外，你可以认为原始数据不包含数字，所有的数字只表示重复的次数 k ，例如不会出现像 3a 或 2[4] 的输入。
+     * <p>
+     * 输入：s = "3[a2[c]]"
+     * 输出："accaccacc"
      *
      * @param s
      * @return
      */
     public String decodeString(String s) {
 
-        Stack<String> stack = new Stack<String>();
+        Stack<String> stack = new Stack<>();
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == ']') {
                 String string = "";

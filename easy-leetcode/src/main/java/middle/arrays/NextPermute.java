@@ -11,52 +11,6 @@ public class NextPermute {
 
 
     /**
-     *   31
-     * <p>
-     * 实现获取 下一个排列 的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。
-     * <p>
-     * 如果不存在下一个更大的排列，则将数字重新排列成最小的排列（即升序排列）。
-     * <p>
-     * 必须 原地 修改，只允许使用额外常数空间。
-     *
-     * @param nums
-     */
-    public void nextPermutation(int[] nums) {
-        if (nums.length <= 1) return;
-        int j = nums.length - 1;
-        while (j - 1 >= 0 && nums[j - 1] >= nums[j]) {
-            --j;
-        }
-        if (j == 0) {
-            for (int i = 0; i < nums.length / 2; ++i) {
-                swap(nums, i, nums.length - 1 - i);
-            }
-            return;
-        }
-        int r = nums.length - 1;
-        while (r >= j) {
-            if (nums[r] > nums[j - 1]) break;
-            --r;
-        }
-        swap(nums, r, j - 1);
-        int cnt = (nums.length - j) / 2;
-        int i = 0;
-        while (cnt > 0) {
-            swap(nums, j + i, nums.length - 1 - i);
-            ++i;
-            --cnt;
-        }
-        return;
-    }
-
-    public void swap(int[] nums, int i, int j) {
-        int tmp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = tmp;
-
-    }
-
-    /**
      * 39
      * <p>
      * <p>
@@ -131,6 +85,36 @@ public class NextPermute {
 
     }
 
+
+    /**
+     * 440. 字典序的第K小数字
+     * @param n
+     * @param k
+     * @return
+     */
+//    int findKthNumber(int n, int k) {
+//        int cur = 1;
+//        --k;//初始化为cur = 1，k需要自减1
+//        while (k > 0) {
+//            long long step = 0, first = cur, last = cur + 1;
+//            //统计这棵子树下所有节点数（step）
+//            while (first <= n) {
+//                step += Math.min((long long)n + 1, last) - first;//不能超过n的值，并不是所有节点都有十个子节点
+//                first *= 10;
+//                last *= 10;
+//            }
+//            if (step <= k) {//不在子树中
+//                ++cur;
+//                k -= step;
+//            }
+//            else {//在子树中，进入子树
+//                cur *= 10;
+//                --k;
+//            }
+//        }
+//        return cur;
+//    }
+
     /**
      * 442. 数组中重复的数据
      * <p>
@@ -157,6 +141,7 @@ public class NextPermute {
         }
         return ret;
     }
+
 
     /**
      * 287. 寻找重复数
@@ -305,11 +290,15 @@ public class NextPermute {
     /**
      * 41. 缺失的第一个正数
      *
+     * 遍历一次数组把大于等于1的和小于数组大小的值放到原数组对应位置，
+     * 然后再遍历一次数组查当前下标是否和值对应，
+     * 如果不对应那这个下标就是答案，否则遍历完都没出现那么答案就是数组长度加1。
+     *
      * @param nums
      * @return
      */
     //对于一个长度为 N 的数组，其中没有出现的最小正整数只能在[1,N+1] 中
-    public int firstMissingPositive(int[] nums) {
+    public static int firstMissingPositive(int[] nums) {
         int n = nums.length;
         //将数组中所有小于等于 0 的数修改为 N+1；
         for (int i = 0; i < n; ++i) {
@@ -337,6 +326,8 @@ public class NextPermute {
     }
 
     /**
+     * 调整数组顺序使奇数位于偶数前面 剑指offer21
+     *
      * @param nums
      * @return
      */
@@ -530,18 +521,83 @@ public class NextPermute {
         String[] a1 = version1.split("\\.");
         String[] a2 = version2.split("\\.");
 
-        for(int n = 0; n < Math.max(a1.length, a2.length); n++){
+        for (int n = 0; n < Math.max(a1.length, a2.length); n++) {
             int i = (n < a1.length ? Integer.valueOf(a1[n]) : 0);
             int j = (n < a2.length ? Integer.valueOf(a2[n]) : 0);
-            if(i < j) return -1;
-            else if(i > j) return 1;
+            if (i < j) return -1;
+            else if (i > j) return 1;
         }
         return 0;
+    }
+
+    public static void swap(int[] nums, int i, int j) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+
+    }
+
+
+    /**
+     * 31
+     * <p>
+     * 实现获取 下一个排列 的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。
+     * <p>
+     * 如果不存在下一个更大的排列，则将数字重新排列成最小的排列（即升序排列）。
+     * <p>
+     * 必须 原地 修改，只允许使用额外常数空间。
+     * <p>
+     *
+     * @param nums
+     */
+//    这道题没做出来，看了答案，解题思路应该是
+//    判断按照字典序有木有下一个，如果完全降序就没有下一个
+//    如何判断有木有下一个呢？只要存在a[i-1] < a[i]的升序结构，就有，而且我们应该从右往左找，一旦找到，因为这样才是真正下一个
+//    当发现a[i-1] < a[i]的结构时，从在[i, ∞]中找到最接近a[i-1]并且又大于a[i-1]的数字，由于降序，从右往左遍历即可得到k
+//    然后交换a[i-1]与a[k]，然后对[i, ∞]排序即可，排序只需要首尾不停交换即可.
+//    比如[0,5,4,3,2,1]，下一个是[1,0,2,3,4,5]
+    public static void nextPermutation(int[] nums) {
+        if (nums.length <= 1) {
+            return;
+        }
+        int j = nums.length - 1;
+        while (j - 1 >= 0 && nums[j - 1] >= nums[j]) {
+            --j;
+        }
+        if (j == 0) {
+            for (int i = 0; i < nums.length / 2; ++i) {
+                swap(nums, i, nums.length - 1 - i);
+            }
+            return;
+        }
+        int r = nums.length - 1;
+        while (r >= j) {
+            if (nums[r] > nums[j - 1]) {
+                break;
+            }
+            --r;
+        }
+        swap(nums, r, j - 1);
+        int cnt = (nums.length - j) / 2;
+        int i = 0;
+        while (cnt > 0) {
+            swap(nums, j + i, nums.length - 1 - i);
+            ++i;
+            --cnt;
+        }
+        return;
     }
 
     public static void main(String[] args) {
         System.out.println(Math.abs(-1));
         System.out.println(productExceptSelf(new int[]{1, 2, 3, 4}));
+//        int[] aa = new int[]{0, 5, 4, 3, 2, 1};
+        int[] bb = new int[]{5, 3, 2, 3, 1};
+//        nextPermutation(aa);
+        nextPermutation(bb);
+        int[] cc = new int[]{3,4,-1,1};
+
+        System.out.println(firstMissingPositive(cc));
     }
 
 }
