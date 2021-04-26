@@ -17,25 +17,6 @@ public class SubArray {
      * @param nums
      * @return
      */
-    public static int maxSubArray2(int[] nums) {
-        /**
-         * nums[i]为结尾的「最大子数组和」为dp[i]
-         *
-         */
-        if (nums.length == 1) {
-            return nums[0];
-        }
-        int[] dp = new int[nums.length];
-        dp[0] = nums[0];
-        int res = Integer.MIN_VALUE;
-        for (int i = 1; i < nums.length; i++) {
-            dp[i] = Math.max(nums[i], dp[i - 1] + nums[i]);
-        }
-        for (int i = 0; i < nums.length; i++) {
-            res = Math.max(res, dp[i]);
-        }
-        return res;
-    }
 
     public static int maxSubArray(int[] nums) {
         int res = nums[0];
@@ -405,8 +386,8 @@ public class SubArray {
 //        System.out.println(Optional.ofNullable(staticResMap.get("videoUrl").toString()).orElse(null));
         System.out.println(Optional.ofNullable(staticResMap.get("videoUrl")).map(o -> o.toString()).orElse(null));
 
-        List<Integer> list = Arrays.asList(1,2,3,4);
-        System.out.println(list.stream().filter(i -> i%2 == 0).collect(Collectors.toList()));
+        List<Integer> list = Arrays.asList(1, 2, 3, 4);
+        System.out.println(list.stream().filter(i -> i % 2 == 0).collect(Collectors.toList()));
         System.out.println(list.remove(list.get(1)));
     }
 

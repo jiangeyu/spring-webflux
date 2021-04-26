@@ -31,7 +31,8 @@ public class Reverse {
             length++;
             head = head.next;
         }
-        for (int i = 0; i < length / k; i++) {
+        int group = length / k;
+        for (int i = 0; i < group; i++) {
             for (int j = 0; j < k - 1; j++) {
                 next = curr.next;
                 curr.next = next.next;
@@ -273,23 +274,6 @@ public class Reverse {
         }
 
         return dummyHead.next;
-    }
-
-
-    /**
-     * 反转一个单链表。
-     *
-     * @param head
-     * @return
-     */
-    public ListNode reverseList(ListNode head) {
-        if (head == null || head.next == null) {
-            return head;
-        }
-        ListNode last = reverseList(head.next);
-        head.next.next = head;
-        head.next = null;
-        return last;
     }
 
 
