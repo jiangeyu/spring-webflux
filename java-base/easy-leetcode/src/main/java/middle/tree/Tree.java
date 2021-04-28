@@ -787,7 +787,10 @@ public class Tree {
 
     // inorder 将 root 与 root 左子树最大的节点和 root 右子数最小的节点连接起来
     public void inOrder(TreeNode root) {
-        if (root == null) return;
+
+        if (root == null) {
+            return;
+        }
         if (root.left != null) {
             inOrder(root.left);
             TreeNode leftNode = root.left;
