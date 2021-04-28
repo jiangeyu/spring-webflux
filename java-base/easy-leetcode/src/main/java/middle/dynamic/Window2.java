@@ -1,6 +1,7 @@
 package middle.dynamic;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 /**
@@ -32,6 +33,36 @@ public class Window2 {
 
         }
         return result;
+    }
+
+    /**
+     * 滑动窗口最大值
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        if (nums == null || nums.length < 2) {
+            return nums;
+        }
+        LinkedList<Integer> window = new LinkedList<>();
+        int length = nums.length;
+        int[] result = new int[nums.length - k + 1];
+        for (int i = 0; i < length; i++) {
+            while (!window.isEmpty() && nums[window.peekLast()] <= nums[i]) {
+                window.pollLast();
+            }
+            window.addLast(i);
+            if (window.peek() <= i - k) {
+                window.poll();
+            }
+            if (i - k + 1 >= 0) {
+                result[i - k + 1] = nums[window.peek()];
+            }
+        }
+        return result;
+
     }
 
     public static void main(String[] args) {

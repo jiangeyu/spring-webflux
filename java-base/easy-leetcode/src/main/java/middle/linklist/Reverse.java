@@ -130,49 +130,35 @@ public class Reverse {
             }
         }
         return dummyHead.next;
-
     }
 
     /**
      * @param lists
      * @return
      */
-    public ListNode mergeKLists1(ListNode[] lists) {
-        if (lists.length == 0)
-            return null;
-        if (lists.length == 1)
-            return lists[0];
-        if (lists.length == 2) {
-            return mergeTwoLists(lists[0], lists[1]);
-        }
-
-        int mid = lists.length / 2;
-        ListNode[] l1 = new ListNode[mid];
-        for (int i = 0; i < mid; i++) {
-            l1[i] = lists[i];
-        }
-
-        ListNode[] l2 = new ListNode[lists.length - mid];
-        for (int i = mid, j = 0; i < lists.length; i++, j++) {
-            l2[j] = lists[i];
-        }
-
-        return mergeTwoLists(mergeKLists(l1), mergeKLists(l2));
-
-    }
-//    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+//    public ListNode mergeKLists(ListNode[] lists) {
+//        if (lists == null || lists.length == 0) return null;
+//        return merge(lists, 0, lists.length - 1);
+//    }
+//
+//    private ListNode merge(ListNode[] lists, int left, int right) {
+//        if (left == right) return lists[left];
+//        int mid = left + (right - left) / 2;
+//        ListNode l1 = merge(lists, left, mid);
+//        ListNode l2 = merge(lists, mid + 1, right);
+//        return mergeTwoLists(l1, l2);
+//    }
+//
+//    private ListNode mergeTwoLists(ListNode l1, ListNode l2) {
 //        if (l1 == null) return l2;
 //        if (l2 == null) return l1;
-//
-//        ListNode head = null;
-//        if (l1.val <= l2.val){
-//            head = l1;
-//            head.next = mergeTwoLists(l1.next, l2);
+//        if (l1.val < l2.val) {
+//            l1.next = mergeTwoLists(l1.next, l2);
+//            return l1;
 //        } else {
-//            head = l2;
-//            head.next = mergeTwoLists(l1, l2.next);
+//            l2.next = mergeTwoLists(l1, l2.next);
+//            return l2;
 //        }
-//        return head;
 //    }
 
 
@@ -641,30 +627,6 @@ public class Reverse {
         }
         return map.get(head);
     }
-
-    public ListNode reverseKGroup1(ListNode head, int k) {
-        ListNode dump = new ListNode(0);
-        ListNode prev = dump;
-        ListNode cur = head;
-        ListNode next;
-        int length = 1;
-        while (head != null) {
-            length++;
-            head = head.next;
-        }
-        for (int i = 0; i < length / k; i++) {
-            for (int j = 0; j < k - 1; j++) {
-                next = cur.next;
-                cur.next = next.next;
-                next.next = prev.next;
-                prev.next = next;
-            }
-            prev = cur;
-            cur = prev.next;
-        }
-        return dump.next;
-    }
-
 
 }
 

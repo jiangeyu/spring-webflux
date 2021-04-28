@@ -284,6 +284,7 @@ public class Window {
 //        System.out.println(minWindow("BANCADOBECODE", "ABC"));
 //        System.out.println(findAnagrams("cbaebabacd", "abc"));
         System.out.println(lengthOfLongestSubstring("abcabcbb"));
+        System.out.println(lengthOfLongestSubstring(" "));
         System.out.println(lengthOfLongestSubstring1("abcabcbb"));
         System.out.println(minWindow2("ADOBECODEBANC", "ABC"));
     }
