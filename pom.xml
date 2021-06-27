@@ -14,7 +14,9 @@
         <module>domain-driven-design</module>
         <module>CQRS</module>
         <module>java-base</module>
-        <module>java-base</module>
+        <module>ByteBuddy</module>
+        <module>spring-boot-demo</module>
+
     </modules>
     <packaging>pom</packaging>
 
