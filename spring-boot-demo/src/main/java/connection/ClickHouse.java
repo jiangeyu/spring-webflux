@@ -1,5 +1,7 @@
 package connection;
 
+import com.google.common.collect.Maps;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,13 +26,14 @@ public class ClickHouse {
         String passWord = "42fe266fb0e4b25f3032e1190e341de527542a02a2d29b0eef3c524116500e0f";
         try {
             Class.forName("ru.yandex.clickhouse.ClickHouseDriver");
+            System.err.println(Thread.currentThread().getStackTrace()[1].getClassName());
             connection = DriverManager.getConnection(address, userName, passWord);
             statement = connection.createStatement();
             results = statement.executeQuery(sql);
             ResultSetMetaData rsmd = results.getMetaData();
             List<Map> list = new ArrayList();
             while (results.next()) {
-                Map map = new HashMap();
+                Map map = Maps.newHashMap();
                 for (int i = 1; i <= rsmd.getColumnCount(); i++) {
                     map.put(rsmd.getColumnName(i), results.getString(rsmd.getColumnName(i)));
                 }
