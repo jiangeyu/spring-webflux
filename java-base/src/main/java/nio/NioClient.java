@@ -19,12 +19,11 @@ public class NioClient {
         System.out.println("try to connect server");
       }
     }
-    String message = "hello world!";
+    String message = "hello world";
     ByteBuffer byteBuffer = ByteBuffer.wrap(message.getBytes());
     socketChannel.write(byteBuffer);
     byteBuffer.flip();
-    //    System.in.read();
-    //    socketChannel.close();
-
+    System.in.read();
+    socketChannel.close();
   }
 }

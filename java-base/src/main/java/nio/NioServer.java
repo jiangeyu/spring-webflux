@@ -24,7 +24,7 @@ public class NioServer {
     serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
 
     while (true) {
-      while (selector.select(1000) == 0) {
+      while (selector.select(3000) == 0) {
         System.out.println("no client connect");
         continue;
       }
@@ -42,7 +42,7 @@ public class NioServer {
           SocketChannel socketChannel = (SocketChannel) selectionKey.channel();
           ByteBuffer byteBuffer = (ByteBuffer) selectionKey.attachment();
           socketChannel.read(byteBuffer);
-          System.out.println("server receive data" + new String(byteBuffer.array()));
+          System.out.println("server receive data\n" + new String(byteBuffer.array()));
           byteBuffer.flip();
         }
         iterator.remove();
