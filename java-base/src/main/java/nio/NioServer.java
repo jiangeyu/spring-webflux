@@ -44,6 +44,7 @@ public class NioServer {
           socketChannel.read(byteBuffer);
           System.out.println("server receive data\n" + new String(byteBuffer.array()));
           byteBuffer.flip();
+          socketChannel.close();
         }
         iterator.remove();
 
