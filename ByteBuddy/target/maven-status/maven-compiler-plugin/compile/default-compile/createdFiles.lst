@@ -1,4 +1,6 @@
-com/github/Apple.class
-com/github/HelloWorld.class
-com/github/Fruit.class
-com/github/AppleProxy.class
+com/github/cglib/CglibProxy.class
+com/github/cglib/SampleBean.class
+com/github/bytebuddy/ByteBuddyProxy.class
+com/github/cglib/CglibProxy$1.class
+com/github/SampleClass.class
+com/github/cglib/CglibProxy$1$1.class
